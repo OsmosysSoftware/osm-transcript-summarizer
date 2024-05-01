@@ -43,7 +43,7 @@ A scheduled cron fetches all the uploaded transcripts in the pending status from
 - The script holds the business logic for generating the summary of the uploaded transcript.
 - Upon success/failure, the response is sent back to update the status of the job ID
 
-**Data Flow**
+## Data Flow
 
 - User interacts with the progressive web App to upload transcript files.
 - NestJS backend receives the file upload request and enqueues a job in the Bull queue for transcript summarization.
