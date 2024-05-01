@@ -8,29 +8,29 @@ This document provides a concise block diagram illustrating the architecture of 
 
 The block diagram represents the software application's architecture in a visual format, making it easier to grasp its structure and functionality.
 
-**Block Diagram**
+## Block Diagram
 
 ![Block Diagram](./assets/transcript-summarization-block-diagram.jpg)
 
-**Components and Functionalities**
+## Components and Functionalities
 
 1. **User/PWA**
-    - This component is responsible for making the request to the transcript summarization API with a .vtt file uploaded by user.
+    - This component is responsible for making the request to the transcript summarization API with a VTT file uploaded by the user.
 
 ### **2\. GraphQL API**
 
-- - The core component of a project created with NestJS, this is responsible for accepting the incoming requests made by the user/application for creating a transcript summary.
+    - The core component, created with NestJS, is responsible for accepting the incoming requests made by the user/application for creating a transcript summary.
     - A status response is sent back to the user/PWA to signify if the file has been successfully summarized or if any errors were encountered.
     - Upon receiving the request, the API stores the received job ID and other necessary details in the database.
 
 ### **3\. Database TypeORM**
 
 - The MariaDB database is responsible for holding the records of uploaded transcripts along with all other required details about them such as the jobId, CreatedAt time, CreatedBy username etc.
-- The records in database are updated with the summarized file download link received from the server upon conversion success.
+The records in the database are updated with the summarized file download link received from the server upon conversion success.
 
 ### **4\. Cron Job Scheduler**
 
-- A scheduled cron fetches all the uploaded transcripts in the pending status from the database and add their Job IDs to the queue for processing.
+A scheduled cron fetches all the uploaded transcripts in the pending status from the database and adds their Job IDs to the queue for processing.
 
 ### **5\. Queue**
 
@@ -43,13 +43,13 @@ The block diagram represents the software application's architecture in a visual
 - The script holds the business logic for generating the summary of the uploaded transcript.
 - Upon success/failure, the response is sent back to update the status of the job ID
 
-**Data Flow**
+## Data Flow
 
 - User interacts with the progressive web App to upload transcript files.
 - NestJS backend receives the file upload request and enqueues a job in the Bull queue for transcript summarization.
 - Cron job scheduler triggers a job every second
 - The queue processor picks up jobs from the Bull queue and executes transcript summarization of the uploaded file using the OpenAI Python script.
-- On success, summarized files are stored on a server, and a download link is generated using REST API Endpoint which is stored in MariaDB database
+- On success, summarized files are stored on a server, and a download link is generated using a REST API Endpoint which is stored in MariaDB database
 - A download link through a REST API endpoint is made available for users to download the summarized file.
 
 ## **Conclusion**
