@@ -12,7 +12,7 @@ The block diagram represents the software application's architecture in a visual
 
 ![Block Diagram](./assets/transcript-summarization-block-diagram.jpg)
 
-**Components and Functionalities**
+## Components and Functionalities
 
 1. **User/PWA**
     - This component is responsible for making the request to the transcript summarization API with a VTT file uploaded by the user.
