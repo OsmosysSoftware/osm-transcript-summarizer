@@ -8,7 +8,7 @@ The tables discussed below will be created as part of the database migration.
 
 ## **Database Schema**
 
-The database schema consists of the following 3 tables:
+The database schema consists of the following 2 tables:
 
 - **files :** Contains details about all the user uploaded files with their Task IDs.
 - **job** : Contains details about the queue system-related data, such as job metadata and status.
@@ -45,3 +45,4 @@ This schema can be visualized in the following image:
 | created_by | Varchar(45) | True | admin | Stores the details of creator of the record |
 | modified_on | timestamp |     |     | Stores the timestamp for the last update to the record |
 | modified_by | Varchar(45) |     |     | Stores the details of Modifier of the record |
+ 
