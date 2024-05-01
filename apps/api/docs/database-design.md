@@ -46,3 +46,4 @@ This schema can be visualized in the following image:
 | created_by | Varchar(45) | True | admin | Stores the details of creator of the record |
 | modified_on | timestamp |     |     | Stores the timestamp for the last update to the record |
 | modified_by | Varchar(45) |     |     | Stores the details of Modifier of the record |
+ 
