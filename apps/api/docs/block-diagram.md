@@ -8,7 +8,7 @@ This document provides a concise block diagram illustrating the architecture of 
 
 The block diagram represents the software application's architecture in a visual format, making it easier to grasp its structure and functionality.
 
-**Block Diagram**
+## Block Diagram
 
 ![Block Diagram](./assets/transcript-summarization-block-diagram.jpg)
 
