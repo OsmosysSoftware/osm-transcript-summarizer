@@ -15,7 +15,7 @@ The block diagram represents the software application's architecture in a visual
 **Components and Functionalities**
 
 1. **User/PWA**
-    - This component is responsible for making the request to the transcript summarization API with a .vtt file uploaded by user.
+    - This component is responsible for making the request to the transcript summarization API with a .vtt file uploaded by the user.
 
 ### **2\. GraphQL API**
 
