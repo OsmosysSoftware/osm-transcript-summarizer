@@ -18,7 +18,7 @@ This schema can be visualized in the following image:
 
 ## **Data Dictionary**
 
-**user_files**
+### User Files
 
 | Attribute | Data Type | Not Null | Default | Description |
 | --- | --- | --- | --- | --- |
