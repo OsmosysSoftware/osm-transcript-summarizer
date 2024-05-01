@@ -49,7 +49,7 @@ The block diagram represents the software application's architecture in a visual
 - NestJS backend receives the file upload request and enqueues a job in the Bull queue for transcript summarization.
 - Cron job scheduler triggers a job every second
 - The queue processor picks up jobs from the Bull queue and executes transcript summarization of the uploaded file using the OpenAI Python script.
-- On success, summarized files are stored on a server, and a download link is generated using REST API Endpoint which is stored in MariaDB database
+- On success, summarized files are stored on a server, and a download link is generated using a REST API Endpoint which is stored in MariaDB database
 - A download link through a REST API endpoint is made available for users to download the summarized file.
 
 ## **Conclusion**
