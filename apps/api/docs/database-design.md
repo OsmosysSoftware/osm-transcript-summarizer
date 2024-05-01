@@ -38,7 +38,7 @@ This schema can be visualized in the following image:
 | --- | --- | --- | --- | --- |
 | job_id | int(11) | True |     | Primary key, unique identifier for the uploaded record |
 | task_id | varchar(255) | True |     | Stores the ID value for related task_id |
-| job_status | enum | True |     | Stores the job status for related job_id |
+| job_status | enum | True |     | Stores the job status |
 | input_file | varchar(255) |     |     | File path of user uploaded file |
 | output_file | varchar(255) |     |     | File path of summarized file stored in server after successful processing |
 | status | tinyint | True |     | Stores the active/inactive status of the record |
