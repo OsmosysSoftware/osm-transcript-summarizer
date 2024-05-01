@@ -11,7 +11,7 @@ The tables discussed below will be created as part of the database migration.
 The database schema consists of the following 3 tables:
 
 - **User_files :** Contains details about all the user uploaded files with their Task IDs.
-- **job_logs** : Contains details about the queue system-related data, such as job metadata and status.
+- **Job_logs** : Contains details about the queue system-related data, such as job metadata and status.
 
 This schema can be visualized in the following image:
 ![Block Diagram](./assets/transcript-summarization-database-schema.jpg)
