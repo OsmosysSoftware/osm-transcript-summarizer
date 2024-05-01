@@ -24,11 +24,11 @@ This schema can be visualized in the following image:
 | Attribute | Data Type | Not Null | Default | Description |
 | --- | --- | --- | --- | --- |
 | job_id | int(11) | True |     | Primary key, unique identifier for the uploaded record |
-| File_path | varchar(255) |     |     | File path of summarized file stored in server after successful processing |
+| file_path | varchar(255) |     |     | File path of summarized file stored in server after successful processing |
 | created_on | timestamp | True | current_timestamp() | Stores the timestamp for the creation of the record |
-| created_by | Varchar(45) | True |     | Stores the details of creator of the record |
+| created_by | varchar(45) | True |     | Stores the details of creator of the record |
 | modified_on | timestamp | True | current_timestamp() | Stores the timestamp for the last update to the record |
-| modified_by | Varchar(45) |     |     | Stores the details of Modifier of the record |
+| modified_by | varchar(45) |     |     | Stores the details of modifier of the record |
 
 **db_queue_logs**
 
