@@ -30,7 +30,7 @@ The records in the database are updated with the summarized file download link r
 
 ### **4\. Cron Job Scheduler**
 
-A scheduled cron fetches all the uploaded transcripts in the pending status from the database and adds their Job IDs to the queue for processing.
+- A scheduled cron fetches all the uploaded transcripts in the pending status from the database and adds their Job IDs to the queue for processing.
 
 ### **5\. Queue**
 
