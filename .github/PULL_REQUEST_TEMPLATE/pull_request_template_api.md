@@ -5,7 +5,7 @@
 - [ ] I have gone through the Contributing guidelines for [Submitting a Pull Request (PR)](../../CONTRIBUTING.md#submitting-a-pull-request-pr) and ensured that this is not a duplicate PR.
 - [ ] I have performed preliminary unit testing.
 - [ ] I have updated the required [api docs](../../apps/api/docs/) as applicable.
-- [ ] I have added/updated test cases to the [test suite](../../apps/api/OsmoX.postman_collection.json) as applicable
+- [ ] I have added/updated test cases to the [test suite](../../apps/api/TranscriptSummarizer.postman_collection.json) as applicable
 
 ### PR Details
 
