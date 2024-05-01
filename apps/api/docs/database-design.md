@@ -32,7 +32,7 @@ This schema can be visualized in the following image:
 | modified_on | timestamp |     |     | Stores the timestamp for the last update to the record |
 | modified_by | Varchar(45) |     |     | Stores the details of Modifier of the record |
 
-**job_logs**
+### Job Logs
 
 | Attribute | Data Type | Not Null | Default | Description |
 | --- | --- | --- | --- | --- |
