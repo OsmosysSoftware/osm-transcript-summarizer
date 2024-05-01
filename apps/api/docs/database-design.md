@@ -26,7 +26,7 @@ This schema can be visualized in the following image:
 | input_file_path | varchar(255) |     |     | File path of user uploaded file |
 | output_file_path | varchar(255) |     |     | File path of summarized file stored in server after successful processing |
 | output_file_name | varchar(255) |     |     | File name of summarized file stored in server after successful processing |
-| status | tinyint | True |     | Stores the response status code of the response |
+| status | tinyint | True |     | Stores the response status code |
 | created_on | timestamp | True | current_timestamp() | Stores the timestamp for the creation of the record |
 | created_by | Varchar(45) | True | admin | Stores the details of creator of the record |
 | modified_on | timestamp |     |     | Stores the timestamp for the last update to the record |
