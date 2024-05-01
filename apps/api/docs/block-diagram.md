@@ -19,7 +19,7 @@ The block diagram represents the software application's architecture in a visual
 
 ### **2\. GraphQL API**
 
-- - The core component of a project created with NestJS, this is responsible for accepting the incoming requests made by the user/application for creating a transcript summary.
+    - The core component, created with NestJS, is responsible for accepting the incoming requests made by the user/application for creating a transcript summary.
     - A status response is sent back to the user/PWA to signify if the file has been successfully summarized or if any errors were encountered.
     - Upon receiving the request, the API stores the received job ID and other necessary details in the database.
 
