@@ -26,7 +26,7 @@ The block diagram represents the software application's architecture in a visual
 ### **3\. Database TypeORM**
 
 - The MariaDB database is responsible for holding the records of uploaded transcripts along with all other required details about them such as the jobId, CreatedAt time, CreatedBy username etc.
-- The records in database are updated with the summarized file download link received from the server upon conversion success.
+The records in the database are updated with the summarized file download link received from the server upon conversion success.
 
 ### **4\. Cron Job Scheduler**
 
