@@ -1,0 +1,11 @@
+services:
+  osmosys-transcript-summarizer-portal:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP_NAME: osmosys-transcript-summarizer-portal
+    image: osmosys-transcript-summarizer-portal
+    container_name: osmosys-transcript-summarizer-portal
+    ports:
+      - '127.0.0.1:${SERVER_PORT}:80'
