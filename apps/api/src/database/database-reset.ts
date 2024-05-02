@@ -13,10 +13,10 @@ DataSource.initialize()
     try {
       await queryRunner.connect();
 
-      logger.log('Dropping notifications and migrations tables...');
-      await queryRunner.dropTable('notify_notifications', true);
-      await queryRunner.dropTable('notify_migrations', true);
-      logger.log('Dropped notifications and migrations tables successfully');
+      logger.log('Dropping jobs and files tables...');
+      await queryRunner.dropTable('jobs', true);
+      await queryRunner.dropTable('files', true);
+      logger.log('Dropped jobs and files tables successfully');
 
       logger.log('Running migrations...');
       await DataSource.runMigrations();
