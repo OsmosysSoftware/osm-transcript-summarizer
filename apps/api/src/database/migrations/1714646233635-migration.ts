@@ -25,7 +25,7 @@ export class Migration1714646233635 implements MigrationInterface {
                     },
                     {
                         name: 'output_text',
-                        type: 'int',
+                        type: 'text',
                         isNullable: true,
                     },
                     {
