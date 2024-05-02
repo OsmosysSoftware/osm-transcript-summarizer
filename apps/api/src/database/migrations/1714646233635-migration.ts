@@ -1,7 +1,8 @@
 import { MigrationInterface, QueryRunner, Table, TableForeignKey, } from "typeorm";
 
-export class JobDetails1714633736953 implements MigrationInterface {
-    name = 'JobDetails1714633736953';
+export class Migration1714646233635 implements MigrationInterface {
+
+    name = 'Migration1714646233635';
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
@@ -63,20 +64,11 @@ export class JobDetails1714633736953 implements MigrationInterface {
                 onDelete: 'CASCADE',
             }),
         );
-        await queryRunner.createForeignKey(
-            'jobs',
-            new TableForeignKey({
-                columnNames: ['output_file'],
-                referencedColumnNames: ['file_id'],
-                referencedTableName: 'files',
-                onDelete: 'CASCADE',
-            }),
-        );
+        
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropForeignKey('jobs', 'input_file');
-        await queryRunner.dropForeignKey('jobs', 'output_file');
         await queryRunner.query(`DROP TABLE \`jobs\``);
     }
 
