@@ -75,10 +75,9 @@ export class JobDetails1714633736953 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`DROP TABLE \`jobs\``);
         await queryRunner.dropForeignKey('jobs', 'input_file');
         await queryRunner.dropForeignKey('jobs', 'output_file');
-
+        await queryRunner.query(`DROP TABLE \`jobs\``);
     }
 
 }
