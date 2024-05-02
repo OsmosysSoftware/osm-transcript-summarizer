@@ -9,23 +9,22 @@ export class JobDetails1714633736953 implements MigrationInterface {
                 columns: [
                     {
                         name: 'job_id',
-                        type: 'int(15)',
+                        type: 'int',
                         isPrimary: true,
                         isGenerated: true,
                         generationStrategy: 'increment',
                     },
                     {
                         name: 'job_status',
-                        type: 'enum("FINISHED", "PROCESSING", "QUEUED", "PENDING")',
+                        type: 'tinyint',
                     },
                     {
                         name: 'input_file',
-                        type: 'int(15)',
-                        isNullable: true,
+                        type: 'int',
                     },
                     {
-                        name: 'output_file',
-                        type: 'int(15)',
+                        name: 'output_text',
+                        type: 'int',
                         isNullable: true,
                     },
                     {

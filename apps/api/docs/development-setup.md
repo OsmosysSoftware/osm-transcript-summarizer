@@ -10,16 +10,14 @@ Before setting up Transcript Summarization for development, ensure you have the 
 - **Node.js** Node.js v20.x or higher. Can be installed via `nvm` using `nvm install 20` and used with `nvm use 20`.
 - **Git:** Git v2.x or higher.
 - **MariaDB:** MariaDB v10.x or higher.
-- **Redis:** Redis v6.x or higher
 
 These prerequisites are essential for deploying and running Transcript Summarization in an environment.
 
 Please make sure to have these versions installed on your development server before proceeding with the setup.
 
-Make sure Redis and MariaDB server are up and running.
+Make sure MariaDB server is up and running.
 
 ```bash
-sudo systemctl status redis
 sudo systemctl status mariadb
 ```
 
@@ -41,8 +39,6 @@ sudo systemctl status mariadb
 3. Create a `.env` file in the project root and add the required environment variables:
 
    ```env
-   # Server
-   SERVER_PORT=3000
 
    # Node env
    NODE_ENV=development
@@ -50,16 +46,11 @@ sudo systemctl status mariadb
    # Database configuration
    DB_TYPE=mariadb
    DB_HOST=localhost # use value as transcriptsummary-mariadb in docker
-   DB_PORT=3306
+   DB_PORT=3333
    DB_USERNAME=root
    DB_PASSWORD=your-password
    DB_NAME=your-database
-   MARIADB_DOCKER_PORT=3307 # (required only if using docker)
-
-   # Redis configuration
-   REDIS_HOST=127.0.0.1 # use value as transcriptsummary-redis in docker
-   REDIS_PORT=6379
-   REDIS_DOCKER_PORT=6397 # (required only if using docker)
+   
    ```
 
    Alternatively, use the `.env.example` file instead.

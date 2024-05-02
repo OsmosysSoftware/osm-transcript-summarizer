@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { DatabaseType } from 'typeorm';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 
@@ -8,7 +9,7 @@ export class DatabaseConfiguration implements TypeOrmOptionsFactory {
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
-      type: 'mariadb',
+      type: this.configService.getOrThrow<DatabaseType>('DB_TYPE'),
       host: this.configService.getOrThrow<string>('DB_HOST'),
       port: +this.configService.getOrThrow<number>('DB_PORT'),
       username: this.configService.getOrThrow<string>('DB_USERNAME'),

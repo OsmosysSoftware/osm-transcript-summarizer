@@ -9,18 +9,18 @@ export class FileDetails1714634986974 implements MigrationInterface {
                 columns: [
                     {
                         name: 'file_id',
-                        type: 'int(15)',
+                        type: 'int',
                         isPrimary: true,
                         isGenerated: true,
                         generationStrategy: 'increment',
                     },
                     {
                         name: 'file_path',
-                        type: 'varchar(255)',
+                        type: 'varchar',
                     },
                     {
                         name: 'file_name',
-                        type: 'varchar(255)',
+                        type: 'varchar',
                     },
                     {
                         name: 'created_on',
