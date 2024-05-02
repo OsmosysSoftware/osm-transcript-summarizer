@@ -16,6 +16,8 @@ These prerequisites are essential for deploying and running Transcript Summariza
 Please make sure to have these versions installed on your development server before proceeding with the setup.
 
 Make sure the MariaDB server is up and running.
+# This command checks if the MariaDB server is active and running.
+sudo systemctl status mariadb
 
 ```bash
 sudo systemctl status mariadb
