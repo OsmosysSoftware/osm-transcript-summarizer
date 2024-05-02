@@ -15,7 +15,6 @@ export class DatabaseConfiguration implements TypeOrmOptionsFactory {
       password: this.configService.getOrThrow<string>('DB_PASSWORD'),
       database: this.configService.getOrThrow<string>('DB_NAME'),
       migrations: ['src/database/migrations/**'],
-      migrationsTableName: 'transcriptdb',
       autoLoadEntities: true,
       synchronize: false,
     } as TypeOrmModuleOptions;
