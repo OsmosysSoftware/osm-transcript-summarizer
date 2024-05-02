@@ -7,7 +7,7 @@ This document outlines the steps required to set up your Transcript Summarizatio
 Before setting up Transcript Summarization for development, ensure you have the following prerequisites with the specified versions:
 
 - **NVM (Node Version Manager):** Use NVM to manage Node.js versions.
-- **Node.js** Node.js v20.x or higher. Can be installed via `nvm` using `nvm install 20` and used with `nvm use 20`.
+- **Node.js:** Node.js v20.x or higher can be installed via `nvm` using `nvm install 20` and used with `nvm use 20`.
 - **Git:** Git v2.x or higher.
 - **MariaDB:** MariaDB v10.x or higher.
 
