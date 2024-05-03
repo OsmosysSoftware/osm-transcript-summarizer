@@ -1,0 +1,25 @@
+@import 'primeflex/primeflex.scss';
+
+body {
+  height: 90vh;
+
+  .transcript-analyzer {
+    @include styleclass('flex flex-column justify-content-center align-items-center relative p-6 border-round-xl');
+    border: 3px solid #4d4dff;
+    box-shadow: 0 4px 9px rgba(0, 0, 0, 0.9);
+
+    button {
+      margin: 30px 0;
+    }
+
+    .file-name {
+      bottom: 70%;
+      color: #333;
+    }
+  }
+
+  .error {
+    bottom: 70%;
+    color: red;
+  }
+}
