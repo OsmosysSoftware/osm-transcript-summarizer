@@ -8,6 +8,7 @@ import { Repository } from 'typeorm';
 import { Summary } from 'src/modules/summary/entities/summary.entity'; 
 
 @Injectable()
+@Processor(SUMMARY_QUEUE)
 export class SummaryConsumer {
   private readonly logger = new Logger(SummaryConsumer.name);
 
@@ -15,7 +16,13 @@ export class SummaryConsumer {
     @InjectRepository(Summary)
     private readonly summaryRepository: Repository<Summary>,
     private readonly summaryService: SummaryService, 
+    private readonly summaryConsumer: SummaryConsumer
   ) {}
+
+  @Process()
+  async processSummary(job: Job<number>): Promise<void> {
+    await this.summaryConsumer.processSummaryQueue(job);
+  }
 
   async processSummaryQueue(job: Job<number>): Promise<void> {
     const jobId = job.data;
@@ -42,12 +49,3 @@ export class SummaryConsumer {
   }
 }
 
-@Processor(SUMMARY_QUEUE)
-export class SummaryQueueProcessor {
-  constructor(private readonly summaryConsumer: SummaryConsumer) {}
-
-  @Process()
-  async processSummary(job: Job<number>): Promise<void> {
-    await this.summaryConsumer.processSummaryQueue(job);
-  }
-}
