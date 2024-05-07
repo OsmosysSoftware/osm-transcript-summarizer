@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+
 import { BullModule } from '@nestjs/bull';
 
 @Module({
@@ -12,6 +13,7 @@ import { BullModule } from '@nestjs/bull';
       },
     }),
   ],
+
   controllers: [AppController],
   providers: [AppService],
 })
