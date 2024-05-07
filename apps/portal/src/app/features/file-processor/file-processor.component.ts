@@ -99,6 +99,7 @@ Duration: 00:06:10
     this.jobs = dummyJobs;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   getSeverity(status: string): string {
     switch (status) {
       case 'FINISHED':
@@ -111,6 +112,7 @@ Duration: 00:06:10
         return 'info';
     }
   }
+
   // eslint-disable-next-line class-methods-use-this
   downloadFile(summary: string, fileName: string): void {
     const blob = new Blob([summary], { type: 'text/plain' });

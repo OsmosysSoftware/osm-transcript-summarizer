@@ -12,7 +12,11 @@
       <td>{{ job.timestamp }}</td>
       <td>{{ job.fileName }}</td>
       <td>
-        <p-tag [severity]="getSeverity(job.status)" styleClass="p-2 flex" value="{{ job.status }}"></p-tag>
+        <p-tag
+          [severity]="getSeverity(job.status)"
+          styleClass="p-2 flex"
+          value="{{ job.status }}"
+        ></p-tag>
       </td>
       <td class="action-cell p-0">
         <p-button

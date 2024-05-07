@@ -14,7 +14,7 @@ const modules = [
   ToastModule,
   ProgressSpinnerModule,
   FileUploadModule,
-  TagModule
+  TagModule,
 ];
 
 @NgModule({
