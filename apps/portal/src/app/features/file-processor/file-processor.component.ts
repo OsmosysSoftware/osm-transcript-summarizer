@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import * as FileSaver from 'file-saver';
 import { JobDetails } from '../../shared/job-details.interface';
+import { JobStatus } from '../../shared/jobs';
 
 @Component({
   selector: 'app-file-processor',
@@ -18,7 +20,7 @@ export class FileProcessorComponent implements OnInit {
       {
         id: 1,
         fileName: 'meeting_minutes.txt',
-        status: 'IN PROGRESS',
+        status: JobStatus.finished,
         timestamp: '2024-05-02 11:37:27',
         summary: `# Meeting Minutes
 Layout discussion for Angular login page
@@ -56,7 +58,7 @@ Duration: 00:06:10
       {
         id: 2,
         fileName: 'meeting_minutes.txt',
-        status: 'FINISHED',
+        status: JobStatus.pending,
         timestamp: '2024-05-02 11:37:27',
         summary: `# Meeting Minutes
 Layout discussion for Angular login page
@@ -97,14 +99,21 @@ Duration: 00:06:10
     this.jobs = dummyJobs;
   }
 
+  getSeverity(status: string): string {
+    switch (status) {
+      case 'FINISHED':
+        return 'success';
+      case 'PENDING':
+        return 'warning';
+      case 'QUEUED':
+        return 'primary';
+      default:
+        return 'info';
+    }
+  }
   // eslint-disable-next-line class-methods-use-this
   downloadFile(summary: string, fileName: string): void {
     const blob = new Blob([summary], { type: 'text/plain' });
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    FileSaver.saveAs(blob, fileName);
   }
 }

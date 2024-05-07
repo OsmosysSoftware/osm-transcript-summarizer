@@ -11,15 +11,8 @@
     <tr *ngFor="let job of jobs">
       <td>{{ job.timestamp }}</td>
       <td>{{ job.fileName }}</td>
-      <td
-        [ngClass]="{
-          pending: job.status === 'PENDING',
-          queued: job.status === 'QUEUED',
-          'in-progress': job.status === 'IN PROGRESS',
-          finished: job.status === 'FINISHED'
-        }"
-      >
-        {{ job.status }}
+      <td>
+        <p-tag [severity]="getSeverity(job.status)" styleClass="p-2 flex" value="{{ job.status }}"></p-tag>
       </td>
       <td class="action-cell p-0">
         <p-button
