@@ -10,6 +10,7 @@ import { JobStatus } from '../../shared/jobs';
   styleUrl: './file-processor.component.scss',
 })
 export class FileProcessorComponent implements OnInit {
+  // to do:the name will probably be changed to match the backend
   jobs: JobDetails[] = [];
 
   constructor(private http: HttpClient) {}
