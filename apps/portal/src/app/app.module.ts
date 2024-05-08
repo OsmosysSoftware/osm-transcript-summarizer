@@ -7,11 +7,12 @@ import AppRoutingModule from './app-routing.module';
 import { PrimeNgModule } from './primeng.module';
 import { AppComponent } from './app.component';
 import { MyErrorHandler } from './shared/services/error-handler.service';
-import { TranscriptAnalyzerComponent } from './features/transcript-analyzer.component';
+import { TranscriptAnalyzerComponent } from './features/transcript-analyzer/transcript-analyzer.component';
 import HttpLoaderFactory from '../assets/i18n/loader';
+import { FileProcessorComponent } from './features/file-processor/file-processor.component';
 
 @NgModule({
-  declarations: [AppComponent, TranscriptAnalyzerComponent],
+  declarations: [AppComponent, TranscriptAnalyzerComponent, FileProcessorComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
