@@ -1,9 +1,6 @@
 import { InputType, Field } from '@nestjs/graphql';
 import { IsOptional } from 'class-validator';
 import { Stream } from 'stream';
-// @ts-ignore
-import Upload = require('graphql-upload/Upload.js');
-// @ts-ignore
 import GraphQLUpload = require('graphql-upload/GraphQLUpload.js');
 export interface FileUpload {
   filename: string;

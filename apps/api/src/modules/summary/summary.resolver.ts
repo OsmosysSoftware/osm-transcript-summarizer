@@ -2,8 +2,6 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { SummaryService } from './summary.service';
 import { Summary } from './entities/summary.entity';
 import { CreateSummaryDTO } from './dto/create-summary.dto';
-import Upload = require('graphql-upload/Upload.js');
-import GraphQLUpload = require('graphql-upload/GraphQLUpload.js');
 
 @Resolver(() => Summary)
 export class SummaryResolver {
@@ -18,6 +16,6 @@ export class SummaryResolver {
 
   @Query(() => [Summary], { name: 'summary' })
   findAll() {
-    return;
+    return null;
   }
 }
