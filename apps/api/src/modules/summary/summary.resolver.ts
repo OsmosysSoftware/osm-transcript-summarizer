@@ -5,7 +5,6 @@ import { CreateSummaryDTO } from './dto/create-summary.dto';
 import Upload = require('graphql-upload/Upload.js');
 import GraphQLUpload = require('graphql-upload/GraphQLUpload.js');
 import { QueryOptionsDto } from 'src/common/graphql/dtos/query-options.dto';
-import { SummaryResponse } from './dto/summary-response.dto';
 
 @Resolver(() => Summary)
 export class SummaryResolver {
@@ -18,11 +17,8 @@ export class SummaryResolver {
     return this.summaryService.createSummary(createSummaryInput);
   }
 
-  @Query(() => SummaryResponse, { name: 'summaries' })
-  async findAll(
-    @Args('options', { type: () => QueryOptionsDto, nullable: true, defaultValue: {} })
-    options: QueryOptionsDto
-  ): Promise<SummaryResponse> {
-    return this.summaryService.findAllJobs(options);
+  @Query(() => [Summary], { name: 'summary' })
+  findAll() {
+    return;
   }
 }

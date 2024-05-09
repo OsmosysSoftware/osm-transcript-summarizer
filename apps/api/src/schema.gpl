@@ -16,21 +16,7 @@ type Mutation {
 }
 
 type Query {
-  summaries(options: QueryOptionsDto = {}): SummaryResponse!
-}
-
-input QueryOptionsDto {
-  filters: [UniversalFilter!]
-  limit: Int = 10
-  offset: Int = 0
-  search: String
-  sortBy: String
-  sortOrder: SortOrder = ASC
-}
-
-enum SortOrder {
-  ASC
-  DESC
+  summary: [Summary!]!
 }
 
 type Summary {
@@ -43,19 +29,6 @@ type Summary {
   modifiedOn: DateTime!
   outputFile: String!
   status: Float!
-}
-
-type SummaryResponse {
-  limit: Int!
-  offset: Int!
-  summaries: [Summary!]!
-  total: Int!
-}
-
-input UniversalFilter {
-  field: String!
-  operator: String!
-  value: String!
 }
 
 """The `Upload` scalar type represents a file upload."""

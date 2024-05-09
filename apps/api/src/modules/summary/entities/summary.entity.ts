@@ -1,9 +1,8 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn, UpdateDateColumn, CreateDateColumn } from 'typeorm';
-import { IsEnum, IsOptional, IsObject } from 'class-validator';
+import { IsEnum, IsOptional } from 'class-validator';
 import { JobStatus, Status } from 'src/common/constants/summary';
-import { Stream } from 'stream';
-import GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
+
 @Entity({ name: 'jobs' })
 @ObjectType()
 export class Summary {
@@ -15,10 +14,6 @@ export class Summary {
   @IsEnum(JobStatus)
   @Field()
   jobStatus?: number;
-
-  // @Column({ name: 'input_file', type: 'longblob', nullable: true })
-  // // @Field(() => GraphQLUpload)
-  // inputFile: Buffer;
 
   @Column({ name: 'input_file', nullable: true })
   @Field(() => String)
