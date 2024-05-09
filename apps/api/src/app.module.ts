@@ -5,15 +5,9 @@ import { DatabaseModule } from './database/database.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 import { SummaryModule } from './modules/summary/summary.module';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Summary } from './modules/summary/entities/summary.entity';
-import { Repository } from 'typeorm';
-import { CreateSummaryDTO } from './modules/summary/dto/create-summary.dto';
-import { QueryOptionsDto } from 'src/common/graphql/dtos/query-options.dto';
-import { JobStatus, Status } from 'src/common/constants/summary';
-import { CoreService } from 'src/common/graphql/services/core.service';;
+;
 
 const configService = new ConfigService();
 @Module({

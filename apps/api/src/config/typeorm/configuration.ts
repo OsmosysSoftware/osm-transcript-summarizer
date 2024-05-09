@@ -1,7 +1,6 @@
 import { DataSource, DatabaseType, DataSourceOptions } from 'typeorm';
 import { config } from 'dotenv';
 import { ConfigService } from '@nestjs/config';
-import { join } from 'path';
 
 config();
 

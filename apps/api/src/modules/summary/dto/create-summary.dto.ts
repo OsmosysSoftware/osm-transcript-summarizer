@@ -1,5 +1,5 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { InputType, Field } from '@nestjs/graphql';
+import { IsOptional } from 'class-validator';
 import { Stream } from 'stream';
 // @ts-ignore
 import Upload = require('graphql-upload/Upload.js');
