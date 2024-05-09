@@ -8,6 +8,7 @@ export class ScheduleService {
 
   @Cron(CronExpression.EVERY_SECOND)
   async addSummaryToQueue(): Promise<void> {
-    this.summaryService.addSummaryToQueue();
+    console.log("Cron is running");
+    // this.summaryService.addSummaryToQueue();
   }
 }

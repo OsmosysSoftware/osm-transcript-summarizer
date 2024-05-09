@@ -36,7 +36,6 @@ This schema can be visualized in the following image:
 | Attribute | Data Type | Not Null | Default | Description |
 | --- | --- | --- | --- | --- |
 | job_id | int(11) | True |     | Primary key, unique identifier for the uploaded record |
-| file_id | varchar(255) | True |     | Stores the ID value for related file_id |
 | job_status | enum | True |     | Stores the job status for related job_id |
 | input_file | varchar(255) |     |     | References the file stored in files table |
 | output_file | varchar(255) |     |     | References the processed file stored in files table |
