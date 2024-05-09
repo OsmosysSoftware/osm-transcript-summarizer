@@ -9,7 +9,7 @@ export class Migration1714646233635 implements MigrationInterface {
                 name: 'jobs',
                 columns: [
                     {
-                        name: 'job_id',
+                        name: 'id',
                         type: 'int',
                         isPrimary: true,
                         isGenerated: true,

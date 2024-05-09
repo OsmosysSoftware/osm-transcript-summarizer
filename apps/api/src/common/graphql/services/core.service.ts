@@ -9,7 +9,7 @@ export abstract class CoreService<TEntity> {
   constructor(protected readonly repository: Repository<TEntity>) {}
 
   // List of date fields for comparison handling
-  private dateFields: string[] = ['createdOn', 'updatedOn']; // Customize based on your entity fields
+  private dateFields: string[] = ['createdOn', 'modifiedOn']; // Customize based on your entity fields
 
   private isDateField(field: string): boolean {
     return this.dateFields.includes(field);

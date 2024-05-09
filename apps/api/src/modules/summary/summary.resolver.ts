@@ -1,24 +1,28 @@
-import { Args, Context, Query, Resolver } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { SummaryService } from './summary.service';
 import { Summary } from './entities/summary.entity';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { UseGuards } from '@nestjs/common';
-import { SummaryResponse } from './dto/create-summary.dto';
+import { CreateSummaryDTO } from './dto/create-summary.dto';
+import Upload = require('graphql-upload/Upload.js');
+import GraphQLUpload = require('graphql-upload/GraphQLUpload.js');
 import { QueryOptionsDto } from 'src/common/graphql/dtos/query-options.dto';
+import { SummaryResponse } from './dto/summary-response.dto';
 
 @Resolver(() => Summary)
 export class SummaryResolver {
-    constructor(private readonly SummaryService: SummaryService) { }
+  constructor(private readonly summaryService: SummaryService) { }
 
-    @Query(() => SummaryResponse, { name: 'summary' })
-    async findAll(
-        @Context() context,
-        @Args('options', { type: () => QueryOptionsDto, nullable: true, defaultValue: {} })
-        options: QueryOptionsDto,
-    ): Promise<SummaryResponse> {
-        const request: Request = context.req;
-        const authorizationHeader = request.headers['authorization'];
-        return this.SummaryService.getAllJobsSummary(options, authorizationHeader);
-    }
+  @Mutation(() => Summary)
+  async createSummary(
+    @Args('createSummaryInput') createSummaryInput: CreateSummaryDTO,
+  ): Promise<Summary> {
+    return this.summaryService.createSummary(createSummaryInput);
+  }
+
+  @Query(() => SummaryResponse, { name: 'summaries' })
+  async findAll(
+    @Args('options', { type: () => QueryOptionsDto, nullable: true, defaultValue: {} })
+    options: QueryOptionsDto
+  ): Promise<SummaryResponse> {
+    return this.summaryService.findAllJobs(options);
+  }
 }

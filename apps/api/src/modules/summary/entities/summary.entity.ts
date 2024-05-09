@@ -1,61 +1,58 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-  CreateDateColumn,
-} from 'typeorm';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Entity, Column, PrimaryGeneratedColumn, UpdateDateColumn, CreateDateColumn } from 'typeorm';
 import { IsEnum, IsOptional, IsObject } from 'class-validator';
 import { JobStatus, Status } from 'src/common/constants/summary';
-import { Field, ObjectType } from '@nestjs/graphql';
-
+import { Stream } from 'stream';
+import GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
 @Entity({ name: 'jobs' })
 @ObjectType()
 export class Summary {
   @PrimaryGeneratedColumn()
   @Field()
-  jobId: number;
+  id?: number;
 
-  @Column({ name: 'job_status', type: 'tinyint', width: 1, default: null })
+  @Column({ name: 'job_status', type: 'tinyint', width: 1 })
   @IsEnum(JobStatus)
   @Field()
   jobStatus: number;
 
-  @Column({ name: 'input_file', type: 'blob' })
-  @Field()
-  inputFile: Buffer;
+  // @Column({ name: 'input_file', type: 'longblob', nullable: true })
+  // // @Field(() => GraphQLUpload)
+  // inputFile: Buffer;
+
+  @Column({ name: 'input_file', nullable: true })
+  @Field(() => String)
+  @IsOptional()
+  inputFile?: string;
+
 
   @Column({ name: 'output_text' })
-  @IsEnum(JobStatus)
-  @Field()
-  outputFile: number;
+  @Field() 
+  @IsOptional()
+  outputFile?: string;
 
   @CreateDateColumn({ name: 'created_on' })
   @Field()
-  createdOn: Date;
+  createdOn?: Date;
 
-  @UpdateDateColumn({ name: 'updated_on' })
+  @UpdateDateColumn({ name: 'modified_on' })
   @Field()
-  updatedOn: Date;
+  modifiedOn?: Date;
 
-  @Column({ name: 'created_by' })
+  @Column({ name: 'created_by', default: 'admin' })
   @Field()
-  createdBy: string;
+  createdBy?: string;
 
-  @Column({ name: 'updated_by' })
+  @Column({ name: 'modified_by', default: 'admin' })
   @Field()
-  updatedBy: string;
+  modifiedBy?: string;
 
   @Column({
     type: 'tinyint',
     width: 1,
     default: Status.ACTIVE,
   })
-  @IsEnum(JobStatus)
+  @IsEnum(Status)
   @Field()
-  status: number;
-
-  constructor(notification: Partial<Notification>) {
-    Object.assign(this, notification);
-  }
+  status?: number;
 }
