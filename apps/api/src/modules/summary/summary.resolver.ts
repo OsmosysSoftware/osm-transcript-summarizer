@@ -15,7 +15,8 @@ export class SummaryResolver {
   }
 
   @Query(() => [Summary], { name: 'summary' })
-  async findAll() {
+  async findAll(): Promise<Summary[]> {
     return this.summaryService.findAllJobs();
   }
+
 }
