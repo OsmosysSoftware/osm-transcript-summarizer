@@ -10,6 +10,7 @@ import { QueryOptionsDto } from 'src/common/graphql/dtos/query-options.dto';
 import { CoreService } from 'src/common/graphql/services/core.service';
 import { Status } from 'src/common/constants/summary';
 import { SummaryResponse } from './dto/summary-response.dto';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class SummaryService extends CoreService<Summary> {
@@ -23,27 +24,45 @@ export class SummaryService extends CoreService<Summary> {
   }
 
   async createSummary(createSummaryInput: CreateSummaryDTO): Promise<Summary> {
-    const { inputFile, jobStatus } = createSummaryInput;
-
+    const { inputFile } = createSummaryInput;
     if (inputFile) {
-      const filename = inputFile.filename;
-      const fileContent = await this.streamToString(inputFile.createReadStream());
-      const summary = this.summaryRepository.create({ jobStatus, inputFile: fileContent });
-      return await this.summaryRepository.save(summary);
-    } else {
-      const summary = this.summaryRepository.create({ jobStatus });
-      return await this.summaryRepository.save(summary);
+      const { createReadStream, filename } = await inputFile;
+
+      const uniqueIdentifier = uuidv4();
+
+      const modifiedFilename = `${uniqueIdentifier}_${filename}`;
+
+      const fileLocation = join(process.cwd(), `./src/upload/${modifiedFilename}`);
+
+      return new Promise((resolve, reject) => {
+        createReadStream()
+          .pipe(createWriteStream(fileLocation))
+          .on('finish', async () => {
+            const summary = this.summaryRepository.create({ inputFile: modifiedFilename });
+            try {
+              const savedSummary = await this.summaryRepository.save(summary);
+              resolve(savedSummary);
+            } catch (error) {
+              reject(error);
+            }
+          })
+          .on('error', (error) => {
+            reject(error);
+          });
+      });
     }
   }
 
-  private async streamToString(stream: any): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const chunks: any[] = [];
-      stream.on('data', (chunk: any) => chunks.push(chunk));
-      stream.on('end', () => resolve(Buffer.concat(chunks).toString('base64')));
-      stream.on('error', (error: any) => reject(error));
-    });
-  }
+
+
+  // private async streamToString(stream: any): Promise<string> {
+  //   return new Promise((resolve, reject) => {
+  //     const chunks: any[] = [];
+  //     stream.on('data', (chunk: any) => chunks.push(chunk));
+  //     stream.on('end', () => resolve(Buffer.concat(chunks).toString('base64')));
+  //     stream.on('error', (error: any) => reject(error));
+  //   });
+  // }
 
 
   async findAllJobs(
@@ -65,3 +84,4 @@ export class SummaryService extends CoreService<Summary> {
   }
 
 }
+

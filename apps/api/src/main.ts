@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import * as fs from 'fs';
 import { loggerConfig } from './config/logger.config';
-const { graphqlUploadExpress } = require("graphql-upload-minimal");
+import * as graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
 import { HttpExceptionFilter } from './common/http-exception.filter';
 import { JsendFormatter } from './common/jsend-formatter';
 

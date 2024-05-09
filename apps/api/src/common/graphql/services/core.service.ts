@@ -6,7 +6,7 @@ import { QueryOptionsDto } from '../dtos/query-options.dto';
 export abstract class CoreService<TEntity> {
   protected readonly logger = new Logger(CoreService.name);
 
-  constructor(protected readonly repository: Repository<TEntity>) {}
+  constructor(protected readonly repository: Repository<TEntity>) { }
 
   // List of date fields for comparison handling
   private dateFields: string[] = ['createdOn', 'modifiedOn']; // Customize based on your entity fields
@@ -25,10 +25,10 @@ export abstract class CoreService<TEntity> {
 
     const queryBuilder = this.repository.createQueryBuilder(alias);
 
-    // Perform a Left Join to fetch and display related applicationDetails only for 'notification' findAll
-    if (alias === 'notification') {
-      queryBuilder.leftJoinAndSelect(`${alias}.applicationDetails`, 'application');
-      queryBuilder.leftJoinAndSelect(`${alias}.providerDetails`, 'provider');
+    // Perform a Left Join to fetch and display related applicationDetails only for 'summary' findAll
+    if (alias === 'summary') {
+      // queryBuilder.leftJoinAndSelect(`${alias}.applicationDetails`, 'application');
+      // queryBuilder.leftJoinAndSelect(`${alias}.providerDetails`, 'provider');
     }
 
     // Apply base conditions
@@ -83,7 +83,9 @@ export abstract class CoreService<TEntity> {
         case 'ne':
           condition += ` != :${paramName}`;
           break;
-        // Add other operators as needed
+        case 'in':
+          condition += ` IN (:...${paramName})`; // Using spread operator for array values
+          break;
       }
 
       queryBuilder.andWhere(condition, {

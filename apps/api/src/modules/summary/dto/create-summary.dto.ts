@@ -6,18 +6,15 @@ import { Stream } from 'stream';
 import Upload = require('graphql-upload/Upload.js');
 // @ts-ignore
 import GraphQLUpload = require('graphql-upload/GraphQLUpload.js');
-// export interface FileUpload {
-//   filename: string;
-//   mimetype: string;
-//   encoding: string;
-//   createReadStream: () => Stream;
-// }
+export interface FileUpload {
+  filename: string;
+  mimetype: string;
+  encoding: string;
+  createReadStream: () => Stream;
+}
 
 @InputType()
 export class CreateSummaryDTO {
-
-  @Field(() => Int)
-  jobStatus: number;
 
   // @Field()
   // @IsNotEmpty({ message: 'Filename cannot be empty' })
@@ -30,7 +27,7 @@ export class CreateSummaryDTO {
 
   @Field(() => GraphQLUpload)
   @IsOptional()
-  inputFile?: GraphQLUpload;
+  inputFile?: Promise<FileUpload>;
 
 }
 

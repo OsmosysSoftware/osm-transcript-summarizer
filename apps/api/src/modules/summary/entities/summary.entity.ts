@@ -11,10 +11,10 @@ export class Summary {
   @Field()
   id?: number;
 
-  @Column({ name: 'job_status', type: 'tinyint', width: 1 })
+  @Column({ name: 'job_status', type: 'tinyint', default: 1, width: 1 })
   @IsEnum(JobStatus)
   @Field()
-  jobStatus: number;
+  jobStatus?: number;
 
   // @Column({ name: 'input_file', type: 'longblob', nullable: true })
   // // @Field(() => GraphQLUpload)
@@ -25,9 +25,8 @@ export class Summary {
   @IsOptional()
   inputFile?: string;
 
-
   @Column({ name: 'output_text' })
-  @Field() 
+  @Field()
   @IsOptional()
   outputFile?: string;
 
