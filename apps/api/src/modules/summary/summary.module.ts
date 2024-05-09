@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BullModule } from '@nestjs/bull';
 import { SummaryQueueProducer } from 'src/jobs/producers/summary/summary.producer';
 import { SummaryConsumer} from 'src/jobs/consumers/summary/summary.consumer';
+import { ScheduleService } from './schedule/schedule.service';
 
 
 @Module({
@@ -17,6 +18,7 @@ import { SummaryConsumer} from 'src/jobs/consumers/summary/summary.consumer';
     }),
   ],
   providers: [
+    ScheduleService,
     SummaryService,
     SummaryResolver,
     SummaryQueueProducer,
