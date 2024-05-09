@@ -1,0 +1,32 @@
+<table class="job-table">
+  <thead>
+    <tr>
+      <th>Timestamp</th>
+      <th>File Name</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let job of jobs">
+      <td>{{ job.timestamp }}</td>
+      <td>{{ job.fileName }}</td>
+      <td>
+        <p-tag
+          [severity]="getSeverity(job.status)"
+          styleClass="p-2 flex"
+          value="{{ job.status }}"
+        ></p-tag>
+      </td>
+      <td class="action-cell p-0">
+        <p-button
+          *ngIf="job.status === 'FINISHED'"
+          (click)="downloadFile(job.summary, job.fileName)"
+          severity="info"
+          styleClass="h-2rem p-3 mx-3"
+          >Download</p-button
+        >
+      </td>
+    </tr>
+  </tbody>
+</table>

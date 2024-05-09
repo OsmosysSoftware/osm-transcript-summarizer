@@ -1,6 +1,6 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { TranscriptAnalyzerComponent } from './features/transcript-analyzer.component';
+import { TranscriptAnalyzerComponent } from './features/transcript-analyzer/transcript-analyzer.component';
 
 @NgModule({
   imports: [
