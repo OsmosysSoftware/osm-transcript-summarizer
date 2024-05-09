@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { SummaryService } from './summary.service';
 import { Summary } from './entities/summary.entity';
 import { CreateSummaryDTO } from './dto/create-summary.dto';
@@ -16,6 +16,6 @@ export class SummaryResolver {
 
   @Query(() => [Summary], { name: 'summary' })
   findAll() {
-    return null;
+    return this.summaryService.findAllJobs();
   }
 }

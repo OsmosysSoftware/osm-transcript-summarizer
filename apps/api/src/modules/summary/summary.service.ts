@@ -45,5 +45,9 @@ export class SummaryService {
     }
   }
 
+  async findAllJobs() {
+    return 1;
+  }
+
 }
 
