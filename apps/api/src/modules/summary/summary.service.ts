@@ -6,6 +6,7 @@ import { CreateSummaryDTO } from './dto/create-summary.dto';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import { Status } from 'src/common/constants/summary';
 
 @Injectable()
 export class SummaryService {
@@ -45,8 +46,8 @@ export class SummaryService {
     }
   }
 
-  async findAllJobs() {
-    return 1;
+  async findAllJobs(): Promise<Summary[]> {
+    return this.summaryRepository.find({ where: { status: Status.ACTIVE } });
   }
 
 }
