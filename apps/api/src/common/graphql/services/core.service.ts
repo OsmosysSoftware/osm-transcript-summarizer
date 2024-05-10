@@ -25,12 +25,6 @@ export abstract class CoreService<TEntity> {
 
     const queryBuilder = this.repository.createQueryBuilder(alias);
 
-    // Perform a Left Join to fetch and display related applicationDetails only for 'summary' findAll
-    if (alias === 'summary') {
-      // queryBuilder.leftJoinAndSelect(`${alias}.applicationDetails`, 'application');
-      // queryBuilder.leftJoinAndSelect(`${alias}.providerDetails`, 'provider');
-    }
-
     // Apply base conditions
     baseConditions.forEach((condition) => {
       queryBuilder.andWhere(`${alias}.${condition.field} = :${condition.field}`, {
@@ -82,9 +76,6 @@ export abstract class CoreService<TEntity> {
           break;
         case 'ne':
           condition += ` != :${paramName}`;
-          break;
-        case 'in':
-          condition += ` IN (:...${paramName})`; // Using spread operator for array values
           break;
       }
 
