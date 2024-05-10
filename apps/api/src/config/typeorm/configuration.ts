@@ -1,7 +1,6 @@
 import { DataSource, DatabaseType, DataSourceOptions } from 'typeorm';
 import { config } from 'dotenv';
 import { ConfigService } from '@nestjs/config';
-import { join } from 'path';
 
 config();
 
@@ -17,6 +16,6 @@ export default new DataSource({
   entities: [],
   autoLoadEntities: true,
   migrations: ['src/database/migrations/**'],
-  migrationsTableName: 'jobs',
+  migrationsTableName: 'jobDetails',
   synchronize: false,
 } as DataSourceOptions);

@@ -1,50 +1,47 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn, UpdateDateColumn, CreateDateColumn } from 'typeorm';
-import { IsEnum, IsOptional, IsObject } from 'class-validator';
+import { IsEnum, IsOptional } from 'class-validator';
 import { JobStatus, Status } from 'src/common/constants/summary';
-import { Stream } from 'stream';
-import GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
 @Entity({ name: 'jobs' })
 @ObjectType()
 export class Summary {
   @PrimaryGeneratedColumn()
   @Field()
-  id?: number;
+  id: number;
 
   @Column({ name: 'job_status', type: 'tinyint', default: 1, width: 1 })
   @IsEnum(JobStatus)
   @Field()
-  jobStatus?: number;
+  jobStatus: number;
 
   // @Column({ name: 'input_file', type: 'longblob', nullable: true })
   // // @Field(() => GraphQLUpload)
   // inputFile: Buffer;
 
-  @Column({ name: 'input_file', nullable: true })
+  @Column({ name: 'input_file' })
   @Field(() => String)
   @IsOptional()
-  inputFile?: string;
+  inputFile: string;
 
-  @Column({ name: 'output_text' })
-  @Field()
-  @IsOptional()
-  outputFile?: string;
+  @Column({ name: 'output_text', nullable: true })
+  @Field({ nullable: true })
+  outputText: string;
 
   @CreateDateColumn({ name: 'created_on' })
   @Field()
-  createdOn?: Date;
+  createdOn: Date;
 
-  @UpdateDateColumn({ name: 'modified_on' })
-  @Field()
-  modifiedOn?: Date;
+  @UpdateDateColumn({ name: 'modified_on'})
+  @Field({ nullable: true })
+  modifiedOn: Date;
 
   @Column({ name: 'created_by', default: 'admin' })
   @Field()
-  createdBy?: string;
+  createdBy: string;
 
   @Column({ name: 'modified_by', default: 'admin' })
   @Field()
-  modifiedBy?: string;
+  modifiedBy: string;
 
   @Column({
     type: 'tinyint',
@@ -53,5 +50,5 @@ export class Summary {
   })
   @IsEnum(Status)
   @Field()
-  status?: number;
+  status: number;
 }

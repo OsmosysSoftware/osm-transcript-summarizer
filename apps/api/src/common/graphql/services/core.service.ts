@@ -86,6 +86,20 @@ export abstract class CoreService<TEntity> {
         case 'in':
           condition += ` IN (:...${paramName})`; // Using spread operator for array values
           break;
+        case 'in':
+          if (!Array.isArray(value)) {
+            throw new Error(`Value must be an array for "in" operator.`);
+          }
+          // Proceed with mapping over the array
+          const placeholders = value.map((_, idx) => `:${paramName}${idx}`).join(', ');
+          condition += ` IN (${placeholders})`;
+          const params: { [key: string]: any } = {};
+          value.forEach((v, idx) => {
+            params[`${paramName}${idx}`] = v;
+          });
+          queryBuilder.andWhere(condition, params);
+          return; // Exit the switch case for 'in' operator
+
       }
 
       queryBuilder.andWhere(condition, {

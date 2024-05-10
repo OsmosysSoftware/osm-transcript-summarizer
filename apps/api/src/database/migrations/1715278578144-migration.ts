@@ -1,26 +1,34 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class FileDetails1714634986974 implements MigrationInterface {
-    name = 'FileDetails1714634986974';
+export class Migration1715278578144 implements MigrationInterface {
+
+    name = 'Migration1715278578144';
+
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'files',
+                name: 'jobs',
                 columns: [
                     {
-                        name: 'file_id',
+                        name: 'job_id',
                         type: 'int',
                         isPrimary: true,
                         isGenerated: true,
                         generationStrategy: 'increment',
                     },
                     {
-                        name: 'file_path',
-                        type: 'varchar',
+                        name: 'job_status',
+                        type: 'tinyint',
+                        default: 1,
                     },
                     {
-                        name: 'file_name',
-                        type: 'varchar',
+                        name: 'input_file',
+                        type: 'text',
+                    },
+                    {
+                        name: 'output_text',
+                        type: 'text',
+                        isNullable: true,
                     },
                     {
                         name: 'created_on',
@@ -36,10 +44,12 @@ export class FileDetails1714634986974 implements MigrationInterface {
                     {
                         name: 'created_by',
                         type: 'varchar',
+                        default: "'admin'",
                     },
                     {
                         name: 'modified_by',
                         type: 'varchar',
+                        default: "'admin'",
                     },
                     {
                         name: 'status',
@@ -52,7 +62,7 @@ export class FileDetails1714634986974 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`DROP TABLE \`files\``);
+        await queryRunner.query(`DROP TABLE \`jobDetails\``);
     }
 
 }

@@ -1,6 +1,5 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
-import { IsNotEmpty, ValidateIf, registerDecorator, ValidationOptions, ValidationArguments, IsOptional } from 'class-validator';
-import { isNullableType } from 'graphql';
+import { InputType, Field } from '@nestjs/graphql';
+import { registerDecorator, ValidationOptions, ValidationArguments, IsOptional } from 'class-validator';
 import { Stream } from 'stream';
 // @ts-ignore
 import Upload = require('graphql-upload/Upload.js');
@@ -15,10 +14,6 @@ export interface FileUpload {
 
 @InputType()
 export class CreateSummaryDTO {
-
-  // @Field()
-  // @IsNotEmpty({ message: 'Filename cannot be empty' })
-  // filename: string;
 
   // @Field(() => GraphQLUpload)
   // @IsNotEmpty({ message: 'Content or path must be provided' })

@@ -1,9 +1,8 @@
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Summary } from './entities/summary.entity';
 import { CreateSummaryDTO } from './dto/create-summary.dto';
-import GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
 import { QueryOptionsDto } from 'src/common/graphql/dtos/query-options.dto';
@@ -29,9 +28,7 @@ export class SummaryService extends CoreService<Summary> {
       const { createReadStream, filename } = await inputFile;
 
       const uniqueIdentifier = uuidv4();
-
       const modifiedFilename = `${uniqueIdentifier}_${filename}`;
-
       const fileLocation = join(process.cwd(), `./src/upload/${modifiedFilename}`);
 
       return new Promise((resolve, reject) => {

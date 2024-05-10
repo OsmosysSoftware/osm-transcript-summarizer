@@ -40,8 +40,8 @@ type Summary {
   inputFile: String!
   jobStatus: Float!
   modifiedBy: String!
-  modifiedOn: DateTime!
-  outputFile: String!
+  modifiedOn: DateTime
+  outputText: String
   status: Float!
 }
 
