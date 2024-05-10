@@ -14,11 +14,7 @@ export class Summary {
   @Field()
   jobStatus: number;
 
-  // @Column({ name: 'input_file', type: 'longblob', nullable: true })
-  // // @Field(() => GraphQLUpload)
-  // inputFile: Buffer;
-
-  @Column({ name: 'input_file' })
+  @Column({ name: 'input_file', nullable: true })
   @Field(() => String)
   @IsOptional()
   inputFile: string;

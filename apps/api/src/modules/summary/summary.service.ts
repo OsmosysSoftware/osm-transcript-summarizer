@@ -50,18 +50,6 @@ export class SummaryService extends CoreService<Summary> {
     }
   }
 
-
-
-  // private async streamToString(stream: any): Promise<string> {
-  //   return new Promise((resolve, reject) => {
-  //     const chunks: any[] = [];
-  //     stream.on('data', (chunk: any) => chunks.push(chunk));
-  //     stream.on('end', () => resolve(Buffer.concat(chunks).toString('base64')));
-  //     stream.on('error', (error: any) => reject(error));
-  //   });
-  // }
-
-
   async findAllJobs(
     options: QueryOptionsDto): Promise<SummaryResponse> {
     this.logger.log('Getting all jobs with options.');

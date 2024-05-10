@@ -25,12 +25,6 @@ export abstract class CoreService<TEntity> {
 
     const queryBuilder = this.repository.createQueryBuilder(alias);
 
-    // Perform a Left Join to fetch and display related applicationDetails only for 'summary' findAll
-    if (alias === 'summary') {
-      // queryBuilder.leftJoinAndSelect(`${alias}.applicationDetails`, 'application');
-      // queryBuilder.leftJoinAndSelect(`${alias}.providerDetails`, 'provider');
-    }
-
     // Apply base conditions
     baseConditions.forEach((condition) => {
       queryBuilder.andWhere(`${alias}.${condition.field} = :${condition.field}`, {
@@ -83,23 +77,6 @@ export abstract class CoreService<TEntity> {
         case 'ne':
           condition += ` != :${paramName}`;
           break;
-        case 'in':
-          condition += ` IN (:...${paramName})`; // Using spread operator for array values
-          break;
-        case 'in':
-          if (!Array.isArray(value)) {
-            throw new Error(`Value must be an array for "in" operator.`);
-          }
-          // Proceed with mapping over the array
-          const placeholders = value.map((_, idx) => `:${paramName}${idx}`).join(', ');
-          condition += ` IN (${placeholders})`;
-          const params: { [key: string]: any } = {};
-          value.forEach((v, idx) => {
-            params[`${paramName}${idx}`] = v;
-          });
-          queryBuilder.andWhere(condition, params);
-          return; // Exit the switch case for 'in' operator
-
       }
 
       queryBuilder.andWhere(condition, {

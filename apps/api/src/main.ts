@@ -17,7 +17,13 @@ async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule, {
     logger: loggerConfig,
   });
-  app.use(graphqlUploadExpress({ maxFileSize: 1000000, maxFiles: 5 }))
+  app.use(graphqlUploadExpress({ maxFileSize: 1000000, maxFiles: 1 }), (err, req, res, next) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      next();
+    }
+  });
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new HttpExceptionFilter(new JsendFormatter()));
   // TODO: Update origin as needed
