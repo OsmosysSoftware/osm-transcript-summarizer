@@ -3,7 +3,6 @@ import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 import { Summary } from 'src/modules/summary/entities/summary.entity';
 import { SUMMARY_QUEUE } from 'src/modules/summary/queues/summary.queue';
-// import { ChannelType } from 'src/common/constants/summary';
 
 @Injectable()
 export class SummaryQueueProducer {

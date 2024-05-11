@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { SummaryService } from './summary.service';
 import { SummaryResolver } from './summary.resolver';
 import { Summary } from './entities/summary.entity';
-import { SummaryResponse } from './dto/create-summary.dto';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BullModule } from '@nestjs/bull';
 import { SummaryQueueProducer } from 'src/jobs/producers/summary/summary.producer';

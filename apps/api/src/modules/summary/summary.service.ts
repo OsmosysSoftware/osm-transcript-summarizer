@@ -2,18 +2,21 @@ import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Summary } from './entities/summary.entity';
 import { Repository } from 'typeorm';
-import { SummaryResponse } from './dto/create-summary.dto';
+import { SummaryResponse } from './dto/summary-response.dto';
 import { JobStatus, Status } from 'src/common/constants/summary';
 import { SummaryQueueProducer } from 'src/jobs/producers/summary/summary.producer'
 import { CreateSummaryDTO } from './dto/create-summary.dto';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import { QueryOptionsDto } from 'src/common/graphql/dtos/query-options.dto';
+import { CoreService } from 'src/common/graphql/services/core.service';
+import { ID } from '@nestjs/graphql';
 
 
 
 @Injectable()
-export class SummaryService {
+export class SummaryService extends CoreService<Summary> {
     protected readonly logger = new Logger(SummaryService.name);
     private isProcessingQueue: boolean = false;
 
@@ -23,6 +26,7 @@ export class SummaryService {
         private readonly summaryQueueService: SummaryQueueProducer,
 
       ) {
+        super(summaryRepository);
       }
       async createSummary(createSummaryInput: CreateSummaryDTO): Promise<Summary> {
         const { inputFile } = createSummaryInput;
@@ -52,9 +56,9 @@ export class SummaryService {
         }
       }
     
-      async findAllJobs(): Promise<Summary[]> {
-        return this.summaryRepository.find({ where: { status: Status.ACTIVE } });
-      }
+      // async findAllJobs(): Promise<Summary[]> {
+      //   return this.summaryRepository.find({ where: { status: Status.ACTIVE } });
+      // }
 
    
     getSummaryById(jobId: number): Promise<Summary[]> {
@@ -117,27 +121,21 @@ export class SummaryService {
       }
     
 
-    async getAllJobsSummary(
-        // options: QueryOptionsDto,
-        authorizationHeader: Request,
-    ): Promise<SummaryResponse> {
-        this.logger.log('Getting all notifications with options.');
-
+      async findAllJobs(
+        options: QueryOptionsDto): Promise<SummaryResponse> {
+        this.logger.log('Getting all jobs with options.');
     
-
-        // const baseConditions = [
-        //     { field: 'status', value: Status.ACTIVE },
-        //     { field: 'applicationId', value: filterApplicationId },
-        // ];
-        // const searchableFields = ['createdBy', 'data', 'result'];
-
-        // const { items, total } = await super.findAll(
-        //     options,
-        //     'notification',
-        //     searchableFields,
-        //     baseConditions,
-        // );
-        let items = [];
-        return new SummaryResponse(items);
-    }
+        const baseConditions = [
+          { field: 'status', value: Status.ACTIVE },
+        ];
+        const searchableFields = ['createdBy', 'data', 'result'];
+    
+        const { items, total } = await super.findAll(
+          options,
+          'summary',
+          searchableFields,
+          baseConditions,
+        );
+        return new SummaryResponse(items, total, options.offset, options.limit);
+      }
 }
