@@ -16,6 +16,6 @@ export default new DataSource({
   entities: [],
   autoLoadEntities: true,
   migrations: ['src/database/migrations/**'],
-  migrationsTableName: 'jobDetails',
+  migrationsTableName: 'summary_migrations',
   synchronize: false,
 } as DataSourceOptions);
