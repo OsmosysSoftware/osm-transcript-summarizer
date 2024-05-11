@@ -38,7 +38,7 @@ export class SummaryConsumer {
     try {
       // Generate random text for testing
       const randomSummaryText = this.generateRandomSummary();
-      summary.outputFile = randomSummaryText;
+      summary.outputText = randomSummaryText;
 
       // Save summary
       await this.summaryRepository.save(summary);
