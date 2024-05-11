@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Summary } from './entities/summary.entity';
 import { Repository } from 'typeorm';
@@ -11,7 +11,7 @@ import { QueryOptionsDto } from 'src/common/graphql/dtos/query-options.dto';
 import { CoreService } from 'src/common/graphql/services/core.service';
 import { SummaryResponse } from './dto/summary-response.dto';
 import { v4 as uuidv4 } from 'uuid';
-import { ID } from '@nestjs/graphql';
+
 
 @Injectable()
 export class SummaryService extends CoreService<Summary> {

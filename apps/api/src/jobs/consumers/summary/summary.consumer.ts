@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { Process, Processor } from '@nestjs/bull';
 import { Job } from 'bull';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -8,7 +8,6 @@ import { Repository } from 'typeorm';
 import { Summary } from 'src/modules/summary/entities/summary.entity'; 
 import { JobStatus } from 'src/common/constants/summary';
 
-// @Injectable()
 @Processor(SUMMARY_QUEUE)
 export class SummaryConsumer {
   private readonly logger = new Logger(SummaryConsumer.name);
@@ -27,7 +26,6 @@ export class SummaryConsumer {
 
   async processSummaryQueue(job: Job<number>): Promise<void> {
     const jobId = job.data;
-    console.log(jobId);
     const summaries = await this.summaryService.getSummaryById(jobId);
     const summary = summaries[0];
     if (!summary) {
