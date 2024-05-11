@@ -52,11 +52,6 @@ export class SummaryService extends CoreService<Summary> {
         });
       }}
     
-      // async findAllJobs(): Promise<Summary[]> {
-      //   return this.summaryRepository.find({ where: { status: Status.ACTIVE } });
-      // }
-
-   
     getSummaryById(jobId: number): Promise<Summary[]> {
         this.logger.log(`Getting summary with id: ${jobId}`);
         return this.summaryRepository.find({
@@ -81,10 +76,10 @@ export class SummaryService extends CoreService<Summary> {
 
 
     async addSummaryToQueue(): Promise<void> {
-        this.logger.log('Starting CRON job to add pending notifications to queue');
+        this.logger.log('Starting CRON job to add pending summaries to queue');
     
         if (this.isProcessingQueue) {
-          this.logger.log('Notifications are already being added to queue, skipping this CRON job');
+          this.logger.log('Summaries are already being added to queue, skipping this CRON job');
           return;
         }
     

@@ -16,8 +16,6 @@ export class DatabaseConfiguration implements TypeOrmOptionsFactory {
       password: this.configService.getOrThrow<string>('DB_PASSWORD'),
       database: this.configService.getOrThrow<string>('DB_NAME'),
       logging: this.configService.getOrThrow<boolean>('LOGGING'),
-      // logger: this.configService.getOrThrow<string>('LOGGER'),
-      // migrations: ['src/database/migrations/**'],
       autoLoadEntities: true,
       synchronize: false,
     } as TypeOrmModuleOptions;
