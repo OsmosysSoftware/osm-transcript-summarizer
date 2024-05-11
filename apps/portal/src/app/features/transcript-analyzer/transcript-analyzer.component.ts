@@ -1,5 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { FileService } from '../../shared/services/file.service';
+import { Logger } from '../../shared/services/logger.service';
+import { ApolloQueryResult } from '@apollo/client';
 
 @Component({
   selector: 'app-transcript-analyzer',
@@ -8,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
   encapsulation: ViewEncapsulation.None,
 })
 export class TranscriptAnalyzerComponent {
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService, private fileService: FileService) {
     this.translate.setDefaultLang('en');
   }
 
@@ -36,6 +39,13 @@ export class TranscriptAnalyzerComponent {
         this.limitError = true;
         this.selectedFileName = '';
       } else {
+        console.log(file);
+        this.fileService.uploadFile(file).subscribe((result: ApolloQueryResult<any>) => {
+          console.log('Upload successful:', result);
+        }, error => {
+          console.error('Upload failed:', error);
+        });
+        // this.fileService.uploadFile(file);
         this.selectedFileName = file.name;
         this.limitError = false;
         this.invalidTypeError = false;

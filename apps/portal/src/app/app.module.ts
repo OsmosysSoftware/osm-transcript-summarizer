@@ -7,6 +7,7 @@ import AppRoutingModule from './app-routing.module';
 import { PrimeNgModule } from './primeng.module';
 import { AppComponent } from './app.component';
 import { MyErrorHandler } from './shared/services/error-handler.service';
+import { GraphQLModule } from './graphql/graphql.module';
 import { TranscriptAnalyzerComponent } from './features/transcript-analyzer/transcript-analyzer.component';
 import HttpLoaderFactory from '../assets/i18n/loader';
 import { FileProcessorComponent } from './features/file-processor/file-processor.component';
@@ -18,6 +19,7 @@ import { FileProcessorComponent } from './features/file-processor/file-processor
     AppRoutingModule,
     HttpClientModule,
     PrimeNgModule,
+    GraphQLModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
