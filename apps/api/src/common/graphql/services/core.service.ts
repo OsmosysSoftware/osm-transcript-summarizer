@@ -54,12 +54,11 @@ export abstract class CoreService<TEntity> {
           // Attempt to parse the string as JSON to convert it into an array
           value = JSON.parse(value);
         } catch (error) {
-          this.logger.error(`Error parsing value for 'in' operator: ${error.message}`);
+          throw new Error(`Error parsing value for 'in' operator: ${error.message}`);
         }
       } else if (this.isDateField(field) && (operator === 'gt' || operator === 'lt')) {
         value = new Date(value) as unknown as string;
       }
-
       const paramName = `param${index}`;
       let condition = `${alias}.${field}`;
 
