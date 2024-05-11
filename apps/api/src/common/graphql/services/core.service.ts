@@ -6,7 +6,7 @@ import { QueryOptionsDto } from '../dtos/query-options.dto';
 export abstract class CoreService<TEntity> {
   protected readonly logger = new Logger(CoreService.name);
 
-  constructor(protected readonly repository: Repository<TEntity>) { }
+  constructor(protected readonly repository: Repository<TEntity>) {}
 
   // List of date fields for comparison handling
   private dateFields: string[] = ['createdOn', 'modifiedOn']; // Customize based on your entity fields
@@ -47,10 +47,19 @@ export abstract class CoreService<TEntity> {
     options.filters?.forEach((filter, index) => {
       const field = filter.field;
       const operator = filter.operator;
-      const value =
-        this.isDateField(field) && (operator === 'gt' || operator === 'lt')
-          ? new Date(filter.value)
-          : filter.value;
+      let value = filter.value;
+
+      if (operator === 'in' && typeof value === 'string') {
+        try {
+          // Attempt to parse the string as JSON to convert it into an array
+          value = JSON.parse(value);
+        } catch (error) {
+          this.logger.error(`Error parsing value for 'in' operator: ${error.message}`);
+        }
+      } else if (this.isDateField(field) && (operator === 'gt' || operator === 'lt')) {
+        value = new Date(value) as unknown as string;
+      }
+
       const paramName = `param${index}`;
       let condition = `${alias}.${field}`;
 
@@ -67,7 +76,6 @@ export abstract class CoreService<TEntity> {
         case 'lt':
           condition += ` < :${paramName}`;
           break;
-          condition += ` < :${paramName}`;
         case 'gte':
           condition += ` >= :${paramName}`;
           break;
@@ -76,6 +84,9 @@ export abstract class CoreService<TEntity> {
           break;
         case 'ne':
           condition += ` != :${paramName}`;
+          break;
+        case 'in':
+          condition += ` IN (:...${paramName})`;
           break;
       }
 
