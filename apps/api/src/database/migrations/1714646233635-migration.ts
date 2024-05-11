@@ -55,20 +55,9 @@ export class Migration1714646233635 implements MigrationInterface {
                 ],
             }),
         );
-        await queryRunner.createForeignKey(
-            'jobs',
-            new TableForeignKey({
-                columnNames: ['input_file'],
-                referencedColumnNames: ['file_id'],
-                referencedTableName: 'files',
-                onDelete: 'CASCADE',
-            }),
-        );
-        
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('jobs', 'input_file');
         await queryRunner.query(`DROP TABLE \`jobs\``);
     }
 
