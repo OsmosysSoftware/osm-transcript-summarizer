@@ -1,8 +1,9 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class Migration1714646233635 implements MigrationInterface {
+export class Migration1715278578144 implements MigrationInterface {
 
-    name = 'Migration1714646233635';
+    name = 'Migration1715278578144';
+
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
@@ -18,10 +19,11 @@ export class Migration1714646233635 implements MigrationInterface {
                     {
                         name: 'job_status',
                         type: 'tinyint',
+                        default: 1,
                     },
                     {
                         name: 'input_file',
-                        type: 'int',
+                        type: 'text',
                     },
                     {
                         name: 'output_text',
@@ -42,10 +44,12 @@ export class Migration1714646233635 implements MigrationInterface {
                     {
                         name: 'created_by',
                         type: 'varchar',
+                        default: "'admin'",
                     },
                     {
                         name: 'modified_by',
                         type: 'varchar',
+                        default: "'admin'",
                     },
                     {
                         name: 'status',

@@ -7,17 +7,16 @@ import { SummaryQueueProducer } from 'src/jobs/producers/summary/summary.produce
 import { CreateSummaryDTO } from './dto/create-summary.dto';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
-import { SummaryResponse } from './dto/summary-response.dto';
-import { v4 as uuidv4 } from 'uuid';
 import { QueryOptionsDto } from 'src/common/graphql/dtos/query-options.dto';
 import { CoreService } from 'src/common/graphql/services/core.service';
+import { SummaryResponse } from './dto/summary-response.dto';
+import { v4 as uuidv4 } from 'uuid';
 import { ID } from '@nestjs/graphql';
 
 @Injectable()
 export class SummaryService extends CoreService<Summary> {
-    protected readonly logger = new Logger(SummaryService.name);
-    private isProcessingQueue: boolean = false;
-
+  protected readonly logger = new Logger(SummaryService.name);
+  private isProcessingQueue: boolean = false;
   constructor(
     @InjectRepository(Summary)
     private readonly summaryRepository: Repository<Summary>,
@@ -30,6 +29,7 @@ export class SummaryService extends CoreService<Summary> {
     const { inputFile } = createSummaryInput;
     if (inputFile) {
       const { createReadStream, filename } = await inputFile;
+
       const uniqueIdentifier = uuidv4();
       const modifiedFilename = `${uniqueIdentifier}_${filename}`;
       const fileLocation = join(process.cwd(), `./src/upload/${modifiedFilename}`);
@@ -66,6 +66,7 @@ export class SummaryService extends CoreService<Summary> {
           },
         });
     }
+
 
 
     getPendingSummary(): Promise<Summary[]> {

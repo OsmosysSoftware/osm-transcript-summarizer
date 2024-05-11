@@ -2,13 +2,12 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn, UpdateDateColumn, CreateDateColumn } from 'typeorm';
 import { IsEnum, IsOptional } from 'class-validator';
 import { JobStatus, Status } from 'src/common/constants/summary';
-
-@Entity({ name: 'jobs' })
+@Entity({ name: 'summary' })
 @ObjectType()
 export class Summary {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ name: 'job_id' })
   @Field()
-  id: number;
+  jobId: number;
 
   @Column({ name: 'job_status', type: 'tinyint', default: 1, width: 1 })
   @IsEnum(JobStatus)
@@ -20,16 +19,15 @@ export class Summary {
   @IsOptional()
   inputFile: string;
 
-  @Column({ name: 'output_text' })
-  @Field()
-  @IsOptional()
-  outputFile: string;
+  @Column({ name: 'output_text', nullable: true })
+  @Field({ nullable: true })
+  outputText: string;
 
   @CreateDateColumn({ name: 'created_on' })
   @Field()
   createdOn: Date;
 
-  @UpdateDateColumn({ name: 'modified_on' })
+  @UpdateDateColumn({ name: 'modified_on'})
   @Field()
   modifiedOn: Date;
 
