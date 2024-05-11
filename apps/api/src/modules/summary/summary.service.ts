@@ -8,46 +8,48 @@ import { SummaryQueueProducer } from 'src/jobs/producers/summary/summary.produce
 import { CreateSummaryDTO } from './dto/create-summary.dto';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
+
+import { QueryOptionsDto } from 'src/common/graphql/dtos/query-options.dto';
+import { CoreService } from 'src/common/graphql/services/core.service';
+import { Status } from 'src/common/constants/summary';
+import { SummaryResponse } from './dto/summary-response.dto';
 import { v4 as uuidv4 } from 'uuid';
 
-
-
 @Injectable()
-export class SummaryService {
-    protected readonly logger = new Logger(SummaryService.name);
-    private isProcessingQueue: boolean = false;
+export class SummaryService extends CoreService<Summary> {
+  protected readonly logger = new Logger(SummaryService.name);
+  private isProcessingQueue: boolean = false;
+  constructor(
+    @InjectRepository(Summary)
+    private readonly summaryRepository: Repository<Summary>,
+    private readonly summaryQueueService: SummaryQueueProducer,
+  ) {
+    super(summaryRepository);
+  }
 
-    constructor(
-        @InjectRepository(Summary)
-        private readonly summaryRepository: Repository<Summary>,
-        private readonly summaryQueueService: SummaryQueueProducer,
+  async createSummary(createSummaryInput: CreateSummaryDTO): Promise<Summary> {
+    const { inputFile } = createSummaryInput;
+    if (inputFile) {
+      const { createReadStream, filename } = await inputFile;
 
-      ) {
-      }
-      async createSummary(createSummaryInput: CreateSummaryDTO): Promise<Summary> {
-        const { inputFile } = createSummaryInput;
-        if (inputFile) {
-          const { createReadStream, filename } = await inputFile;
-    
-          const uniqueIdentifier = uuidv4();
-          const modifiedFilename = `${filename}_${uniqueIdentifier}`;
-          const fileLocation = join(process.cwd(), `./src/upload/${modifiedFilename}`);
-    
-          return new Promise((resolve, reject) => {
-            createReadStream()
-              .pipe(createWriteStream(fileLocation))
-              .on('finish', async () => {
-                const summary = this.summaryRepository.create({ inputFile: modifiedFilename });
-                try {
-                  const savedSummary = await this.summaryRepository.save(summary);
-                  resolve(savedSummary);
-                } catch (error) {
-                  reject(error);
-                }
-              })
-              .on('error', (error) => {
-                reject(error);
-              });
+      const uniqueIdentifier = uuidv4();
+      const modifiedFilename = `${uniqueIdentifier}_${filename}`;
+      const fileLocation = join(process.cwd(), `./src/upload/${modifiedFilename}`);
+
+      return new Promise((resolve, reject) => {
+        createReadStream()
+          .pipe(createWriteStream(fileLocation))
+          .on('finish', async () => {
+            const summary = this.summaryRepository.create({ inputFile: modifiedFilename });
+            try {
+              const savedSummary = await this.summaryRepository.save(summary);
+              resolve(savedSummary);
+            } catch (error) {
+              reject(error);
+            }
+          })
+          .on('error', (error) => {
+            reject(error);
           });
         }
       }
@@ -67,6 +69,7 @@ export class SummaryService {
         });
     }
 
+
     getPendingSummary(): Promise<Summary[]> {
         this.logger.log('Getting all active pending summaries');
         return this.summaryRepository.find({
@@ -76,6 +79,25 @@ export class SummaryService {
           },
         });
       }
+
+  async findAllJobs(
+    options: QueryOptionsDto): Promise<SummaryResponse> {
+    this.logger.log('Getting all jobs with options.');
+
+    const baseConditions = [
+      { field: 'status', value: Status.ACTIVE },
+    ];
+    const searchableFields = ['createdBy', 'data', 'result'];
+
+    const { items, total } = await super.findAll(
+      options,
+      'summary',
+      searchableFields,
+      baseConditions,
+    );
+    return new SummaryResponse(items, total, options.offset, options.limit);
+  }
+
 
     async addSummaryToQueue(): Promise<void> {
         this.logger.log('Starting CRON job to add pending notifications to queue');

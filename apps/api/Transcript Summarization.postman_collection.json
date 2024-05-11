@@ -1,74 +1,155 @@
 {
-	"info": {
-		"_postman_id": "46550175-1f28-4125-9d41-deb10ca7fd28",
-		"name": "Transcript Summarization",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "29819951"
-	},
-	"item": [
+  "info": {
+    "_postman_id": "46550175-1f28-4125-9d41-deb10ca7fd28",
+    "name": "Transcript Summarization",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "29819951"
+  },
+  "item": [
+    {
+      "name": "File Upload using graphQL",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept-Encoding",
+            "value": "gzip, deflate, br"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Connection",
+            "value": "keep-alive"
+          },
+          {
+            "key": "Origin",
+            "value": "chrome-extension://flnheeellpciglgpaodhkhmapeljopja"
+          },
+          {
+            "key": "x-apollo-operation-name",
+            "value": "createSummary"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "operations",
+              "value": "{\"query\":\"mutation ($file: Upload!) {\\n  createSummary(createSummaryInput: { inputFile: $file }) {\\n    id\\n  }\\n}\"}",
+              "type": "text"
+            },
+            {
+              "key": "map",
+              "value": "{\"0\": [\"variables.file\"]}",
+              "type": "text"
+            },
+            {
+              "key": "0",
+              "type": "file",
+              "src": "postman-cloud:///1ef0e9e3-58cb-4450-8333-d05a715d4544"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3000/graphql",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["graphql"]
+        }
+      },
+      "response": [
 		{
-			"name": "File Upload using graphQL",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept-Encoding",
-						"value": "gzip, deflate, br"
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json"
-					},
-					{
-						"key": "Connection",
-						"value": "keep-alive"
-					},
-					{
-						"key": "Origin",
-						"value": "chrome-extension://flnheeellpciglgpaodhkhmapeljopja"
-					},
-					{
-						"key": "x-apollo-operation-name",
-						"value": "createSummary"
-					}
-				],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "operations",
-							"value": "{\"query\":\"mutation ($file: Upload!) {\\n  createSummary(createSummaryInput: { inputFile: $file }) {\\n    id\\n  }\\n}\"}",
-							"type": "text"
-						},
-						{
-							"key": "map",
-							"value": "{\"0\": [\"variables.file\"]}",
-							"type": "text"
-						},
-						{
-							"key": "0",
-							"type": "file",
-							"src": "postman-cloud:///1ef0e9e3-58cb-4450-8333-d05a715d4544"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:3000/graphql",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"graphql"
-					]
+			"data": {
+				"createSummary": {
+					"jobId": 8
 				}
-			},
-			"response": []
+			}
 		}
-	]
+	  ]
+    },
+    {
+      "name": "FetchAllRecords",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept-Encoding",
+            "value": "gzip, deflate, br"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Connection",
+            "value": "keep-alive"
+          },
+          {
+            "key": "Origin",
+            "value": "chrome-extension://flnheeellpciglgpaodhkhmapeljopja"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "{summaries(options:{limit:10 offset:0 sortOrder:ASC filters:[{field:\"job_id\",operator:\"in\",value:\"[5,6]\"}]}){limit offset summaries{createdBy createdOn job_id inputFile jobStatus modifiedBy modifiedOn outputText status}total}}",
+            "variables": ""
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/graphql",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["graphql"]
+        }
+      },
+      "response": [
+        {
+          "data": {
+            "summaries": {
+              "limit": 10,
+              "offset": 0,
+              "summaries": [
+                {
+                  "createdBy": "admin",
+                  "createdOn": "2024-05-11T07:19:29.000Z",
+                  "job_id": 5,
+                  "inputFile": "98fc73e3-caec-4ff1-b24b-f9f74fee5f6d_uploadfileapi.json",
+                  "jobStatus": 1,
+                  "modifiedBy": "admin",
+                  "modifiedOn": "2024-05-11T07:19:29.000Z",
+                  "outputText": null,
+                  "status": 1
+                },
+                {
+                  "createdBy": "admin",
+                  "createdOn": "2024-05-11T07:19:34.000Z",
+                  "job_id": 6,
+                  "inputFile": "7a995221-b5f9-4a82-8518-c97f1b78c4a3_uploadfileapi.json",
+                  "jobStatus": 1,
+                  "modifiedBy": "admin",
+                  "modifiedOn": "2024-05-11T07:19:34.000Z",
+                  "outputText": null,
+                  "status": 1
+                }
+              ],
+              "total": 2
+            }
+          }
+        }
+      ]
+    }
+  ]
 }
