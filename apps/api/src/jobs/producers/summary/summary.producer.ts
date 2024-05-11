@@ -2,6 +2,7 @@ import { Injectable, Logger, Optional } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 import { Summary } from 'src/modules/summary/entities/summary.entity';
+import { SUMMARY_QUEUE } from 'src/modules/summary/queues/summary.queue';
 // import { ChannelType } from 'src/common/constants/summary';
 
 @Injectable()
@@ -9,7 +10,7 @@ export class SummaryQueueProducer {
   private readonly logger = new Logger(SummaryQueueProducer.name);
 
   constructor(
-    @Optional() @InjectQueue() private readonly summaryQueue: Queue,
+    @Optional() @InjectQueue(SUMMARY_QUEUE) private readonly summaryQueue: Queue,
   ) {}
 
   private listenForError(): void {
@@ -26,6 +27,7 @@ export class SummaryQueueProducer {
   }
 
   async addsummaryToQueue(summary: Summary): Promise<void> {
+    this.logger.log(summary.jobId)
     if (this.summaryQueue) {
       await this.summaryQueue.add(summary.jobId);
     }

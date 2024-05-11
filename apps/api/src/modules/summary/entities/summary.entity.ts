@@ -12,7 +12,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 @Entity({ name: 'jobs' })
 @ObjectType()
 export class Summary {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({name: 'job_id'})
   @Field()
   jobId: number;
 
@@ -34,17 +34,17 @@ export class Summary {
   @Field()
   createdOn: Date;
 
-  @UpdateDateColumn({ name: 'updated_on' })
+  @UpdateDateColumn({ name: 'modified_on' })
   @Field()
-  updatedOn: Date;
+  modifiedOn: Date;
 
   @Column({ name: 'created_by' })
   @Field()
   createdBy: string;
 
-  @Column({ name: 'updated_by' })
+  @Column({ name: 'modified_by' })
   @Field()
-  updatedBy: string;
+  modifiedBy: string;
 
   @Column({
     type: 'tinyint',

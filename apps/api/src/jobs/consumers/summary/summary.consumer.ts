@@ -6,8 +6,9 @@ import { SUMMARY_QUEUE } from 'src/modules/summary/queues/summary.queue';
 import { SummaryService } from 'src/modules/summary/summary.service';
 import { Repository } from 'typeorm';
 import { Summary } from 'src/modules/summary/entities/summary.entity'; 
+import { JobStatus } from 'src/common/constants/summary';
 
-@Injectable()
+// @Injectable()
 @Processor(SUMMARY_QUEUE)
 export class SummaryConsumer {
   private readonly logger = new Logger(SummaryConsumer.name);
@@ -16,17 +17,18 @@ export class SummaryConsumer {
     @InjectRepository(Summary)
     private readonly summaryRepository: Repository<Summary>,
     private readonly summaryService: SummaryService, 
-    private readonly summaryConsumer: SummaryConsumer
+    // private readonly summaryConsumer: SummaryConsumer
   ) {}
 
   @Process()
   async processSummary(job: Job<number>): Promise<void> {
-    await this.summaryConsumer.processSummaryQueue(job);
+    await this.processSummaryQueue(job);
   }
 
   async processSummaryQueue(job: Job<number>): Promise<void> {
     const jobId = job.data;
-    const summary = await this.summaryService.getSummaryById(jobId);
+    console.log(jobId);
+    const summary = await this.summaryService.getSummaryById(jobId)[0];
     if (!summary) {
       this.logger.error(`Summary with ID ${jobId} not found.`);
       return;
@@ -35,9 +37,17 @@ export class SummaryConsumer {
     try {
       // Generate random text for testing
       const randomSummaryText = this.generateRandomSummary();
+      summary.output_text = randomSummaryText;
+
+      // Save summary
+      await this.summaryRepository.save(summary);
+
+      // Update job status to SUCCESS
+      summary.jobStatus = JobStatus.SUCCESS;
       await this.summaryRepository.save(summary);
       this.logger.log(`Processing summary job with ID: ${jobId}`);
     } catch (error) {
+      summary.jobStatus = JobStatus.FAILED;
       this.logger.error(`Error processing summary job with ID: ${jobId}`);
       this.logger.error(error);
     }

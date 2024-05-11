@@ -8,21 +8,26 @@ import { BullModule } from '@nestjs/bull';
 import { SummaryQueueProducer } from 'src/jobs/producers/summary/summary.producer';
 import { SummaryConsumer} from 'src/jobs/consumers/summary/summary.consumer';
 import { ScheduleService } from './schedule/schedule.service';
+import { ConfigService } from '@nestjs/config';
+import { summaryQueueConfig } from './queues/summary.queue';
 
 
 @Module({
   imports: [
+
     TypeOrmModule.forFeature([Summary]), // Import TypeORM module for Summary entity
-    BullModule.registerQueue({
-      name: 'summary-queue', // Name of the queue
-    }),
+    BullModule.registerQueue(summaryQueueConfig),
   ],
   providers: [
     ScheduleService,
     SummaryService,
     SummaryResolver,
-    SummaryQueueProducer,
     SummaryConsumer,
+    SummaryQueueProducer,
+    ConfigService,
   ],
+  exports: [
+    SummaryService,
+  ]
 })
 export class SummaryModule {}
