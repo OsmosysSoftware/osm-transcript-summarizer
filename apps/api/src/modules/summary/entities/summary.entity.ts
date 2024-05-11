@@ -5,9 +5,9 @@ import { JobStatus, Status } from 'src/common/constants/summary';
 @Entity({ name: 'summary' })
 @ObjectType()
 export class Summary {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ name: 'job_id' })
   @Field()
-  job_id: number;
+  jobId: number;
 
   @Column({ name: 'job_status', type: 'tinyint', default: 1, width: 1 })
   @IsEnum(JobStatus)
@@ -28,7 +28,7 @@ export class Summary {
   createdOn: Date;
 
   @UpdateDateColumn({ name: 'modified_on'})
-  @Field({ nullable: true })
+  @Field()
   modifiedOn: Date;
 
   @Column({ name: 'created_by', default: 'admin' })
