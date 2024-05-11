@@ -1,0 +1,29 @@
+<div class="main flex justify-content-center mt-8">
+  <div class="transcript-analyzer">
+    <div class="buttons flex flex-column align-items-center mb-3">
+      <input
+        type="file"
+        #fileInput
+        style="display: none"
+        (change)="onFileSelected($event)"
+        accept=".vtt,.txt"
+      />
+      <p-button (click)="fileInput.click()" severity="success">{{
+        'TRANSCRIPT.BUTTONS.UPLOAD' | translate
+      }}</p-button>
+      <span *ngIf="selectedFileName" class="file-name absolute text-base">{{
+        selectedFileName
+      }}</span>
+      <p-button (click)="summarizeTranscript()">{{
+        'TRANSCRIPT.BUTTONS.SUMMARIZE' | translate
+      }}</p-button>
+      <span *ngIf="limitError" class="error absolute">{{
+        'TRANSCRIPT.ERRORS.FILE_SIZE' | translate
+      }}</span>
+      <span *ngIf="invalidTypeError" class="error absolute">{{
+        'TRANSCRIPT.ERRORS.FILE_TYPE' | translate
+      }}</span>
+    </div>
+    <app-file-processor></app-file-processor>
+  </div>
+</div>

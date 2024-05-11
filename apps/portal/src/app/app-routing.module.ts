@@ -1,10 +1,28 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
-const routes: Routes = [];
+import { TranscriptAnalyzerComponent } from './features/transcript-analyzer/transcript-analyzer.component';
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(
+      [
+        {
+          path: 'transcript',
+          component: TranscriptAnalyzerComponent,
+        },
+        {
+          path: '**',
+          redirectTo: 'transcript',
+          pathMatch: 'full',
+        },
+      ],
+      {
+        scrollPositionRestoration: 'enabled',
+        anchorScrolling: 'enabled',
+        onSameUrlNavigation: 'reload',
+      },
+    ),
+  ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export default class AppRoutingModule {}

@@ -28,7 +28,8 @@ export class SummaryConsumer {
   async processSummaryQueue(job: Job<number>): Promise<void> {
     const jobId = job.data;
     console.log(jobId);
-    const summary = await this.summaryService.getSummaryById(jobId)[0];
+    const summaries = await this.summaryService.getSummaryById(jobId);
+    const summary = summaries[0];
     if (!summary) {
       this.logger.error(`Summary with ID ${jobId} not found.`);
       return;
@@ -37,7 +38,7 @@ export class SummaryConsumer {
     try {
       // Generate random text for testing
       const randomSummaryText = this.generateRandomSummary();
-      summary.output_text = randomSummaryText;
+      summary.outputFile = randomSummaryText;
 
       // Save summary
       await this.summaryRepository.save(summary);

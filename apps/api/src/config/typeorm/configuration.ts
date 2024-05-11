@@ -13,7 +13,6 @@ export default new DataSource({
   username: configService.getOrThrow<string>('DB_USERNAME'),
   password: configService.getOrThrow<string>('DB_PASSWORD'),
   database: configService.getOrThrow<string>('DB_NAME'),
-  logging: configService.getOrThrow<boolean>('LOGGING'),
   entities: [],
   migrations: ['src/database/migrations/**'],
   synchronize: false,

@@ -26,9 +26,8 @@ export class Summary {
   inputFile: Buffer;
 
   @Column({ name: 'output_text' })
-  @IsEnum(JobStatus)
   @Field()
-  outputFile: number;
+  outputFile: string;
 
   @CreateDateColumn({ name: 'created_on' })
   @Field()

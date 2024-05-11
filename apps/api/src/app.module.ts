@@ -7,8 +7,6 @@ import { ScheduleService } from './modules/summary/schedule/schedule.service';
 import { SummaryModule } from './modules/summary/summary.module';
 import { DatabaseModule } from './database/database.module';
 
-
-
 @Module({
   imports: [
     DatabaseModule,
@@ -22,6 +20,7 @@ import { DatabaseModule } from './database/database.module';
     SummaryModule,
     
   ],
+
   controllers: [AppController],
   providers: [AppService],
 })
