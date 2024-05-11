@@ -5,17 +5,21 @@ import { Summary } from './entities/summary.entity';
 import { CreateSummaryDTO } from './dto/create-summary.dto';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
-import { v4 as uuidv4 } from 'uuid';
+import { QueryOptionsDto } from 'src/common/graphql/dtos/query-options.dto';
+import { CoreService } from 'src/common/graphql/services/core.service';
 import { Status } from 'src/common/constants/summary';
+import { SummaryResponse } from './dto/summary-response.dto';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
-export class SummaryService {
+export class SummaryService extends CoreService<Summary> {
   protected readonly logger = new Logger(SummaryService.name);
 
   constructor(
     @InjectRepository(Summary)
     private readonly summaryRepository: Repository<Summary>,
   ) {
+    super(summaryRepository);
   }
 
   async createSummary(createSummaryInput: CreateSummaryDTO): Promise<Summary> {
@@ -24,7 +28,7 @@ export class SummaryService {
       const { createReadStream, filename } = await inputFile;
 
       const uniqueIdentifier = uuidv4();
-      const modifiedFilename = `${filename}_${uniqueIdentifier}`;
+      const modifiedFilename = `${uniqueIdentifier}_${filename}`;
       const fileLocation = join(process.cwd(), `./src/upload/${modifiedFilename}`);
 
       return new Promise((resolve, reject) => {
@@ -46,8 +50,22 @@ export class SummaryService {
     }
   }
 
-  async findAllJobs(): Promise<Summary[]> {
-    return this.summaryRepository.find({ where: { status: Status.ACTIVE } });
+  async findAllJobs(
+    options: QueryOptionsDto): Promise<SummaryResponse> {
+    this.logger.log('Getting all jobs with options.');
+
+    const baseConditions = [
+      { field: 'status', value: Status.ACTIVE },
+    ];
+    const searchableFields = ['createdBy', 'data', 'result'];
+
+    const { items, total } = await super.findAll(
+      options,
+      'summary',
+      searchableFields,
+      baseConditions,
+    );
+    return new SummaryResponse(items, total, options.offset, options.limit);
   }
 
 }
