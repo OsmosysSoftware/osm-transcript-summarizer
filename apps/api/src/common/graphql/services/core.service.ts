@@ -6,10 +6,10 @@ import { QueryOptionsDto } from '../dtos/query-options.dto';
 export abstract class CoreService<TEntity> {
   protected readonly logger = new Logger(CoreService.name);
 
-  constructor(protected readonly repository: Repository<TEntity>) {}
+  constructor(protected readonly repository: Repository<TEntity>) { }
 
   // List of date fields for comparison handling
-  private dateFields: string[] = ['createdOn', 'updatedOn']; // Customize based on your entity fields
+  private dateFields: string[] = ['createdOn', 'modifiedOn']; // Customize based on your entity fields
 
   private isDateField(field: string): boolean {
     return this.dateFields.includes(field);
@@ -24,12 +24,6 @@ export abstract class CoreService<TEntity> {
     this.logger.log(`Getting all ${alias} with options`);
 
     const queryBuilder = this.repository.createQueryBuilder(alias);
-
-    // Perform a Left Join to fetch and display related applicationDetails only for 'notification' findAll
-    if (alias === 'notification') {
-      queryBuilder.leftJoinAndSelect(`${alias}.applicationDetails`, 'application');
-      queryBuilder.leftJoinAndSelect(`${alias}.providerDetails`, 'provider');
-    }
 
     // Apply base conditions
     baseConditions.forEach((condition) => {
@@ -83,7 +77,6 @@ export abstract class CoreService<TEntity> {
         case 'ne':
           condition += ` != :${paramName}`;
           break;
-        // Add other operators as needed
       }
 
       queryBuilder.andWhere(condition, {

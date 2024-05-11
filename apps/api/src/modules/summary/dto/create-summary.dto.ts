@@ -1,24 +1,20 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Summary } from '../entities/summary.entity';
-
-@ObjectType()
-export class SummaryResponse {
-  @Field(() => [Summary])
-  summaries: Summary[];
-
-  @Field(() => Int)
-  total: number;
-
-  @Field(() => Int)
-  offset: number;
-
-  @Field(() => Int)
-  limit: number;
-
-  constructor(items: Summary[]) {
-    this.summaries = items;
-    // this.total = total;
-    // this.offset = offset ?? 0;
-    // this.limit = limit ?? items.length;
-  }
+import { InputType, Field } from '@nestjs/graphql';
+import { IsOptional } from 'class-validator';
+import { Stream } from 'stream';
+import GraphQLUpload = require('graphql-upload/GraphQLUpload.js');
+export interface FileUpload {
+  filename: string;
+  mimetype: string;
+  encoding: string;
+  createReadStream: () => Stream;
 }
+
+@InputType()
+export class CreateSummaryDTO {
+
+  @Field(() => GraphQLUpload)
+  @IsOptional()
+  inputFile?: Promise<FileUpload>;
+
+}
+

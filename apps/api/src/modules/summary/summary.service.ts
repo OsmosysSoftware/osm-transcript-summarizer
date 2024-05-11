@@ -5,6 +5,10 @@ import { Repository } from 'typeorm';
 import { SummaryResponse } from './dto/create-summary.dto';
 import { JobStatus, Status } from 'src/common/constants/summary';
 import { SummaryQueueProducer } from 'src/jobs/producers/summary/summary.producer'
+import { CreateSummaryDTO } from './dto/create-summary.dto';
+import { createWriteStream } from 'fs';
+import { join } from 'path';
+import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -19,6 +23,37 @@ export class SummaryService {
         private readonly summaryQueueService: SummaryQueueProducer,
 
       ) {
+      }
+      async createSummary(createSummaryInput: CreateSummaryDTO): Promise<Summary> {
+        const { inputFile } = createSummaryInput;
+        if (inputFile) {
+          const { createReadStream, filename } = await inputFile;
+    
+          const uniqueIdentifier = uuidv4();
+          const modifiedFilename = `${filename}_${uniqueIdentifier}`;
+          const fileLocation = join(process.cwd(), `./src/upload/${modifiedFilename}`);
+    
+          return new Promise((resolve, reject) => {
+            createReadStream()
+              .pipe(createWriteStream(fileLocation))
+              .on('finish', async () => {
+                const summary = this.summaryRepository.create({ inputFile: modifiedFilename });
+                try {
+                  const savedSummary = await this.summaryRepository.save(summary);
+                  resolve(savedSummary);
+                } catch (error) {
+                  reject(error);
+                }
+              })
+              .on('error', (error) => {
+                reject(error);
+              });
+          });
+        }
+      }
+    
+      async findAllJobs(): Promise<Summary[]> {
+        return this.summaryRepository.find({ where: { status: Status.ACTIVE } });
       }
 
    

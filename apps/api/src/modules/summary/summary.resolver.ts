@@ -1,31 +1,22 @@
-import { Args, Context, Query, Resolver } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { SummaryService } from './summary.service';
 import { Summary } from './entities/summary.entity';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { UseGuards } from '@nestjs/common';
-import { SummaryResponse } from './dto/create-summary.dto';
-import { QueryOptionsDto } from 'src/common/graphql/dtos/query-options.dto';
+import { CreateSummaryDTO } from './dto/create-summary.dto';
 
 @Resolver(() => Summary)
 export class SummaryResolver {
-    constructor(private readonly SummaryService: SummaryService) { }
+  constructor(private readonly summaryService: SummaryService) { }
 
-    @Query(() => SummaryResponse, { name: 'summary' })
-    async findAll(
-        @Context() context
-        // @Args('options', { type: () => QueryOptionsDto, nullable: true, defaultValue: {} })
-        // options: QueryOptionsDto,
-    ): Promise<SummaryResponse> {
-        const request: Request = context.req;
-        const authorizationHeader = request.headers['authorization'];
-        return this.SummaryService.getAllJobsSummary(authorizationHeader);
-    }
+  @Mutation(() => Summary)
+  async createSummary(
+    @Args('createSummaryInput') createSummaryInput: CreateSummaryDTO,
+  ): Promise<Summary> {
+    return this.summaryService.createSummary(createSummaryInput);
+  }
 
-    @Query(() => String)
-    sayHello(): string {
-        return 'Hello World!';
-    }
-
+  @Query(() => [Summary], { name: 'summary' })
+  async findAll(): Promise<Summary[]> {
+    return this.summaryService.findAllJobs();
+  }
 
 }

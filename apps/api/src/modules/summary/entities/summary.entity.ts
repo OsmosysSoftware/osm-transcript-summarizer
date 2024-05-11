@@ -1,32 +1,28 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-  CreateDateColumn,
-} from 'typeorm';
-import { IsEnum, IsOptional, IsObject } from 'class-validator';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { Entity, Column, PrimaryGeneratedColumn, UpdateDateColumn, CreateDateColumn } from 'typeorm';
+import { IsEnum, IsOptional } from 'class-validator';
 import { JobStatus, Status } from 'src/common/constants/summary';
-import { Field, ObjectType } from '@nestjs/graphql';
 
 @Entity({ name: 'jobs' })
 @ObjectType()
 export class Summary {
-  @PrimaryGeneratedColumn({name: 'job_id'})
+  @PrimaryGeneratedColumn()
   @Field()
-  jobId: number;
+  id: number;
 
-  @Column({ name: 'job_status', type: 'tinyint', width: 1 })
+  @Column({ name: 'job_status', type: 'tinyint', default: 1, width: 1 })
   @IsEnum(JobStatus)
   @Field()
   jobStatus: number;
 
-  @Column({ name: 'input_file', type: 'blob' })
-  @Field()
-  inputFile: Buffer;
+  @Column({ name: 'input_file', nullable: true })
+  @Field(() => String)
+  @IsOptional()
+  inputFile: string;
 
   @Column({ name: 'output_text' })
   @Field()
+  @IsOptional()
   outputFile: string;
 
   @CreateDateColumn({ name: 'created_on' })
@@ -37,11 +33,11 @@ export class Summary {
   @Field()
   modifiedOn: Date;
 
-  @Column({ name: 'created_by' })
+  @Column({ name: 'created_by', default: 'admin' })
   @Field()
   createdBy: string;
 
-  @Column({ name: 'modified_by' })
+  @Column({ name: 'modified_by', default: 'admin' })
   @Field()
   modifiedBy: string;
 
@@ -53,8 +49,4 @@ export class Summary {
   @IsEnum(Status)
   @Field()
   status: number;
-
-  constructor(summary: Partial<Summary>) {
-    Object.assign(this, summary);
-  }
 }

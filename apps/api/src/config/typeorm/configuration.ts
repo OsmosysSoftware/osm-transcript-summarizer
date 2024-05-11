@@ -14,6 +14,8 @@ export default new DataSource({
   password: configService.getOrThrow<string>('DB_PASSWORD'),
   database: configService.getOrThrow<string>('DB_NAME'),
   entities: [],
+  autoLoadEntities: true,
   migrations: ['src/database/migrations/**'],
+  migrationsTableName: 'summary_migrations',
   synchronize: false,
 } as DataSourceOptions);
