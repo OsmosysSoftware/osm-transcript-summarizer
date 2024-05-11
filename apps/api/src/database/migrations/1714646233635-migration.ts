@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table, TableForeignKey, } from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class Migration1714646233635 implements MigrationInterface {
 
@@ -6,7 +6,7 @@ export class Migration1714646233635 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'jobs',
+                name: 'summary',
                 columns: [
                     {
                         name: 'job_id',
@@ -55,21 +55,10 @@ export class Migration1714646233635 implements MigrationInterface {
                 ],
             }),
         );
-        await queryRunner.createForeignKey(
-            'jobs',
-            new TableForeignKey({
-                columnNames: ['input_file'],
-                referencedColumnNames: ['file_id'],
-                referencedTableName: 'files',
-                onDelete: 'CASCADE',
-            }),
-        );
-        
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('jobs', 'input_file');
-        await queryRunner.query(`DROP TABLE \`jobs\``);
+        await queryRunner.query(`DROP TABLE \`summary\``);
     }
 
 }
