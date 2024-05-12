@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
+import { MessageService } from 'primeng/api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import AppRoutingModule from './app-routing.module';
 import { PrimeNgModule } from './primeng.module';
 import { AppComponent } from './app.component';
@@ -20,6 +22,7 @@ import { FileProcessorComponent } from './features/file-processor/file-processor
     HttpClientModule,
     PrimeNgModule,
     GraphQLModule,
+    BrowserAnimationsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -28,7 +31,7 @@ import { FileProcessorComponent } from './features/file-processor/file-processor
       },
     }),
   ],
-  providers: [{ provide: ErrorHandler, useClass: MyErrorHandler }],
+  providers: [{ provide: ErrorHandler, useClass: MyErrorHandler }, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
