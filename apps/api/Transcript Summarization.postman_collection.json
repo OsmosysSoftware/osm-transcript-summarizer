@@ -65,14 +65,14 @@
         }
       },
       "response": [
-		{
-			"data": {
-				"createSummary": {
-					"jobId": 8
-				}
-			}
-		}
-	  ]
+        {
+          "data": {
+            "createSummary": {
+              "jobId": 8
+            }
+          }
+        }
+      ]
     },
     {
       "name": "FetchAllRecords",
@@ -103,7 +103,7 @@
         "body": {
           "mode": "graphql",
           "graphql": {
-            "query": "{summaries(options:{limit:10 offset:0 sortOrder:ASC filters:[{field:\"job_id\",operator:\"in\",value:\"[5,6]\"}]}){limit offset summaries{createdBy createdOn job_id inputFile jobStatus modifiedBy modifiedOn outputText status}total}}",
+            "query": "{summaries(options:{limit:10 offset:0 sortOrder:ASC filters:[{field:\"jobId\",operator:\"in\",value:\"[5,6]\"}]}){limit offset summaries{createdBy createdOn jobId inputFile jobStatus modifiedBy modifiedOn outputText status}total}}",
             "variables": ""
           }
         },

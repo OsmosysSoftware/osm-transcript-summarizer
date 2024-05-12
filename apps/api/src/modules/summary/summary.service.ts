@@ -10,6 +10,12 @@ import { CoreService } from 'src/common/graphql/services/core.service';
 import { Status } from 'src/common/constants/summary';
 import { SummaryResponse } from './dto/summary-response.dto';
 import { v4 as uuidv4 } from 'uuid';
+import * as fs from 'fs-extra';
+import { config } from 'dotenv';
+import { ConfigService } from '@nestjs/config';
+
+config();
+const configService = new ConfigService();
 
 @Injectable()
 export class SummaryService extends CoreService<Summary> {
@@ -27,9 +33,11 @@ export class SummaryService extends CoreService<Summary> {
     if (inputFile) {
       const { createReadStream, filename } = await inputFile;
 
-      const uniqueIdentifier = uuidv4();
+      const uniqueIdentifier = uuidv4().replace(/-/g, '').substring(0, 12);
       const modifiedFilename = `${uniqueIdentifier}_${filename}`;
-      const fileLocation = join(process.cwd(), `./src/upload/${modifiedFilename}`);
+      const fileLocation = join(process.cwd(), configService.getOrThrow('Upload_Path'), modifiedFilename);
+
+      await fs.ensureDir(join(process.cwd(), configService.getOrThrow('Upload_Path')));
 
       return new Promise((resolve, reject) => {
         createReadStream()

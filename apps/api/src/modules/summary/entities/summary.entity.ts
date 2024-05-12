@@ -14,7 +14,7 @@ export class Summary {
   @Field()
   jobStatus: number;
 
-  @Column({ name: 'input_file', nullable: true })
+  @Column({ name: 'input_file' })
   @Field(() => String)
   @IsOptional()
   inputFile: string;
@@ -27,7 +27,7 @@ export class Summary {
   @Field()
   createdOn: Date;
 
-  @UpdateDateColumn({ name: 'modified_on'})
+  @UpdateDateColumn({ name: 'modified_on' })
   @Field()
   modifiedOn: Date;
 
