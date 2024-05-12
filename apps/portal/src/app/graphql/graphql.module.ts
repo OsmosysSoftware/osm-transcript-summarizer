@@ -1,8 +1,9 @@
 import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
-import { HttpLink } from 'apollo-angular/http';
+import { HttpLink} from 'apollo-angular/http';
 import { NgModule } from '@angular/core';
 import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
 import { environment } from '../../environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 const uri = environment.graphqlEndpoint;
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<unknown> {
@@ -13,7 +14,7 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<unknown> {
 }
 
 @NgModule({
-  exports: [ApolloModule],
+  exports: [ApolloModule,HttpClientModule],
   providers: [
     {
       provide: APOLLO_OPTIONS,
