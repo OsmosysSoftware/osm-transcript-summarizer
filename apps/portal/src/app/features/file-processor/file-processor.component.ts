@@ -4,7 +4,7 @@ import { MessageService } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { JobDetails } from '../../shared/job-details.interface';
 import { JobStatus } from '../../shared/jobs';
-import { FileService } from '../../shared/services/file.service';
+import { FileService } from '../file.service';
 import { Summary } from '../../shared/summary.interface';
 
 @Component({
