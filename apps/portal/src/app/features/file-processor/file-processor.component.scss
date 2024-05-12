@@ -1,34 +1,19 @@
-.job-table {
-  border-collapse: collapse;
+.table-container {
+  max-height: 400px;
+  overflow-y: auto;
 
-  th,
-  td {
-  padding: 20px;
-  text-align: left;
-  border: 1px solid #dddddd;
+  .job-table {
+    border-collapse: collapse;
+
+    th,
+    td {
+      padding: 20px;
+      text-align: left;
+      border: 1px solid #dddddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
   }
-
-  th {
-    background-color: #f2f2f2;
-  }
-
-  .pending,
-  .queued,
-  .in-progress,
-  .finished {
-    padding: 8px;
-    text-align: center;
-  }
-
-  .pending { color: orange; }
-  .queued { color: yellow; }
-  .in-progress { color: blue; }
-  .finished { color: green; }
 }
-
-
-
-
-
-
-
