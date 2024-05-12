@@ -30,21 +30,25 @@ export class SummaryService extends CoreService<Summary> {
 
   async createSummary(createSummaryInput: CreateSummaryDTO): Promise<Summary> {
     const { inputFile } = createSummaryInput;
+    
+
     if (inputFile) {
       const { createReadStream, filename } = await inputFile;
 
       const uniqueIdentifier = uuidv4().replace(/-/g, '').substring(0, 12);
       const modifiedFilename = `${uniqueIdentifier}_${filename}`;
-      const fileLocation = join(process.cwd(), configService.getOrThrow('Upload_Path'), modifiedFilename);
+      const fileLocation = join(process.env.Upload_Path, modifiedFilename);
 
-      await fs.ensureDir(join(process.cwd(), configService.getOrThrow('Upload_Path')));
+      await fs.ensureDir(process.env.Upload_Path);
 
       return new Promise((resolve, reject) => {
         createReadStream()
           .pipe(createWriteStream(fileLocation))
           .on('finish', async () => {
             const summary = this.summaryRepository.create({ inputFile: modifiedFilename });
+
             try {
+              this.logger.log('Saving Uploaded File Name...');
               const savedSummary = await this.summaryRepository.save(summary);
               resolve(savedSummary);
             } catch (error) {
@@ -58,13 +62,11 @@ export class SummaryService extends CoreService<Summary> {
     }
   }
 
-  async findAllJobs(
-    options: QueryOptionsDto): Promise<SummaryResponse> {
+
+  async findAllJobs(options: QueryOptionsDto): Promise<SummaryResponse> {
     this.logger.log('Getting all jobs with options.');
 
-    const baseConditions = [
-      { field: 'status', value: Status.ACTIVE },
-    ];
+    const baseConditions = [{ field: 'status', value: Status.ACTIVE }];
     const searchableFields = ['createdBy', 'data', 'result'];
 
     const { items, total } = await super.findAll(
@@ -75,6 +77,4 @@ export class SummaryService extends CoreService<Summary> {
     );
     return new SummaryResponse(items, total, options.offset, options.limit);
   }
-
 }
-

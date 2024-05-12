@@ -59,6 +59,7 @@ export abstract class CoreService<TEntity> {
       } else if (this.isDateField(field) && (operator === 'gt' || operator === 'lt')) {
         value = new Date(value) as unknown as string;
       }
+
       const paramName = `param${index}`;
       let condition = `${alias}.${field}`;
 

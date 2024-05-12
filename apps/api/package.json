@@ -15,7 +15,6 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -26,7 +25,9 @@
     "typeorm:run-migrations": "npm run typeorm migration:run -- -d  ./src/config/typeorm/configuration.ts",
     "typeorm:generate-migration": "npm run typeorm migration:generate -d ./src/config/typeorm/configuration.ts ./src/database/migrations/migration",
     "typeorm:revert-migration": "npm run typeorm migration:revert -d ./src/config/typeorm/configuration.ts",
-    "database:reset": "ts-node src/database/database-reset.ts"
+    "database:reset": "ts-node src/database/database-reset.ts",
+    "lint": "eslint \"{src,apps,libs,test}//*.ts\"",
+    "lint:fix": "eslint \"{src,apps,libs,test}//*.ts\" --fix"
   },
   "dependencies": {
     "@apollo/server": "^4.10.4",

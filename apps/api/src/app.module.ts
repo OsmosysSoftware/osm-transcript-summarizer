@@ -7,8 +7,6 @@ import { join } from 'path';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigService } from '@nestjs/config';
 import { SummaryModule } from './modules/summary/summary.module';
-;
-
 const configService = new ConfigService();
 @Module({
   imports: [
@@ -22,6 +20,6 @@ const configService = new ConfigService();
     }),
   ],
   controllers: [AppController],
-  providers: [AppService ],
+  providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
