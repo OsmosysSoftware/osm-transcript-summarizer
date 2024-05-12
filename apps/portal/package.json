@@ -28,6 +28,7 @@
     "@ngx-translate/http-loader": "^8.0.0",
     "apollo-angular": "^7.0.1",
     "apollo-upload-client": "^18.0.1",
+    "extract-files": "^13.0.0",
     "file-saver": "^2.0.5",
     "graphql": "^16.8.1",
     "graphql-upload": "^16.0.2",
