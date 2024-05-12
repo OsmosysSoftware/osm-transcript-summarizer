@@ -1,7 +1,6 @@
 export interface JobDetails {
-  id: number;
   fileName: string;
-  status: string;
+  status: number;
   timestamp: string;
-  summary: string;
+  summary?: string | null;
 }

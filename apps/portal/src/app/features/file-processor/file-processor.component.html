@@ -9,19 +9,19 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let job of jobs">
+      <tr *ngFor="let job of jobDetail; let i = index">
         <td>{{ job.timestamp }}</td>
         <td>{{ job.fileName }}</td>
         <td>
           <p-tag
             [severity]="getSeverity(job.status)"
             styleClass="p-2 flex"
-            value="{{ job.status }}"
+            [value]="getStatusText(job.status)"
           ></p-tag>
         </td>
         <td class="action-cell p-0">
           <p-button
-            *ngIf="job.status === 'FINISHED'"
+            *ngIf="job.status === 4"
             (click)="downloadFile(job.summary, job.fileName)"
             severity="info"
             styleClass="h-2rem p-3 mx-3"

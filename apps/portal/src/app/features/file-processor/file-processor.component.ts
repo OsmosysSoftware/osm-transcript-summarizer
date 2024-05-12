@@ -14,9 +14,8 @@ import { Summary } from '../../shared/summary.interface';
 })
 export class FileProcessorComponent implements OnInit {
   // to do:the name will probably be changed to match the backend
-  jobs: JobDetails[] = [];
+  jobDetail: JobDetails[] = [];
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   summaries: Summary[] = [];
 
   constructor(
@@ -28,11 +27,17 @@ export class FileProcessorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const jobIds = [1, 2]; // Once file upload api is integrated will change this code
+    const jobIds = [1, 2, 3, 4, 5, 6]; // Once file upload api is integrated will change this code
     this.fileService.fetchSummaries(jobIds).subscribe(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (result: any) => {
         this.summaries = result.data.summaries.summaries;
+        this.jobDetail = this.summaries.map((summary) => ({
+          fileName: summary.inputFile.split('_')[1],
+          status: summary.status,
+          timestamp: new Date(summary.createdOn).toLocaleString(),
+          summary: summary.outputText,
+        }));
       },
       (error) => {
         if (error) {
@@ -47,108 +52,45 @@ export class FileProcessorComponent implements OnInit {
         }
       },
     );
-
-    // Dummy data for demonstration
-    const dummyJobs: JobDetails[] = [
-      {
-        id: 1,
-        fileName: 'meeting_minutes.txt',
-        status: JobStatus.finished,
-        timestamp: '2024-05-02 11:37:27',
-        summary: `# Meeting Minutes
-Layout discussion for Angular login page
-Created on: 2024-05-02 11:37:27
-Duration: 00:06:10
-
-# Participants
-- John Doe
-- Amy Smith
-- Troy Pines
-
-# Agenda
-1. Discuss layout for Angular login page
-2. Determine features to include for user experience
-3. Decide on design elements and security measures
-
-# Discussion
-- Simple form layout suggested by Amy Smith and agreed upon by Troy Pines
-- Inclusion of social media login options supported by Amy Smith
-- Forgot password link and two-factor authentication considered by John Doe and Amy Smith
-- Dark mode option and mobile responsiveness discussed by all
-- Error handling features, Google Analytics integration, and CAPTCHA implementation considered for security and user experience
-- User customization options, tooltips for form inputs, and password strength validation suggested for user engagement and security
-
-# Action items
-1. Implement simple form layout for Angular login page
-2. Include social media login options and forgot password link
-3. Integrate two-factor authentication and dark mode option
-4. Ensure mobile responsiveness and error handling features are in place
-5. Implement Google Analytics for tracking and CAPTCHA sparingly
-6. Allow user customization within reasonable limits
-7. Incorporate tooltips for form inputs and password strength validation
-8. Consider multi-language support and terms of service agreement for global user base and legal compliance.`,
-      },
-      {
-        id: 2,
-        fileName: 'meeting_minutes.txt',
-        status: JobStatus.pending,
-        timestamp: '2024-05-02 11:37:27',
-        summary: `# Meeting Minutes
-Layout discussion for Angular login page
-Created on: 2024-05-02 11:37:27
-Duration: 00:06:10
-
-# Participants
-- John Doe
-- Amy Smith
-- Troy Pines
-
-# Agenda
-1. Discuss layout for Angular login page
-2. Determine features to include for user experience
-3. Decide on design elements and security measures
-
-# Discussion
-- Simple form layout suggested by Amy Smith and agreed upon by Troy Pines
-- Inclusion of social media login options supported by Amy Smith
-- Forgot password link and two-factor authentication considered by John Doe and Amy Smith
-- Dark mode option and mobile responsiveness discussed by all
-- Error handling features, Google Analytics integration, and CAPTCHA implementation considered for security and user experience
-- User customization options, tooltips for form inputs, and password strength validation suggested for user engagement and security
-
-# Action items
-1. Implement simple form layout for Angular login page
-2. Include social media login options and forgot password link
-3. Integrate two-factor authentication and dark mode option
-4. Ensure mobile responsiveness and error handling features are in place
-5. Implement Google Analytics for tracking and CAPTCHA sparingly
-6. Allow user customization within reasonable limits
-7. Incorporate tooltips for form inputs and password strength validation
-8. Consider multi-language support and terms of service agreement for global user base and legal compliance.`,
-      },
-    ];
-
-    // later data will be fetched from api in here
-    this.jobs = dummyJobs;
   }
 
   // eslint-disable-next-line class-methods-use-this
-  getSeverity(status: string): string {
+  getSeverity(status: number): string {
     switch (status) {
-      case 'FINISHED':
-        return 'success';
-      case 'PENDING':
+      case 1:
         return 'warning';
-      case 'QUEUED':
+      case 2:
         return 'primary';
-      default:
+      case 3:
         return 'info';
+      case 4:
+        return 'success';
+      default:
+        return 'error';
     }
   }
 
   // eslint-disable-next-line class-methods-use-this
-  downloadFile(summary: string, fileName: string): void {
-    const blob = new Blob([summary], { type: 'text/plain' });
-    FileSaver.saveAs(blob, fileName);
+  getStatusText(status: number): string {
+    switch (status) {
+      case 1:
+        return JobStatus.pending;
+      case 2:
+        return JobStatus.queued;
+      case 3:
+        return JobStatus.inProgress;
+      case 4:
+        return JobStatus.queued;
+      default:
+        return JobStatus.failed;
+    }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  downloadFile(summary: string | null | undefined, fileName: string): void {
+    if (summary !== undefined && summary !== null) {
+      const blob = new Blob([summary], { type: 'text/markdown' });
+      FileSaver.saveAs(blob, fileName);
+    }
   }
 }
