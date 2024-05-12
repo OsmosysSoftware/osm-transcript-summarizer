@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import * as FileSaver from 'file-saver';
 import { JobDetails } from '../../shared/job-details.interface';
 import { JobStatus } from '../../shared/jobs';
+import { FileService } from '../../shared/services/file.service';
 
 @Component({
   selector: 'app-file-processor',
@@ -13,9 +14,26 @@ export class FileProcessorComponent implements OnInit {
   // to do:the name will probably be changed to match the backend
   jobs: JobDetails[] = [];
 
-  constructor(private http: HttpClient) {}
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  summaries: any[] = [];
+
+  constructor(
+    private http: HttpClient,
+    private fileService: FileService,
+  ) {}
 
   ngOnInit(): void {
+    const jobIds = [1, 2]; // Once file upload api is integrated will change this code
+    this.fileService.fetchSummaries(jobIds).subscribe(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (result: any) => {
+        this.summaries = result.data.summaries.summaries;
+      },
+      // eslint-disable-next-line
+      (error) => {
+      },
+    );
+
     // Dummy data for demonstration
     const dummyJobs: JobDetails[] = [
       {
