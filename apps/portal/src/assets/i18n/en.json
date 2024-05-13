@@ -1,6 +1,7 @@
 {
   "ERRORS": {
-    "UNHANDLED_ERROR": "Something went wrong"
+    "UNHANDLED_ERROR": "Something went wrong",
+    "API_ERROR": "Something went wrong while fetching data"
   },
   "TRANSCRIPT": {
     "ERRORS": {
@@ -11,5 +12,8 @@
       "UPLOAD": "Upload File",
       "SUMMARIZE": "Summarize Me"
     }
+  },
+  "FILE_PROCESSOR": {
+    "EMPTY_TABLE": "No data available"
   }
 }
