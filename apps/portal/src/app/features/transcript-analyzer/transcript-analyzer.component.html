@@ -11,18 +11,14 @@
       <p-button (click)="fileInput.click()" severity="success">{{
         'TRANSCRIPT.BUTTONS.UPLOAD' | translate
       }}</p-button>
-      <span *ngIf="selectedFileName" class="file-name absolute text-base">{{
-        selectedFileName
+      <span *ngIf="selectedFileName" class="file-name text-base">{{ selectedFileName }}</span>
+      <span *ngIf="limitError" class="error">{{ 'TRANSCRIPT.ERRORS.FILE_SIZE' | translate }}</span>
+      <span *ngIf="invalidTypeError" class="error">{{
+        'TRANSCRIPT.ERRORS.FILE_TYPE' | translate
       }}</span>
       <p-button (click)="summarizeTranscript()">{{
         'TRANSCRIPT.BUTTONS.SUMMARIZE' | translate
       }}</p-button>
-      <span *ngIf="limitError" class="error absolute">{{
-        'TRANSCRIPT.ERRORS.FILE_SIZE' | translate
-      }}</span>
-      <span *ngIf="invalidTypeError" class="error absolute">{{
-        'TRANSCRIPT.ERRORS.FILE_TYPE' | translate
-      }}</span>
     </div>
     <app-file-processor></app-file-processor>
   </div>

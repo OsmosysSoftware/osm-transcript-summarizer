@@ -17,4 +17,20 @@ export class GraphqlService {
 
     return queryRef.valueChanges;
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  mutate(mutation: DocumentNode, variables: any): Observable<any> {
+    return this.apollo.mutate({
+      mutation,
+      variables: { file: variables.inputFile },
+      context: {
+        hasUpload: true,
+        useMultipart: true,
+        headers: {
+          'content-type': 'application/json',
+          'x-apollo-operation-name': 'createSummary',
+        },
+      },
+    });
+  }
 }
