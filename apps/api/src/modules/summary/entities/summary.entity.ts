@@ -1,5 +1,11 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Entity, Column, PrimaryGeneratedColumn, UpdateDateColumn, CreateDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+  CreateDateColumn,
+} from 'typeorm';
 import { IsEnum, IsOptional } from 'class-validator';
 import { JobStatus, Status } from 'src/common/constants/summary';
 @Entity({ name: 'summary' })
@@ -27,7 +33,7 @@ export class Summary {
   @Field()
   createdOn: Date;
 
-  @UpdateDateColumn({ name: 'modified_on'})
+  @UpdateDateColumn({ name: 'modified_on' })
   @Field()
   modifiedOn: Date;
 
