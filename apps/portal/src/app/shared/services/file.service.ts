@@ -13,8 +13,29 @@ export class FileService {
 
   uploadFile(file: File): Observable<any> {
     console.log("file service",file);
+    const variables = { inputFile: file };
+    console.log(variables);
+    console.log(variables.inputFile);
 
-    const variables = { file: file };
+
     return this.graphqlService.mutate(uploadFileMutation, variables);
   }
+
+  // uploadFile(file: File): any {
+  //   const uploadFileMutation = gql`
+  //     mutation uploadFile($file: Upload!) {
+  //       createSummary(createSummaryInput: { inputFile: $file }) {
+  //         id
+  //       }
+  //     }
+  //   `;
+
+  //   return this.apollo.mutate({
+  //     mutation: uploadFileMutation,
+  //     variables: { file },
+  //     context: {
+  //       useMultipart: true
+  //     }
+  //   });
+  // }
 }

@@ -25,6 +25,8 @@ export class TranscriptAnalyzerComponent {
 
   selectedFileName = '';
 
+  selectedFile: File | null = null;
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
@@ -34,21 +36,19 @@ export class TranscriptAnalyzerComponent {
         this.limitError = false;
         this.invalidTypeError = true;
         this.selectedFileName = '';
+        this.selectedFile = null;
       } else if (!this.isValidFileSize(file)) {
         this.invalidTypeError = false;
         this.limitError = true;
         this.selectedFileName = '';
+        this.selectedFile = null;
       } else {
         console.log(file);
-        this.fileService.uploadFile(file).subscribe((result: ApolloQueryResult<any>) => {
-          console.log('Upload successful:', result);
-        }, error => {
-          console.error('Upload failed:', error);
-        });
         // this.fileService.uploadFile(file);
         this.selectedFileName = file.name;
         this.limitError = false;
         this.invalidTypeError = false;
+        this.selectedFile = file;
       }
     }
   }
@@ -65,6 +65,17 @@ export class TranscriptAnalyzerComponent {
   // eslint-disable-next-line
   summarizeTranscript(): void {
     // eslint-disable-next-line
-    alert('summarizing');
+    if (!this.selectedFile) {
+      console.error('No file selected.');
+      return;
+    }
+
+    console.log(this.selectedFile);
+
+    this.fileService.uploadFile(this.selectedFile).subscribe((result: ApolloQueryResult<any>) => {
+      console.log('Upload successful:', result);
+    }, error => {
+      console.error('Upload failed:', error);
+    });
   }
 }

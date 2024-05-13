@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
 import { environment } from '../../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 
 const uri = environment.graphqlEndpoint;
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<unknown> {
   return {
-    link: httpLink.create({ uri }),
+    // link: httpLink.create({ uri }),
+    link: createUploadLink({ uri }),
     cache: new InMemoryCache(),
   };
 }
