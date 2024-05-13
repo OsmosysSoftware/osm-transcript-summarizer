@@ -8,9 +8,14 @@ import { HttpExceptionFilter } from './common/http-exception.filter';
 import { JsendFormatter } from './common/jsend-formatter';
 
 const logDir = 'logs';
+const uploadDir = 'uploads';
 
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
+}
+
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
 }
 
 async function bootstrap(): Promise<void> {
