@@ -6,6 +6,7 @@ import { ToastModule } from 'primeng/toast';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TagModule } from 'primeng/tag';
+import { TableModule } from 'primeng/table';
 
 const modules = [
   InputTextModule,
@@ -15,6 +16,7 @@ const modules = [
   ProgressSpinnerModule,
   FileUploadModule,
   TagModule,
+  TableModule,
 ];
 
 @NgModule({

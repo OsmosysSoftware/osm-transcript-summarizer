@@ -1,19 +1,5 @@
 .table-container {
   max-height: 400px;
   overflow-y: auto;
-
-  .job-table {
-    border-collapse: collapse;
-
-    th,
-    td {
-      padding: 20px;
-      text-align: left;
-      border: 1px solid #dddddd;
-    }
-
-    th {
-      background-color: #f2f2f2;
-    }
-  }
 }
+

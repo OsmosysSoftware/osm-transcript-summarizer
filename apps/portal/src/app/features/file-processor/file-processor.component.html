@@ -1,15 +1,15 @@
 <div class="table-container">
-  <table class="job-table">
-    <thead>
+  <p-table [value]="jobDetail">
+    <ng-template pTemplate="header">
       <tr>
         <th>Timestamp</th>
         <th>File Name</th>
         <th>Status</th>
         <th>Action</th>
       </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let job of jobDetail; let i = index">
+    </ng-template>
+    <ng-template pTemplate="body" let-job>
+      <tr>
         <td>{{ job.timestamp }}</td>
         <td>{{ job.fileName }}</td>
         <td>
@@ -17,7 +17,8 @@
             [severity]="getSeverity(job.status)"
             styleClass="p-2 flex"
             [value]="getStatusText(job.status)"
-          ></p-tag>
+          >
+          </p-tag>
         </td>
         <td class="action-cell p-0">
           <p-button
@@ -25,10 +26,15 @@
             (click)="downloadFile(job.summary, job.fileName)"
             severity="info"
             styleClass="h-2rem p-3 mx-3"
-            >Download</p-button
-          >
+            >Download
+          </p-button>
         </td>
       </tr>
-    </tbody>
-  </table>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="4" class="text-center">{{ 'FILE_PROCESSOR.EMPTY_TABLE' | translate }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>

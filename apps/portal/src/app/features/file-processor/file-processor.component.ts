@@ -40,8 +40,17 @@ export class FileProcessorComponent implements OnInit {
         }));
       },
       (error) => {
-        if (error) {
+        if (error.status === 0) {
           this.translateService.get('ERRORS.UNHANDLED_ERROR').subscribe((translation: string) => {
+            this.messageService.add({
+              key: 'tst',
+              severity: 'error',
+              summary: 'Network Error',
+              detail: translation,
+            });
+          });
+        } else {
+          this.translateService.get('ERRORS.API_ERROR').subscribe((translation: string) => {
             this.messageService.add({
               key: 'tst',
               severity: 'error',
@@ -62,7 +71,6 @@ export class FileProcessorComponent implements OnInit {
       3: 'info',
       4: 'success',
     };
-
     return severityMap[status] || 'error';
   }
 
