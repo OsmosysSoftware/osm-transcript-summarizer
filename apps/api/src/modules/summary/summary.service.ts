@@ -34,7 +34,9 @@ export class SummaryService extends CoreService<Summary> {
 
       const uniqueIdentifier = uuidv4().replace(/-/g, '').substring(0, 10);
       const modifiedFilename = `${uniqueIdentifier}_${filename}`;
-      const uploadPath = process.env.Upload_Path ? process.env.Upload_Path.replace(/[^\w\s/]/g, '') : null;
+      const uploadPath = process.env.Upload_Path
+        ? process.env.Upload_Path.replace(/[^\w\s/]/g, '')
+        : null;
 
       if (uploadPath) {
         const absoluteUploadPath = resolve(uploadPath);
@@ -44,7 +46,10 @@ export class SummaryService extends CoreService<Summary> {
         await fs.ensureDir(defaultPath);
       }
 
-      const fileLocation = join(uploadPath || resolve(process.cwd(), 'src', 'uploads'), modifiedFilename);
+      const fileLocation = join(
+        uploadPath || resolve(process.cwd(), 'src', 'uploads'),
+        modifiedFilename,
+      );
 
       return new Promise((resolve, reject) => {
         createReadStream()
@@ -53,7 +58,9 @@ export class SummaryService extends CoreService<Summary> {
             const summary = this.summaryRepository.create({ inputFile: modifiedFilename });
 
             try {
-              this.logger.log(`Saving Uploaded File Details for ${modifiedFilename} at ${fileLocation}`);
+              this.logger.log(
+                `Saving Uploaded File Details for ${modifiedFilename} at ${fileLocation}`,
+              );
               const savedSummary = await this.summaryRepository.save(summary);
               resolve(savedSummary);
             } catch (error) {
