@@ -11,19 +11,17 @@ export class GraphqlService {
   constructor(private apollo: Apollo) {}
 
   mutate(mutation: DocumentNode, variables: any): Observable<any> {
-    console.log(variables);
-
     return this.apollo.mutate({
       mutation,
-      variables,
+      variables: { file: variables.inputFile },
       context: {
         hasUpload: true,
         useMultipart: true,
         headers: {
           'content-type': 'application/json',
-          'x-apollo-operation-name': 'uploadFile'
-        }
-      }
+          'x-apollo-operation-name': 'createSummary',
+        },
+      },
     });
   }
 
@@ -39,5 +37,4 @@ export class GraphqlService {
   //     }
   //   });
   // }
-
 }
