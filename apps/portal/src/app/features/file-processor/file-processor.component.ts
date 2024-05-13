@@ -27,7 +27,7 @@ export class FileProcessorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const jobIds = [8,9,10,11,12,13,14]; // Once file upload api is integrated will change this code
+    const jobIds = [8, 9, 10, 11, 12, 13, 14]; // Once file upload api is integrated will change this code
     this.fileService.fetchSummaries(jobIds).subscribe(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (result: any) => {
