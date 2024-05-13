@@ -6,11 +6,23 @@ import { loggerConfig } from './config/logger.config';
 import * as graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
 import { HttpExceptionFilter } from './common/http-exception.filter';
 import { JsendFormatter } from './common/jsend-formatter';
+import { ConfigService } from '@nestjs/config';
+import { config } from 'dotenv';
+
+config();
+
+const configService = new ConfigService();
 
 const logDir = 'logs';
 
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
+}
+
+const uploadDir = configService.getOrThrow('UPLOAD_FOLDER_PATH')?.replace(/[^\w\s/]/g, '') ?? null;
+
+if (uploadDir && !fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
 }
 
 async function bootstrap(): Promise<void> {

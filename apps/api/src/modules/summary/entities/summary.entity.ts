@@ -20,7 +20,7 @@ export class Summary {
   @Field()
   jobStatus: number;
 
-  @Column({ name: 'input_file', nullable: true })
+  @Column({ name: 'input_file' })
   @Field(() => String)
   @IsOptional()
   inputFile: string;

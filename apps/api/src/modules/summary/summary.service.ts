@@ -4,13 +4,20 @@ import { Repository } from 'typeorm';
 import { Summary } from './entities/summary.entity';
 import { CreateSummaryDTO } from './dto/create-summary.dto';
 import { createWriteStream } from 'fs';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import { QueryOptionsDto } from 'src/common/graphql/dtos/query-options.dto';
 import { CoreService } from 'src/common/graphql/services/core.service';
 import { JobStatus, Status } from 'src/common/constants/summary';
 import { SummaryResponse } from './dto/summary-response.dto';
 import { v4 as uuidv4 } from 'uuid';
 import { SummaryQueueProducer } from 'src/jobs/producers/summary/summary.producer';
+import * as fs from 'fs-extra';
+import { ConfigService } from '@nestjs/config';
+import { config } from 'dotenv';
+
+config();
+
+const configService = new ConfigService();
 
 @Injectable()
 export class SummaryService extends CoreService<Summary> {
@@ -31,9 +38,21 @@ export class SummaryService extends CoreService<Summary> {
     if (inputFile) {
       const { createReadStream, filename } = await inputFile;
 
-      const uniqueIdentifier = uuidv4();
+      const uniqueIdentifier = uuidv4().replace(/-/g, '').substring(0, 10);
       const modifiedFilename = `${uniqueIdentifier}_${filename}`;
-      const fileLocation = join(process.cwd(), `./src/upload/${modifiedFilename}`);
+      const uploadPath =
+        configService.getOrThrow('UPLOAD_FOLDER_PATH')?.replace(/[^\w\s/]/g, '') ?? null;
+
+      const uploadFolder = join(process.cwd(), 'uploads');
+
+      if (uploadPath) {
+        const absoluteUploadPath = resolve(uploadPath);
+        await fs.ensureDir(absoluteUploadPath);
+      } else {
+        await fs.ensureDir(uploadFolder);
+      }
+
+      const fileLocation = join(uploadPath || uploadFolder, modifiedFilename);
 
       return new Promise((resolve, reject) => {
         createReadStream()
@@ -42,6 +61,9 @@ export class SummaryService extends CoreService<Summary> {
             const summary = this.summaryRepository.create({ inputFile: modifiedFilename });
 
             try {
+              this.logger.log(
+                `Saving Uploaded File Details for ${modifiedFilename} at ${fileLocation}`,
+              );
               const savedSummary = await this.summaryRepository.save(summary);
               resolve(savedSummary);
             } catch (error) {
