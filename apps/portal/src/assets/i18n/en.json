@@ -6,7 +6,9 @@
   "TRANSCRIPT": {
     "ERRORS": {
       "FILE_TYPE": "Please upload a VTT or TXT file only.",
-      "FILE_SIZE": "File size should not exceed 10 MB."
+      "FILE_SIZE": "File size should not exceed 10 MB.",
+      "NO_FILE": "Please select a file.",
+      "FILE_UPLOAD": "File upload failed. Please try again."
     },
     "BUTTONS": {
       "UPLOAD": "Upload File",

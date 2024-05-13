@@ -18,6 +18,8 @@ export class FileProcessorComponent implements OnInit {
 
   summaries: Summary[] = [];
 
+  jobIds: number[] = [];
+
   constructor(
     private fileService: FileService,
     private messageService: MessageService,
@@ -27,40 +29,42 @@ export class FileProcessorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const jobIds = [8, 9, 10, 11, 12, 13, 14]; // Once file upload api is integrated will change this code
-    this.fileService.fetchSummaries(jobIds).subscribe(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (result: any) => {
-        this.summaries = result.data.summaries.summaries;
-        this.jobDetail = this.summaries.map((summary) => ({
-          fileName: summary.inputFile.split('_')[1],
-          status: summary.status,
-          timestamp: new Date(summary.createdOn).toLocaleString(),
-          summary: summary.outputText,
-        }));
-      },
-      (error) => {
-        if (error.status === 0) {
-          this.translateService.get('ERRORS.UNHANDLED_ERROR').subscribe((translation: string) => {
-            this.messageService.add({
-              key: 'tst',
-              severity: 'error',
-              summary: 'Network Error',
-              detail: translation,
+    this.fileService.jobIds$.subscribe((jobIds) => {
+      this.fileService.fetchSummaries(jobIds).subscribe(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (result: any) => {
+          this.summaries = result.data.summaries.summaries;
+          this.jobDetail = this.summaries.map((summary) => ({
+            fileName: summary.inputFile.split('_')[1],
+            status: summary.status,
+            timestamp: new Date(summary.createdOn).toLocaleString(),
+            summary: summary.outputText,
+          }));
+          this.jobDetail.reverse();
+        },
+        (error) => {
+          if (error.status === 0) {
+            this.translateService.get('ERRORS.UNHANDLED_ERROR').subscribe((translation: string) => {
+              this.messageService.add({
+                key: 'tst',
+                severity: 'error',
+                summary: 'Network Error',
+                detail: translation,
+              });
             });
-          });
-        } else {
-          this.translateService.get('ERRORS.API_ERROR').subscribe((translation: string) => {
-            this.messageService.add({
-              key: 'tst',
-              severity: 'error',
-              summary: 'Error',
-              detail: translation,
+          } else {
+            this.translateService.get('ERRORS.API_ERROR').subscribe((translation: string) => {
+              this.messageService.add({
+                key: 'tst',
+                severity: 'error',
+                summary: 'Error',
+                detail: translation,
+              });
             });
-          });
-        }
-      },
-    );
+          }
+        },
+      );
+    });
   }
 
   // eslint-disable-next-line class-methods-use-this
