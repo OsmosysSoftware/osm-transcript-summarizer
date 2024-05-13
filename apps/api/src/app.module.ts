@@ -1,18 +1,27 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { BullModule } from '@nestjs/bull';
+import { ScheduleModule } from '@nestjs/schedule';
+import { SummaryModule } from './modules/summary/summary.module';
 import { DatabaseModule } from './database/database.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigService } from '@nestjs/config';
-import { SummaryModule } from './modules/summary/summary.module';
-;
 
 const configService = new ConfigService();
 @Module({
   imports: [
     DatabaseModule,
+    SummaryModule,
+    BullModule.forRoot({
+      redis: {
+        host: configService.getOrThrow<string>('REDIS_HOST'),
+        port: +configService.getOrThrow<number>('REDIS_PORT'),
+      },
+    }),
+    ScheduleModule.forRoot(),
     SummaryModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
@@ -22,6 +31,6 @@ const configService = new ConfigService();
     }),
   ],
   controllers: [AppController],
-  providers: [AppService ],
+  providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

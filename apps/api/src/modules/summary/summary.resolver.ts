@@ -7,7 +7,7 @@ import { SummaryResponse } from './dto/summary-response.dto';
 
 @Resolver(() => Summary)
 export class SummaryResolver {
-  constructor(private readonly summaryService: SummaryService) { }
+  constructor(private readonly summaryService: SummaryService) {}
 
   @Mutation(() => Summary)
   async createSummary(
@@ -19,7 +19,7 @@ export class SummaryResolver {
   @Query(() => SummaryResponse, { name: 'summaries' })
   async findAll(
     @Args('options', { type: () => QueryOptionsDto, nullable: true, defaultValue: {} })
-    options: QueryOptionsDto
+    options: QueryOptionsDto,
   ): Promise<SummaryResponse> {
     return this.summaryService.findAllJobs(options);
   }
