@@ -56,18 +56,14 @@ export class FileProcessorComponent implements OnInit {
 
   // eslint-disable-next-line class-methods-use-this
   getSeverity(status: number): string {
-    switch (status) {
-      case 1:
-        return 'warning';
-      case 2:
-        return 'primary';
-      case 3:
-        return 'info';
-      case 4:
-        return 'success';
-      default:
-        return 'error';
-    }
+    const severityMap: { [key: number]: string } = {
+      1: 'warning',
+      2: 'primary',
+      3: 'info',
+      4: 'success',
+    };
+
+    return severityMap[status] || 'error';
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -80,8 +76,7 @@ export class FileProcessorComponent implements OnInit {
       5: JobStatus.failed,
     };
 
-    const jobStatus = statusTextMap[status as keyof typeof statusTextMap];
-    return jobStatus || 'Unknown';
+    return statusTextMap[status];
   }
 
   // eslint-disable-next-line class-methods-use-this
