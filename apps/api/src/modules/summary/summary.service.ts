@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { Summary } from './entities/summary.entity';
 import { CreateSummaryDTO } from './dto/create-summary.dto';
 import { createWriteStream } from 'fs';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import { QueryOptionsDto } from 'src/common/graphql/dtos/query-options.dto';
 import { CoreService } from 'src/common/graphql/services/core.service';
 import { JobStatus, Status } from 'src/common/constants/summary';
@@ -34,11 +34,17 @@ export class SummaryService extends CoreService<Summary> {
 
       const uniqueIdentifier = uuidv4().replace(/-/g, '').substring(0, 10);
       const modifiedFilename = `${uniqueIdentifier}_${filename}`;
-      const fileLocation = process.env.Upload_Path
-        ? join(process.env.Upload_Path, modifiedFilename)
-        : join(process.cwd(), `./src/uploads/${modifiedFilename}`);
+      const uploadPath = process.env.Upload_Path ? process.env.Upload_Path.replace(/[^\w\s/]/g, '') : null;
 
-      await fs.ensureDir(process.env.Upload_Path || join(process.cwd(), './src/uploads/'));
+      if (uploadPath) {
+        const absoluteUploadPath = resolve(uploadPath);
+        await fs.ensureDir(absoluteUploadPath);
+      } else {
+        const defaultPath = join(process.cwd(), 'src', 'uploads');
+        await fs.ensureDir(defaultPath);
+      }
+
+      const fileLocation = join(uploadPath || resolve(process.cwd(), 'src', 'uploads'), modifiedFilename);
 
       return new Promise((resolve, reject) => {
         createReadStream()
