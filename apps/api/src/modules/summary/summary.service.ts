@@ -25,16 +25,18 @@ export class SummaryService extends CoreService<Summary> {
 
   async createSummary(createSummaryInput: CreateSummaryDTO): Promise<Summary> {
     const { inputFile } = createSummaryInput;
-    
+
 
     if (inputFile) {
       const { createReadStream, filename } = await inputFile;
 
       const uniqueIdentifier = uuidv4().replace(/-/g, '').substring(0, 10);
       const modifiedFilename = `${uniqueIdentifier}_${filename}`;
-      const fileLocation = join(process.env.Upload_Path, modifiedFilename);
+      const fileLocation = process.env.Upload_Path
+        ? join(process.env.Upload_Path, modifiedFilename)
+        : join(process.cwd(), `./src/uploads/${modifiedFilename}`);
 
-      await fs.ensureDir(process.env.Upload_Path);
+      await fs.ensureDir(process.env.Upload_Path || join(process.cwd(), './src/uploads/'));
 
       return new Promise((resolve, reject) => {
         createReadStream()
@@ -43,7 +45,7 @@ export class SummaryService extends CoreService<Summary> {
             const summary = this.summaryRepository.create({ inputFile: modifiedFilename });
 
             try {
-              this.logger.log('Saving Uploaded File Name...');
+              this.logger.log('Saving Uploaded File Details...');
               const savedSummary = await this.summaryRepository.save(summary);
               resolve(savedSummary);
             } catch (error) {
