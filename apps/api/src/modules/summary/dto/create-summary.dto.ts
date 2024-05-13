@@ -11,10 +11,7 @@ export interface FileUpload {
 
 @InputType()
 export class CreateSummaryDTO {
-
   @Field(() => GraphQLUpload)
   @IsOptional()
   inputFile?: Promise<FileUpload>;
-
 }
-

@@ -8,9 +8,7 @@ import { SUMMARY_QUEUE } from 'src/modules/summary/queues/summary.queue';
 export class SummaryQueueProducer {
   private readonly logger = new Logger(SummaryQueueProducer.name);
 
-  constructor(
-    @Optional() @InjectQueue(SUMMARY_QUEUE) private readonly summaryQueue: Queue,
-  ) {}
+  constructor(@Optional() @InjectQueue(SUMMARY_QUEUE) private readonly summaryQueue: Queue) {}
 
   private listenForError(): void {
     if (this.summaryQueue) {
@@ -26,7 +24,8 @@ export class SummaryQueueProducer {
   }
 
   async addsummaryToQueue(summary: Summary): Promise<void> {
-    this.logger.log(summary.jobId)
+    this.logger.log(summary.jobId);
+
     if (this.summaryQueue) {
       await this.summaryQueue.add(summary.jobId);
     }

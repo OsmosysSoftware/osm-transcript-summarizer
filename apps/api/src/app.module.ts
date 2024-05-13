@@ -17,8 +17,8 @@ const configService = new ConfigService();
     SummaryModule,
     BullModule.forRoot({
       redis: {
-        host: 'localhost',
-        port: 6379,
+        host: configService.getOrThrow<string>('REDIS_HOST'),
+        port: +configService.getOrThrow<number>('REDIS_PORT'),
       },
     }),
     ScheduleModule.forRoot(),
@@ -31,6 +31,6 @@ const configService = new ConfigService();
     }),
   ],
   controllers: [AppController],
-  providers: [AppService ],
+  providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
