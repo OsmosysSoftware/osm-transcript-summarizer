@@ -47,7 +47,7 @@ export class SummaryService extends CoreService<Summary> {
             const summary = this.summaryRepository.create({ inputFile: modifiedFilename });
 
             try {
-              this.logger.log('Saving Uploaded File Details...');
+              this.logger.log(`Saving Uploaded File Details for ${modifiedFilename} at ${fileLocation}`);
               const savedSummary = await this.summaryRepository.save(summary);
               resolve(savedSummary);
             } catch (error) {
