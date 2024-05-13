@@ -27,7 +27,7 @@ export class FileProcessorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const jobIds = [1, 2, 3, 4, 5, 6]; // Once file upload api is integrated will change this code
+    const jobIds = [8,9,10,11,12,13,14]; // Once file upload api is integrated will change this code
     this.fileService.fetchSummaries(jobIds).subscribe(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (result: any) => {
@@ -72,18 +72,16 @@ export class FileProcessorComponent implements OnInit {
 
   // eslint-disable-next-line class-methods-use-this
   getStatusText(status: number): string {
-    switch (status) {
-      case 1:
-        return JobStatus.pending;
-      case 2:
-        return JobStatus.queued;
-      case 3:
-        return JobStatus.inProgress;
-      case 4:
-        return JobStatus.queued;
-      default:
-        return JobStatus.failed;
-    }
+    const statusTextMap: { [key: number]: JobStatus } = {
+      1: JobStatus.pending,
+      2: JobStatus.queued,
+      3: JobStatus.inProgress,
+      4: JobStatus.finished,
+      5: JobStatus.failed,
+    };
+
+    const jobStatus = statusTextMap[status as keyof typeof statusTextMap];
+    return jobStatus || 'Unknown';
   }
 
   // eslint-disable-next-line class-methods-use-this
