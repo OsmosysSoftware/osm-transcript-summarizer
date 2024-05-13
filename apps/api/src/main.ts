@@ -21,7 +21,7 @@ if (!fs.existsSync(logDir)) {
 
 const uploadDir = configService.getOrThrow('UPLOAD_FOLDER_PATH')?.replace(/[^\w\s/]/g, '') ?? null;
 
-if (!fs.existsSync(uploadDir)) {
+if (uploadDir && !fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }
 
