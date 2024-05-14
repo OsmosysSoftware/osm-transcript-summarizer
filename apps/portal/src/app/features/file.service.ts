@@ -16,12 +16,12 @@ export class FileService {
     private graphqlService: GraphqlService,
     private apollo: Apollo,
   ) {
-    this.jobIdsSubject.next(JSON.parse(localStorage.getItem('jobIds') || '[]'));
+    this.jobIdsSubject.next(JSON.parse(sessionStorage.getItem('jobIds') || '[]'));
   }
 
   updateJobIds(jobId: number): void {
     const jobIds = [...this.jobIdsSubject.value, jobId];
-    localStorage.setItem('jobIds', JSON.stringify(jobIds));
+    sessionStorage.setItem('jobIds', JSON.stringify(jobIds));
     this.jobIdsSubject.next(jobIds);
   }
 
