@@ -10,13 +10,9 @@ import { ScheduleService } from './schedule/schedule.service';
 import { ConfigService } from '@nestjs/config';
 import { summaryQueueConfig } from './queues/summary.queue';
 import { MeetingSummaryService } from 'src/modules/summary/summarizer/summarizer.service';
-import { OpenAI } from 'src/common/openai/openai-client';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Summary]), // Import TypeORM module for Summary entity
-    BullModule.registerQueue(summaryQueueConfig),
-  ],
+  imports: [TypeOrmModule.forFeature([Summary]), BullModule.registerQueue(summaryQueueConfig)],
   providers: [
     ScheduleService,
     SummaryService,
@@ -25,15 +21,7 @@ import { OpenAI } from 'src/common/openai/openai-client';
     SummaryQueueProducer,
     ConfigService,
     MeetingSummaryService,
-    {
-      provide: OpenAI,
-      useFactory: (configService: ConfigService) => {
-        const apiKey = configService.get('OPENAI_API_KEY');
-        return new OpenAI(apiKey);
-      },
-      inject: [ConfigService],
-    },
   ],
-  exports: [SummaryService, MeetingSummaryService, OpenAI],
+  exports: [SummaryService, MeetingSummaryService],
 })
 export class SummaryModule {}

@@ -1,49 +1,78 @@
-import { Injectable } from '@nestjs/common';
-import { OpenAI } from 'src/common/openai/openai-client'; // Assume OpenAI client implementation
-import { DateTime } from 'luxon'; // Use Luxon for date-time manipulation
-import * as fs from 'fs/promises';
+import { Injectable, Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { OpenAI } from 'openai';
+
+interface Chunk {
+  startTime: string;
+  endTime: string;
+  name: string;
+  content: string;
+}
+const GPT_MODEL = 'gpt-3.5-turbo';
 
 @Injectable()
 export class MeetingSummaryService {
-  constructor(private readonly openAI: OpenAI) {}
+  private readonly openAI: OpenAI;
+  private readonly logger = new Logger(MeetingSummaryService.name);
+  constructor(private readonly configService: ConfigService) {
+    const apiKey = this.configService.getOrThrow<string>('OPENAI_API_KEY');
 
-  parseTranscript(transcript: string): any[] {
-    const lines = transcript.split('\n').map(line => line.trim()).filter(line => line);
+    if (!apiKey) {
+      throw new Error('Missing OpenAI API key');
+    }
 
-    const timePattern = /(\d{1,2}:\d{2}:\d{2}(?:\.\d{1,3})?) --> (\d{1,2}:\d{2}:\d{2}(?:\.\d{1,3})?)/;
-    const chunks = [];
+    this.openAI = new OpenAI({ apiKey });
+  }
 
-    for (let i = 0; i < lines.length; i++) {
+  async parseTranscript(fileContent: string): Promise<Chunk[]> {
+    const lines = fileContent
+      .split('\n')
+      .map((line) => line.trim())
+      .filter((line) => line);
+    const timePattern =
+      /(\d{1,2}:\d{2}:\d{2}(?:\.\d{1,3})?) --> (\d{1,2}:\d{2}:\d{2}(?:\.\d{1,3})?)/;
+    const chunks: Chunk[] = [];
+    let i = 0;
+
+    while (i < lines.length) {
       const match = lines[i].match(timePattern);
+
       if (match) {
-        const start_time = match[1];
-        const end_time = match[2];
+        const [startTime, endTime] = match.slice(1, 3);
+
         if (i + 2 < lines.length) {
           const name = lines[i + 1];
           const content = lines[i + 2];
-          chunks.push({
-            start_time,
-            end_time,
-            name,
-            content
-          });
-          i += 2; // Move to the next block
+          chunks.push({ startTime, endTime, name, content });
         }
+
+        i += 3;
+      } else {
+        i += 1;
       }
     }
+
     return chunks;
   }
 
+  calculateDuration(chunks: Chunk[]): string {
+    if (!chunks.length) {
+      return '00:00:00';
+    }
+
+    return chunks[chunks.length - 1].endTime;
+  }
+
   async summarizeMeetingUsingChatbot(context: string, duration: string): Promise<string> {
-    const formatted_time = DateTime.now().toFormat("yyyy-MM-dd HH:mm:ss");
-    const message_template = `
+    const formattedTime = new Date().toISOString().split('T').join(' ').split('.')[0];
+    const messageTemplate = `
       Act as a meeting note taker. I have a transcript of a teams meeting as follows: ${context}
 
       I want a summary of the transcript in the following format:
 
       # Meeting Minutes
       Give appropriate discussion heading
-      Created on: ${formatted_time}
+      Created on: ${formattedTime}
       Duration: ${duration}
 
       # Participants
@@ -53,76 +82,86 @@ export class MeetingSummaryService {
       Brief summary what the meeting was about in max 3 points
 
       # Discussion
-      Give the main disucssion points and the speaker names. Give answer in points. Be as descriptive as possible.
+      Give the main discussion points and the speaker names. Give answer in points. Be as descriptive as possible.
 
       # Action items
       Give what was the outcome, tasks assigned, end result if any of the discussion in points
     `;
-    console.log('here is the message template' + message_template);
-    const chat = await this.openAI.generateSummary(message_template);
+
+    const chat = await this.openAI.chat.completions.create({
+      model: GPT_MODEL,
+      messages: [{ role: 'user', content: messageTemplate }],
+    });
+
     return chat.choices[0].message.content;
   }
 
-  async combineSummariesUsingChatbot(summaries: string[], duration: string): Promise<string> {
-    const formatted_time = DateTime.now().toFormat("yyyy-MM-dd HH:mm:ss");
-    const message_template = `
-      Act as a meeting note summarizer. I have summaries of a teams meeting noted by different people as follows: ${summaries.join('\n')}
+  async createBatches(chunks: string[], maxTokens = 5000): Promise<string[]> {
+    const batches: string[] = [];
+    let currentBatch: string[] = [];
+    let currentLength = 0;
 
-      I want a combined summary of the multiple summaries of same call in the following format:
+    for (const chunk of chunks) {
+      const chunkLength = chunk.split(' ').length;
 
-      # Meeting Minutes
-      Give appropriate discussion heading
-      Created on: ${formatted_time}
-      Duration: ${duration}
-
-      # Participants
-      Display list of participants name involved
-
-      # Agenda
-      Brief summary what the meeting was about in max 3 points
-
-      # Discussion
-      Give the main disucssion points and the speaker names. Give answer in points. Be as descriptive as possible.
-
-      # Action items
-      Give what was the outcome, tasks assigned, end result if any of the discussion in points
-    `;
-    
-    const chat = await this.openAI.generateSummary(message_template);
-    return chat.choices[0].message.content;
-  }
-
-    async saveSummaryToFile(summary: string, outputFilePath: string): Promise<void> {
-    try {
-      fs.writeFile(outputFilePath, summary);
-      console.log(`Summary saved to file: ${outputFilePath}`);
-    } catch (error) {
-      console.error(`Error saving summary to file: ${error.message}`);
-      throw error;
+      if (currentLength + chunkLength > maxTokens) {
+        batches.push(currentBatch.join(' '));
+        currentBatch = [chunk];
+        currentLength = chunkLength;
+      } else {
+        currentBatch.push(chunk);
+        currentLength += chunkLength;
+      }
     }
+
+    if (currentBatch.length) {
+      batches.push(currentBatch.join(' '));
+    }
+
+    return batches;
   }
 
-  async generateMeetingSummary(inputFilePath: string, outputFilePath: string): Promise<string> {
+  async parallelSummarize(batches: string[], duration: string): Promise<string[]> {
+    const summaries = await Promise.all(
+      batches.map((batch) => this.summarizeMeetingUsingChatbot(batch, duration)),
+    );
+    return summaries;
+  }
+
+  async recursiveCombineSummaries(summaries: string[], duration: string): Promise<string> {
+    while (summaries.length > 1) {
+      const newSummaries: string[] = [];
+
+      for (let i = 0; i < summaries.length; i += 2) {
+        if (i + 1 < summaries.length) {
+          const combinedSummary = await this.summarizeMeetingUsingChatbot(
+            `${summaries[i]} ${summaries[i + 1]}`,
+            duration,
+          );
+          newSummaries.push(combinedSummary);
+        } else {
+          newSummaries.push(summaries[i]);
+        }
+      }
+
+      summaries = newSummaries;
+    }
+
+    return summaries[0];
+  }
+
+  async generateMeetingSummary(transcript: string): Promise<string> {
     try {
-      // Read the input file to get the transcript text
-      const transcript = await fs.readFile(inputFilePath, 'utf8');
-      console.log('here is the transcript' + transcript);
-      // Parse the transcript
-      const chunks = this.parseTranscript(transcript);
-      console.log('Here are the chunks' + chunks);
-      const duration = chunks.length > 0 ? chunks[chunks.length - 1].end_time : "00:00:00";
-  
-      // Summarize the meeting using chatbot for each chunk
-      const summaries = await Promise.all(
-        chunks.map(chunk => this.summarizeMeetingUsingChatbot(`${chunk.name}: ${chunk.content}`, duration))
-      );
-  
-      // Combine the summaries
-      const combinedSummary = await this.combineSummariesUsingChatbot(summaries, duration);
-      return combinedSummary;
-      // Save the combined summary to the output file
+      const chunks = await this.parseTranscript(transcript);
+      const formattedChunks = chunks.map((chunk) => `${chunk.name}: ${chunk.content}`);
+      const duration = this.calculateDuration(chunks);
+      const batches = await this.createBatches(formattedChunks);
+      const initialSummaries = await this.parallelSummarize(batches, duration);
+      const finalSummary = await this.recursiveCombineSummaries(initialSummaries, duration);
+      return finalSummary;
     } catch (error) {
-      console.error(`Error generating meeting summary: ${error.message}`);
+      this.logger.error(`Error generating summary`);
+      this.logger.error(JSON.stringify(error, ['message', 'stack'], 2));
       throw error;
     }
   }

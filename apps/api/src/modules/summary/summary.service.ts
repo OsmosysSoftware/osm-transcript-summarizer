@@ -40,8 +40,7 @@ export class SummaryService extends CoreService<Summary> {
 
       const uniqueIdentifier = uuidv4().replace(/-/g, '').substring(0, 10);
       const modifiedFilename = `${uniqueIdentifier}_${filename}`;
-      const uploadPath =
-        configService.getOrThrow('UPLOAD_FOLDER_PATH')?.replace(/[^\w\s/]/g, '') ?? null;
+      const uploadPath = configService.get('UPLOAD_FOLDER_PATH')?.replace(/[^\w\s/]/g, '') ?? null;
 
       const uploadFolder = join(process.cwd(), 'uploads');
 
