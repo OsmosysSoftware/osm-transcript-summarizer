@@ -7,6 +7,7 @@ import { SummaryService } from 'src/modules/summary/summary.service';
 import { Repository } from 'typeorm';
 import { Summary } from 'src/modules/summary/entities/summary.entity';
 import { JobStatus } from 'src/common/constants/summary';
+import { MeetingSummaryService } from 'src/modules/summary/summarizer/summarizer.service';
 
 @Processor(SUMMARY_QUEUE)
 export class SummaryConsumer {
@@ -16,6 +17,7 @@ export class SummaryConsumer {
     @InjectRepository(Summary)
     private readonly summaryRepository: Repository<Summary>,
     private readonly summaryService: SummaryService,
+    private readonly meeingSummarizerService: MeetingSummaryService,
   ) {}
 
   @Process()
@@ -34,9 +36,14 @@ export class SummaryConsumer {
     }
 
     try {
-      // Generate random text for testing
-      const randomSummaryText = this.generateRandomSummary();
-      summary.outputText = randomSummaryText;
+
+      const originalPath = summary.inputFile;
+      const filename = originalPath.split('\\').pop(); // Extract the filename from the original path
+
+      // Construct the new path by inserting '\uploads\' before the filename
+      const newPath = originalPath.replace(filename, `uploads\\${filename}`);
+      const summaryText = await this.meeingSummarizerService.generateMeetingSummary(newPath, summary.outputText );
+      summary.outputText = summaryText;
       // Update job status to SUCCESS
       summary.jobStatus = JobStatus.SUCCESS;
       this.logger.log(`Processing summary job with ID: ${jobId}`);
@@ -47,9 +54,5 @@ export class SummaryConsumer {
     } finally {
       await this.summaryRepository.save(summary);
     }
-  }
-  private generateRandomSummary(): string {
-    // Placeholder for generating random summary text
-    return 'This is a random summary text for testing purposes.';
   }
 }

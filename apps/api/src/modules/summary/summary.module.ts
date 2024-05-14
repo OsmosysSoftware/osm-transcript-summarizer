@@ -9,6 +9,8 @@ import { SummaryConsumer } from 'src/jobs/consumers/summary/summary.consumer';
 import { ScheduleService } from './schedule/schedule.service';
 import { ConfigService } from '@nestjs/config';
 import { summaryQueueConfig } from './queues/summary.queue';
+import { MeetingSummaryService } from 'src/modules/summary/summarizer/summarizer.service';
+import { OpenAI } from 'src/common/openai/openai-client';
 
 @Module({
   imports: [
@@ -22,7 +24,16 @@ import { summaryQueueConfig } from './queues/summary.queue';
     SummaryConsumer,
     SummaryQueueProducer,
     ConfigService,
+    MeetingSummaryService,
+    {
+      provide: OpenAI,
+      useFactory: (configService: ConfigService) => {
+        const apiKey = configService.get('OPENAI_API_KEY');
+        return new OpenAI(apiKey);
+      },
+      inject: [ConfigService],
+    },
   ],
-  exports: [SummaryService],
+  exports: [SummaryService, MeetingSummaryService, OpenAI],
 })
 export class SummaryModule {}
