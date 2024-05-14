@@ -11,6 +11,7 @@
       "FILE_UPLOAD": "File upload failed. Please try again."
     },
     "BUTTONS": {
+      "CHOOSE": "Choose File",
       "UPLOAD": "Upload File",
       "SUMMARIZE": "Summarize Me"
     }
