@@ -50,4 +50,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
   <img src="https://contrib.rocks/image?repo=OsmosysSoftware/osm-transcript-summarizer" alt="Contributors" />
 </a>
 
-We appreciate the time and effort put in by all contributors to make this project better!
+We appreciate the time and effort contributed by everyone to improve this project!
