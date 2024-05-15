@@ -33,7 +33,7 @@ export class MeetingSummaryService {
       .map((line) => line.trim())
       .filter((line) => line);
     const timePattern =
-      /(\d{1,2}:\d{2}:\d{2}(?:\.\d{1,3})?) --> (\d{1,2}:\d{2}:\d{2}(?:\.\d{1,3})?)/;
+      /(\d{1,2}:\d{2}:\d{2}(?:\.\d{1,3})?) --> (\d{1,2}:\d{2}:\d{2}(?:\.\d{1,3})?)/; // Matches time format "HH:MM:SS" or "HH:MM:SS.mmm"
     const chunks: Chunk[] = [];
     let i = 0;
 
