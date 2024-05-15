@@ -9,12 +9,10 @@ import { SummaryConsumer } from 'src/jobs/consumers/summary/summary.consumer';
 import { ScheduleService } from './schedule/schedule.service';
 import { ConfigService } from '@nestjs/config';
 import { summaryQueueConfig } from './queues/summary.queue';
+import { MeetingSummaryService } from 'src/modules/summary/summarizer/summarizer.service';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Summary]), // Import TypeORM module for Summary entity
-    BullModule.registerQueue(summaryQueueConfig),
-  ],
+  imports: [TypeOrmModule.forFeature([Summary]), BullModule.registerQueue(summaryQueueConfig)],
   providers: [
     ScheduleService,
     SummaryService,
@@ -22,7 +20,8 @@ import { summaryQueueConfig } from './queues/summary.queue';
     SummaryConsumer,
     SummaryQueueProducer,
     ConfigService,
+    MeetingSummaryService,
   ],
-  exports: [SummaryService],
+  exports: [SummaryService, MeetingSummaryService],
 })
 export class SummaryModule {}
