@@ -85,9 +85,9 @@ export class TranscriptAnalyzerComponent {
         const jobId = result?.data?.createSummary?.jobId;
 
         if (jobId) {
-          const jobIdsArray = JSON.parse(localStorage.getItem('jobIds') || '[]');
+          const jobIdsArray = JSON.parse(sessionStorage.getItem('jobIds') || '[]');
           jobIdsArray.push(jobId);
-          localStorage.setItem('jobIds', JSON.stringify(jobIdsArray));
+          sessionStorage.setItem('jobIds', JSON.stringify(jobIdsArray));
           this.fileService.updateJobIds(jobId);
         }
       },
