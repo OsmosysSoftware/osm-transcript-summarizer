@@ -41,7 +41,7 @@
           "formdata": [
             {
               "key": "operations",
-              "value": "{\"query\":\"mutation ($file: Upload!) {\\n  createSummary(createSummaryInput: { inputFile: $file }) {\\n    id\\n  }\\n}\"}",
+              "value": "{\"query\":\"mutation ($file: Upload!) {\\n  createSummary(createSummaryInput: { inputFile: $file }) {\\n    jobId\\n  }\\n}\"}",
               "type": "text"
             },
             {
