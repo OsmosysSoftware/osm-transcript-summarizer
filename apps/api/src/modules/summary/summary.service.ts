@@ -40,8 +40,7 @@ export class SummaryService extends CoreService<Summary> {
 
       const uniqueIdentifier = uuidv4().replace(/-/g, '').substring(0, 10);
       const modifiedFilename = `${uniqueIdentifier}_${filename}`;
-      const uploadPath =
-        configService.getOrThrow('UPLOAD_FOLDER_PATH')?.replace(/[^\w\s/]/g, '') ?? null;
+      const uploadPath = configService.get('UPLOAD_FOLDER_PATH')?.replace(/[^\w\s/]/g, '') ?? null;
 
       const uploadFolder = join(process.cwd(), 'uploads');
 
@@ -127,7 +126,7 @@ export class SummaryService extends CoreService<Summary> {
     } catch (error) {
       this.isProcessingQueue = false;
       this.logger.error('Error fetching pending summaries');
-      this.logger.error(JSON.stringify(error, null, 2));
+      this.logger.error(JSON.stringify(error, ['message', 'stack', 2]));
       return;
     }
 
@@ -141,7 +140,7 @@ export class SummaryService extends CoreService<Summary> {
         summary.jobStatus = JobStatus.PENDING;
         summary.result = { result: error };
         this.logger.error(`Error adding summary with id: ${summary.id} to queue`);
-        this.logger.error(JSON.stringify(error, null, 2));
+        this.logger.error(JSON.stringify(error, ['message', 'stack', 2]));
       } finally {
         await this.summaryRepository.save(summary);
       }
