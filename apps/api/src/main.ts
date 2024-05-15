@@ -32,7 +32,6 @@ if (!fs.existsSync(finalUploadDir)) {
   fs.mkdirSync(finalUploadDir, { recursive: true });
 }
 
-
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule, {
     logger: loggerConfig,
