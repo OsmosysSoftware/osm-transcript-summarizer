@@ -126,7 +126,7 @@ export class SummaryService extends CoreService<Summary> {
     } catch (error) {
       this.isProcessingQueue = false;
       this.logger.error('Error fetching pending summaries');
-      this.logger.error(JSON.stringify(error, null, 2));
+      this.logger.error(JSON.stringify(error, ['message', 'stack', 2]));
       return;
     }
 
@@ -140,7 +140,7 @@ export class SummaryService extends CoreService<Summary> {
         summary.jobStatus = JobStatus.PENDING;
         summary.result = { result: error };
         this.logger.error(`Error adding summary with id: ${summary.id} to queue`);
-        this.logger.error(JSON.stringify(error, null, 2));
+        this.logger.error(JSON.stringify(error, ['message', 'stack', 2]));
       } finally {
         await this.summaryRepository.save(summary);
       }

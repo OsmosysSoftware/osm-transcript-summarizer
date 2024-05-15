@@ -55,7 +55,7 @@ export class SummaryConsumer {
       summary.outputText = 'Summary could not be generated due to an error.';
       summary.jobStatus = JobStatus.FAILED;
       this.logger.error(`Error processing summary job with ID: ${jobId}`);
-      this.logger.error(error);
+      this.logger.error(JSON.stringify(error, ['message', 'stack', 2]));
     } finally {
       await this.summaryRepository.save(summary);
     }

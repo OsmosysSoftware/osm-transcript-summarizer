@@ -8,12 +8,13 @@ interface Chunk {
   name: string;
   content: string;
 }
-const GPT_MODEL = 'gpt-4o';
 
 @Injectable()
 export class MeetingSummaryService {
   private readonly openAI: OpenAI;
+  private readonly gptModel: string;
   private readonly logger = new Logger(MeetingSummaryService.name);
+
   constructor(private readonly configService: ConfigService) {
     const apiKey = this.configService.getOrThrow<string>('OPENAI_API_KEY');
 
@@ -21,6 +22,7 @@ export class MeetingSummaryService {
       throw new Error('Missing OpenAI API key');
     }
 
+    this.gptModel = this.configService.get<string>('GPT_MODEL') || 'gpt-4o';
     this.openAI = new OpenAI({ apiKey });
   }
 
@@ -90,7 +92,8 @@ export class MeetingSummaryService {
     `;
 
     const chat = await this.openAI.chat.completions.create({
-      model: 'gpt-3.5-turbo',
+      model: this.gptModel,
+      temperature: 0,
       messages: [{ role: 'user', content: messageTemplate }],
     });
 
@@ -123,7 +126,7 @@ export class MeetingSummaryService {
     `;
 
     const chat = await this.openAI.chat.completions.create({
-      model: GPT_MODEL,
+      model: this.gptModel,
       temperature: 0,
       messages: [{ role: 'user', content: messageTemplate }],
     });
