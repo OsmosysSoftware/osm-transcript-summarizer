@@ -63,6 +63,7 @@ export class FileProcessorComponent implements OnInit, OnDestroy {
 
   fetchSummaries(): void {
     this.fileService.fetchSummaries(this.jobIds).subscribe(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (result: any) => {
         this.summaries = result.data.summaries.summaries;
         this.jobDetails = this.summaries.map((summary) => ({
