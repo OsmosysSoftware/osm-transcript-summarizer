@@ -52,7 +52,7 @@ export class SummaryConsumer {
       summary.jobStatus = JobStatus.SUCCESS;
       this.logger.log(`Summary generated successfully for job with ID: ${jobId}`);
     } catch (error) {
-      summary.outputText = 'Summary could not be generate. :(';
+      summary.outputText = 'Summary could not be generated due to an error.';
       summary.jobStatus = JobStatus.FAILED;
       this.logger.error(`Error processing summary job with ID: ${jobId}`);
       this.logger.error(error);
