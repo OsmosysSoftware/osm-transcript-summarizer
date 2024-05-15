@@ -23,11 +23,12 @@ Tired of sifting through long transcripts to find the important details? Transcr
 
 ## Components
 
-Transcript Summarizer is comprised of the following two components:
-1. [api](apps/api), the backend of the application
-2. [portal](apps/portal), the frontend of the application
+Transcript Summarizer is composed of the following two components:
 
-Refer the corresponding README files of these components for more information, setup and usage instructions.
+1. [api](apps/api): the backend of the application
+2. [portal](apps/portal): the frontend of the application
+
+Refer to the corresponding README files of these components for more information, setup, and usage instructions.
 
 ## Contributing
 
