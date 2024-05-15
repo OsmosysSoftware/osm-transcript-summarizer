@@ -14,6 +14,7 @@ import { SummaryQueueProducer } from 'src/jobs/producers/summary/summary.produce
 import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
 import { uploadDir } from '../../main';
+import { join } from 'path';
 
 
 config();
