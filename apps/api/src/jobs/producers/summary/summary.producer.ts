@@ -24,7 +24,7 @@ export class SummaryQueueProducer {
   }
 
   async addsummaryToQueue(summary: Summary): Promise<void> {
-    this.logger.log(summary.jobId);
+    this.logger.log(`adding job with id ${summary.jobId}`);
 
     if (this.summaryQueue) {
       await this.summaryQueue.add(summary.jobId);

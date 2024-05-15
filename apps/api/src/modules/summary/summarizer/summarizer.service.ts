@@ -8,7 +8,7 @@ interface Chunk {
   name: string;
   content: string;
 }
-const GPT_MODEL = 'gpt-3.5-turbo';
+const GPT_MODEL = 'gpt-4o';
 
 @Injectable()
 export class MeetingSummaryService {
@@ -25,6 +25,7 @@ export class MeetingSummaryService {
   }
 
   async parseTranscript(fileContent: string): Promise<Chunk[]> {
+    this.logger.log('Creating chunks');
     const lines = fileContent
       .split('\n')
       .map((line) => line.trim())
@@ -63,6 +64,39 @@ export class MeetingSummaryService {
     return chunks[chunks.length - 1].endTime;
   }
 
+  async summaryAggregatorUsingChatbot(context: string, duration: string): Promise<string> {
+    const formattedTime = new Date().toISOString().split('T').join(' ').split('.')[0];
+    const messageTemplate = `
+      Act as a meeting note summarizer. I have summaries of a teams meeting noted by different people as follows: ${context}
+
+      I want a combined summary of the multiple summaries of the same call in the following format:
+
+      # Meeting Minutes
+      Give appropriate discussion heading
+      Created on: ${formattedTime}
+      Duration: ${duration}
+
+      # Participants
+      Display list of participants name involved
+
+      # Agenda
+      Brief summary what the meeting was about in max 3 points
+
+      # Discussion
+      Give the main discussion points and the speaker names. Give answer in points. Be as descriptive as possible.
+
+      # Action items
+      Give what was the outcome, tasks assigned, end result if any of the discussion in points
+    `;
+
+    const chat = await this.openAI.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      messages: [{ role: 'user', content: messageTemplate }],
+    });
+
+    return chat.choices[0].message.content;
+  }
+
   async summarizeMeetingUsingChatbot(context: string, duration: string): Promise<string> {
     const formattedTime = new Date().toISOString().split('T').join(' ').split('.')[0];
     const messageTemplate = `
@@ -90,6 +124,7 @@ export class MeetingSummaryService {
 
     const chat = await this.openAI.chat.completions.create({
       model: GPT_MODEL,
+      temperature: 0,
       messages: [{ role: 'user', content: messageTemplate }],
     });
 
@@ -153,11 +188,15 @@ export class MeetingSummaryService {
   async generateMeetingSummary(transcript: string): Promise<string> {
     try {
       const chunks = await this.parseTranscript(transcript);
+      this.logger.log(`created ${chunks.length} chunks`);
       const formattedChunks = chunks.map((chunk) => `${chunk.name}: ${chunk.content}`);
       const duration = this.calculateDuration(chunks);
       const batches = await this.createBatches(formattedChunks);
+      this.logger.log(`generating summaries for chunks`);
       const initialSummaries = await this.parallelSummarize(batches, duration);
+      this.logger.log(`chunk summaries generated successfully, recursively combining summary`);
       const finalSummary = await this.recursiveCombineSummaries(initialSummaries, duration);
+      this.logger.log(`generated combined summary`);
       return finalSummary;
     } catch (error) {
       this.logger.error(`Error generating summary`);
