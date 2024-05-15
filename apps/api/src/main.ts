@@ -8,7 +8,7 @@ import { HttpExceptionFilter } from './common/http-exception.filter';
 import { JsendFormatter } from './common/jsend-formatter';
 import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
-import { join, resolve } from 'path';
+import { join } from 'path';
 
 config();
 
