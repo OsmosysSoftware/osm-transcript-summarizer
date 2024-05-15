@@ -16,7 +16,6 @@ import { config } from 'dotenv';
 import { uploadDir } from '../../main';
 import { join } from 'path';
 
-
 config();
 
 const configService = new ConfigService();
