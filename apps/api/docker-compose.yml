@@ -1,0 +1,39 @@
+version: '3'
+services:
+  transcript-summarizer-api:
+    image: transcript-summarizer-api
+    container_name: transcript-summarizer-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '127.0.0.1:${SERVER_PORT}:3000'
+    depends_on:
+      - transcript-summarizer-mariadb
+      - transcript-summarizer-redis
+    environment:
+      NODE_ENV: production
+
+  transcript-summarizer-mariadb:
+    container_name: transcript-summarizer-mariadb
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - '127.0.0.1:${MARIADB_DOCKER_PORT}:3306'
+    volumes:
+      - transcript-summarizer-mariadb-data:/var/lib/mysql
+
+  transcript-summarizer-redis:
+    container_name: transcript-summarizer-redis
+    image: redis:latest
+    restart: always
+    ports:
+      - '127.0.0.1:${REDIS_DOCKER_PORT}:6379'
+
+volumes:
+  transcript-summarizer-mariadb-data: ~
