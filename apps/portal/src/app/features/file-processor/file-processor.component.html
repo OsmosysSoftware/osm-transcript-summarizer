@@ -1,5 +1,5 @@
 <div class="table-container">
-  <p-table [value]="jobDetail">
+  <p-table [value]="jobDetails">
     <ng-template pTemplate="header">
       <tr>
         <th>Timestamp</th>
@@ -14,15 +14,15 @@
         <td>{{ job.fileName }}</td>
         <td>
           <p-tag
-            [severity]="getSeverity(job.status)"
+            [severity]="getSeverity(job.jobStatus)"
             styleClass="p-2 flex"
-            [value]="getStatusText(job.status)"
+            [value]="getStatusText(job.jobStatus)"
           >
           </p-tag>
         </td>
         <td class="action-cell p-0">
           <p-button
-            *ngIf="job.status === 4"
+            *ngIf="job.jobStatus === 4"
             (click)="downloadFile(job.summary, job.fileName)"
             severity="info"
             styleClass="h-2rem p-3 mx-3"

@@ -1,6 +1,8 @@
+import { JobStatus } from './jobs';
+
 export interface JobDetails {
   fileName: string;
-  status: number;
+  jobStatus: JobStatus;
   timestamp: string;
   summary?: string | null;
 }

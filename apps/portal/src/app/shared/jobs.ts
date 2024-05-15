@@ -1,7 +1,7 @@
 export enum JobStatus {
-  pending = 'PENDING',
-  queued = 'QUEUED',
-  inProgress = 'IN PROGRESS',
-  finished = 'FINISHED',
-  failed = 'FAILED',
+  pending = 1,
+  queued = 2,
+  inProgress = 3,
+  finished = 4,
+  failed = 5,
 }

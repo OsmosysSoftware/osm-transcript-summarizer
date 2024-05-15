@@ -13,6 +13,8 @@ export class GraphqlService {
   query<T>(query: DocumentNode): Observable<ApolloQueryResult<T>> {
     const queryRef: QueryRef<T> = this.apollo.use('default').watchQuery({
       query,
+      errorPolicy: 'all',
+      fetchPolicy: 'network-only',
     });
 
     return queryRef.valueChanges;
@@ -31,6 +33,8 @@ export class GraphqlService {
           'x-apollo-operation-name': 'createSummary',
         },
       },
+      errorPolicy: 'all',
+      fetchPolicy: 'network-only',
     });
   }
 }

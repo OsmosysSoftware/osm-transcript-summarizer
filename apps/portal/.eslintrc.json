@@ -225,6 +225,7 @@
             "avoidEscape": true
           }
         ],
+        "class-methods-use-this": "off",
         "radix": "error",
         "eqeqeq": [
           "error",

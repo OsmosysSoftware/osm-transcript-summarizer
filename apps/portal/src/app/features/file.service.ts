@@ -25,7 +25,8 @@ export class FileService {
     this.jobIdsSubject.next(jobIds);
   }
 
-  fetchSummaries(jobIds: number[]) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  fetchSummaries(jobIds: number[]): Observable<any> {
     const jobIdsString = JSON.stringify(jobIds);
     const queryWithJobIdsString = fetchFileStatus(jobIdsString);
 
