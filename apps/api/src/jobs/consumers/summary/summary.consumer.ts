@@ -2,11 +2,15 @@ import { Logger } from '@nestjs/common';
 import { Process, Processor } from '@nestjs/bull';
 import { Job } from 'bull';
 import { InjectRepository } from '@nestjs/typeorm';
-import { SUMMARY_QUEUE } from 'src/modules/summary/queues/summary.queue';
-import { SummaryService } from 'src/modules/summary/summary.service';
 import { Repository } from 'typeorm';
 import { Summary } from 'src/modules/summary/entities/summary.entity';
 import { JobStatus } from 'src/common/constants/summary';
+import { MeetingSummaryService } from 'src/modules/summary/summarizer/summarizer.service';
+import { SummaryService } from 'src/modules/summary/summary.service';
+import * as path from 'path';
+import * as fs from 'fs/promises';
+import { SUMMARY_QUEUE } from 'src/modules/summary/queues/summary.queue';
+import { uploadDir } from 'src/main';
 
 @Processor(SUMMARY_QUEUE)
 export class SummaryConsumer {
@@ -16,6 +20,7 @@ export class SummaryConsumer {
     @InjectRepository(Summary)
     private readonly summaryRepository: Repository<Summary>,
     private readonly summaryService: SummaryService,
+    private readonly meetingSummarizerService: MeetingSummaryService,
   ) {}
 
   @Process()
@@ -34,22 +39,25 @@ export class SummaryConsumer {
     }
 
     try {
-      // Generate random text for testing
-      const randomSummaryText = this.generateRandomSummary();
-      summary.outputText = randomSummaryText;
+      const originalPath = summary.inputFile;
+      const filename = path.basename(originalPath);
+
+      const newPath = path.join(uploadDir, filename);
+      const fileContent = await fs.readFile(newPath, 'utf-8');
+
+      this.logger.log(`Generating summary for job with ID: ${jobId}`);
+      const summaryText = await this.meetingSummarizerService.generateMeetingSummary(fileContent);
+      summary.outputText = summaryText;
       // Update job status to SUCCESS
       summary.jobStatus = JobStatus.SUCCESS;
-      this.logger.log(`Processing summary job with ID: ${jobId}`);
+      this.logger.log(`Summary generated successfully for job with ID: ${jobId}`);
     } catch (error) {
+      summary.outputText = 'Summary could not be generated due to an error.';
       summary.jobStatus = JobStatus.FAILED;
       this.logger.error(`Error processing summary job with ID: ${jobId}`);
-      this.logger.error(error);
+      this.logger.error(JSON.stringify(error, ['message', 'stack', 2]));
     } finally {
       await this.summaryRepository.save(summary);
     }
-  }
-  private generateRandomSummary(): string {
-    // Placeholder for generating random summary text
-    return 'This is a random summary text for testing purposes.';
   }
 }
