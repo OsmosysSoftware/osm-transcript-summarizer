@@ -47,7 +47,9 @@ export class SummaryConsumer {
 
       this.logger.log(`Generating summary for job with ID: ${jobId}`);
       const summaryText = await this.meetingSummarizerService.generateMeetingSummary(fileContent);
-      summary.outputText = summaryText;
+      summary.outputText =
+        summaryText ||
+        'Summary could not be generated, please check if its a valid teams transcript file';
       // Update job status to SUCCESS
       summary.jobStatus = JobStatus.SUCCESS;
       this.logger.log(`Summary generated successfully for job with ID: ${jobId}`);
