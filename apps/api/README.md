@@ -1,73 +1,49 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Transcript Summarizer
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Welcome to the Transcript Summarizer! 🚀
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Transcript Summarizer is a powerful tool designed to simplify the process of summarizing transcripts. With this user-friendly backend application, you can effortlessly generate concise summaries from lengthy transcripts, making it easier to extract key information.
 
-## Description
+## What It Does
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Tired of sifting through long transcripts to find the important details? Transcript Summarizer automates this process for you using openAI's APIs. Whether you're analyzing interviews, meetings, lectures, or any other type of audio or text-based conversation, this application will help you distill the essence of the content into succinct summaries.
 
-## Installation
+## Why Choose Us?
 
-```bash
-$ npm install
-```
+- **Efficiency:** Save time and effort by letting Transcript Summarizer do the heavy lifting for you.
+- **Accuracy:** OpenAI's advanced algorithms ensure that the summaries are accurate and relevant.
+- **Customizability:** Tailor the summarization process to your specific needs with customizable file upload options.
 
-## Running the app
+## Key Features
 
-```bash
-# development
-$ npm run start
+- 🤖 **Automatic Summarization:** Generate summaries automatically with just a click of a button.
+- 🚀 **Multi-format Support:** Summarize transcripts in various formats including text, audio, and video.
+- 💡 **Integration:** Seamlessly integrate Transcript Summarizer into your existing workflow with our easy-to-use API.
+- 🌐 **Scalable Architecture:** Built on robust infrastructure, our application scales effortlessly to meet your growing needs.
 
-# watch mode
-$ npm run start:dev
+## Get Started
 
-# production mode
-$ npm run start:prod
-```
+1. **Installation:** Clone the repository and follow our simple setup guide.
+2. **Create Transcript Summaries:** Easily create summaries for different transcript files.
+3. **Sit Back and Relax:** Let our app handle the delivery and status tracking.
 
-## Test
+## Documentation
 
-```bash
-# unit tests
-$ npm run test
+- [Development Setup](docs/development-setup.md)
+- [Block Diagram](docs/block-diagram.md)
+- [Database Design](docs/database-design.md)
 
-# e2e tests
-$ npm run test:e2e
 
-# test coverage
-$ npm run test:cov
-```
+## Contributing
 
-## Support
+We welcome contributions from the community! If you're interested in contributing to the OsmoX, please take a moment to review our [Contribution Guidelines](../../CONTRIBUTING.md).
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Your contributions help make our app even better. Whether you're a developer, designer, or just enthusiastic about enhancing user experiences, we'd love to have you on board.
 
-## Stay in touch
+Before you get started, please familiarize yourself with our guidelines to ensure a smooth collaboration process.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+[Contribution Guidelines](../../CONTRIBUTING.md)
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](../../LICENSE) file for details.
