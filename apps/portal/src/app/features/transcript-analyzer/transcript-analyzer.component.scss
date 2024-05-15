@@ -7,4 +7,23 @@ body {
     border: 3px solid #4d4dff;
     box-shadow: 0 4px 9px rgba(0, 0, 0, 0.9);
   }
+
+  .p-fileupload {
+    .p-fileupload-filename {
+      width: 200px;
+    }
+  }
+
+  .p-fileupload-content{
+    padding: 32px;
+  }
+
+  .p-message-error{
+    margin-bottom: 0;
+  }
+
+  .p-message-wrapper{
+    display: flex;
+    justify-content: space-between;
+  }
 }

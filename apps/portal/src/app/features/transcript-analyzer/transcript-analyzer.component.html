@@ -8,10 +8,16 @@
       [maxFileSize]="maxFileSize"
       [auto]="true"
       chooseLabel="{{ 'TRANSCRIPT.BUTTONS.CHOOSE' | translate }}"
-      styleClass="mb-4 text-center"
+      styleClass="mb-2 text-center"
     ></p-fileUpload>
-    <div class="flex flex-column align-items-center mb-3">
-      <p-button (click)="summarizeTranscript()">{{
+    <p-messages severity="info" styleClass="mb-5">
+      <ng-template pTemplate class="flex justify-content-between">
+        <div>{{ 'TRANSCRIPT.UPLOAD_INFO.ACCEPTED_FILE' | translate }}</div>
+        <div class="ml-5">{{ 'TRANSCRIPT.UPLOAD_INFO.MAX_FILE_SIZE' | translate }}</div>
+      </ng-template>
+    </p-messages>
+    <div class="flex flex-column align-items-center mt-3 mb-3">
+      <p-button (click)="summarizeTranscript()" severity="success">{{
         'TRANSCRIPT.BUTTONS.SUMMARIZE' | translate
       }}</p-button>
     </div>
