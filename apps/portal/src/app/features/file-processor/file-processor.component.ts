@@ -29,42 +29,58 @@ export class FileProcessorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fileService.jobIds$.subscribe((jobIds) => {
-      this.fileService.fetchSummaries(jobIds).subscribe(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (result: any) => {
-          this.summaries = result.data.summaries.summaries;
-          this.jobDetail = this.summaries.map((summary) => ({
-            fileName: summary.inputFile.split('_')[1],
-            status: summary.status,
-            timestamp: new Date(summary.createdOn).toLocaleString(),
-            summary: summary.outputText,
-          }));
-          this.jobDetail.reverse();
-        },
-        (error) => {
-          if (error.status === 0) {
-            this.translateService.get('ERRORS.UNHANDLED_ERROR').subscribe((translation: string) => {
-              this.messageService.add({
-                key: 'tst',
-                severity: 'error',
-                summary: 'Network Error',
-                detail: translation,
-              });
-            });
-          } else {
-            this.translateService.get('ERRORS.API_ERROR').subscribe((translation: string) => {
-              this.messageService.add({
-                key: 'tst',
-                severity: 'error',
-                summary: 'Error',
-                detail: translation,
-              });
-            });
-          }
-        },
-      );
+    this.fileService.jobIds$.subscribe((jobId) => {
+      console.log("change");
+
+      this.jobIds = jobId;
+      console.log(this.jobIds);
+      if(this.jobIds.length !== 0){
+        this.fetchSummaries();
+        setInterval(() => {
+          this.fetchSummaries();
+        }, 3000);
+      }
     });
+  }
+
+  fetchSummaries(){
+    this.fileService.fetchSummaries(this.jobIds).subscribe(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (result: any) => {
+        console.log("api response",result);
+
+        this.summaries = result.data.summaries.summaries;
+        this.jobDetail = this.summaries.map((summary) => ({
+          fileName: summary.inputFile.split('_')[1],
+          jobStatus: summary.jobStatus,
+          timestamp: new Date(summary.createdOn).toLocaleString(),
+          summary: summary.outputText,
+        }));
+        this.jobDetail.reverse();
+        console.log("job status of latest upload",this.jobDetail[0].jobStatus);
+      },
+      (error) => {
+        if (error.status === 0) {
+          this.translateService.get('ERRORS.UNHANDLED_ERROR').subscribe((translation: string) => {
+            this.messageService.add({
+              key: 'tst',
+              severity: 'error',
+              summary: 'Network Error',
+              detail: translation,
+            });
+          });
+        } else {
+          this.translateService.get('ERRORS.API_ERROR').subscribe((translation: string) => {
+            this.messageService.add({
+              key: 'tst',
+              severity: 'error',
+              summary: 'Error',
+              detail: translation,
+            });
+          });
+        }
+      },
+    );
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -95,7 +111,7 @@ export class FileProcessorComponent implements OnInit {
   downloadFile(summary: string | null | undefined, fileName: string): void {
     if (summary !== undefined && summary !== null) {
       const blob = new Blob([summary], { type: 'text/markdown' });
-      FileSaver.saveAs(blob, fileName);
+      FileSaver.saveAs(blob, fileName + '.md');
     }
   }
 }

@@ -1,6 +1,6 @@
 export interface JobDetails {
   fileName: string;
-  status: number;
+  jobStatus: number;
   timestamp: string;
   summary?: string | null;
 }
