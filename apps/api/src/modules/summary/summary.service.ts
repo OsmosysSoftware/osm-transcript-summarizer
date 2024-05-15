@@ -11,9 +11,10 @@ import { JobStatus, Status } from 'src/common/constants/summary';
 import { SummaryResponse } from './dto/summary-response.dto';
 import { v4 as uuidv4 } from 'uuid';
 import { SummaryQueueProducer } from 'src/jobs/producers/summary/summary.producer';
-import * as fs from 'fs-extra';
 import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
+import { uploadDir } from '../../main';
+
 
 config();
 
@@ -40,18 +41,8 @@ export class SummaryService extends CoreService<Summary> {
 
       const uniqueIdentifier = uuidv4().replace(/-/g, '').substring(0, 10);
       const modifiedFilename = `${uniqueIdentifier}_${filename}`;
-      const uploadPath = configService.get('UPLOAD_FOLDER_PATH')?.replace(/[^\w\s/]/g, '') ?? null;
 
-      const uploadFolder = join(process.cwd(), 'uploads');
-
-      if (uploadPath) {
-        const absoluteUploadPath = resolve(uploadPath);
-        await fs.ensureDir(absoluteUploadPath);
-      } else {
-        await fs.ensureDir(uploadFolder);
-      }
-
-      const fileLocation = join(uploadPath || uploadFolder, modifiedFilename);
+      const fileLocation = join(uploadDir, modifiedFilename);
 
       return new Promise((resolve, reject) => {
         createReadStream()

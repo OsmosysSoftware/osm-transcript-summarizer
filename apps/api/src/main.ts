@@ -8,7 +8,7 @@ import { HttpExceptionFilter } from './common/http-exception.filter';
 import { JsendFormatter } from './common/jsend-formatter';
 import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
-import { join } from 'path';
+import { join, resolve } from 'path';
 
 config();
 
@@ -20,13 +20,18 @@ if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
 }
 
+const uploadPath = 'uploads';
+
 export const uploadDir =
   configService.get('UPLOAD_FOLDER_PATH')?.replace(/[^\w\s/]/g, '') ??
-  join(process.cwd(), 'uploads');
+  join(process.cwd(), uploadPath);
 
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
+const finalUploadDir = uploadDir ? resolve(uploadDir) : join(process.cwd(), uploadPath);
+
+if (!fs.existsSync(finalUploadDir)) {
+  fs.mkdirSync(finalUploadDir, { recursive: true });
 }
+
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule, {
