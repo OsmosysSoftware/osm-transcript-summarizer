@@ -5,8 +5,11 @@
       [url]="''"
       accept=".vtt,.txt"
       (onSelect)="onFileSelected($event)"
+      (onUpload)="onFileSelected($event)"
       [maxFileSize]="maxFileSize"
-      [auto]="true"
+      (onRemove)="onRemove()"
+      [showCancelButton]="false"
+      [showUploadButton]="false"
       chooseLabel="{{ 'TRANSCRIPT.BUTTONS.CHOOSE' | translate }}"
       styleClass="mb-2 text-center"
     ></p-fileUpload>

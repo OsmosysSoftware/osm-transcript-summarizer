@@ -33,6 +33,13 @@ export class TranscriptAnalyzerComponent {
     }
   }
 
+  onClear(): void {
+    this.selectedFile = null;
+  }
+
+  onRemove(): void {
+    this.selectedFile = null;
+  }
   // eslint-disable-next-line
   summarizeTranscript(): void {
     // eslint-disable-next-line
