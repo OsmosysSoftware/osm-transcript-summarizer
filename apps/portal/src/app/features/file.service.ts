@@ -21,7 +21,6 @@ export class FileService {
 
   updateJobIds(jobId: number): void {
     const jobIds = [...this.jobIdsSubject.value, jobId];
-
     sessionStorage.setItem('jobIds', JSON.stringify(jobIds));
     this.jobIdsSubject.next(jobIds);
   }

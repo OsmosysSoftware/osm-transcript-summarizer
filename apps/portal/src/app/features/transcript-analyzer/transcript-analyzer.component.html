@@ -1,22 +1,26 @@
 <div class="main flex justify-content-center mt-5">
-  <div class="transcript-analyzer">
-    <div class="buttons flex flex-column align-items-center mb-3">
-      <input
-        type="file"
-        #fileInput
-        style="display: none"
-        (change)="onFileSelected($event)"
-        accept=".vtt,.txt"
-      />
-      <p-button (click)="fileInput.click()" severity="success">{{
-        'TRANSCRIPT.BUTTONS.UPLOAD' | translate
-      }}</p-button>
-      <span *ngIf="selectedFileName" class="file-name text-base">{{ selectedFileName }}</span>
-      <span *ngIf="limitError" class="error">{{ 'TRANSCRIPT.ERRORS.FILE_SIZE' | translate }}</span>
-      <span *ngIf="invalidTypeError" class="error">{{
-        'TRANSCRIPT.ERRORS.FILE_TYPE' | translate
-      }}</span>
-      <p-button (click)="summarizeTranscript()">{{
+  <div class="transcript-analyzer mt-3 p-6 border-round-xl">
+    <p-fileUpload
+      name="file"
+      [url]="''"
+      accept=".vtt,.txt"
+      (onSelect)="onFileSelected($event)"
+      (onUpload)="onFileSelected($event)"
+      [maxFileSize]="maxFileSize"
+      (onRemove)="onRemove()"
+      [showCancelButton]="false"
+      [showUploadButton]="false"
+      chooseLabel="{{ 'TRANSCRIPT.BUTTONS.CHOOSE' | translate }}"
+      styleClass="mb-2 text-center"
+    ></p-fileUpload>
+    <p-messages severity="info" styleClass="mb-5">
+      <ng-template pTemplate class="flex justify-content-between">
+        <div>{{ 'TRANSCRIPT.UPLOAD_INFO.ACCEPTED_FILE' | translate }}</div>
+        <div class="ml-5">{{ 'TRANSCRIPT.UPLOAD_INFO.MAX_FILE_SIZE' | translate }}</div>
+      </ng-template>
+    </p-messages>
+    <div class="flex flex-column align-items-center mt-3 mb-3">
+      <p-button (click)="summarizeTranscript()" [disabled]="!selectedFile" severity="success">{{
         'TRANSCRIPT.BUTTONS.SUMMARIZE' | translate
       }}</p-button>
     </div>

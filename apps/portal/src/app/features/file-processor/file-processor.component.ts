@@ -134,7 +134,7 @@ export class FileProcessorComponent implements OnInit, OnDestroy {
   downloadFile(summary: string | null | undefined, fileName: string): void {
     if (summary !== undefined && summary !== null) {
       const blob = new Blob([summary], { type: 'text/markdown' });
-      FileSaver.saveAs(blob, `${fileName}.md`);
+      FileSaver.saveAs(blob, `${fileName.replace(/\.(txt|vtt)$/i, '')}.md`);
     }
   }
 }
