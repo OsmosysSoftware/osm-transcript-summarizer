@@ -1,25 +1,25 @@
 # Development Setup
 
-This document outlines the steps required to set up your Transcript Summarization for development. By following these steps, you'll be able to run your application locally with the necessary environment variables and database configuration.
+This document outlines the steps required to set up your Transcript Summarizer API for development. By following these steps, you'll be able to run your application locally with the necessary environment variables and database configuration.
 
 ## Prerequisites
 
-Before setting up Transcript Summarization for development, ensure you have the following prerequisites with the specified versions:
+Before setting up Transcript Summarizer API for development, ensure you have the following prerequisites with the specified versions:
 
 - **NVM (Node Version Manager):** Use NVM to manage Node.js versions.
-- **Node.js:** Node.js v20.x or higher can be installed via `nvm` using `nvm install 20` and used with `nvm use 20`.
+- **Node.js** Node.js v20.x or higher. Can be installed via `nvm` using `nvm install 20` and used with `nvm use 20`.
 - **Git:** Git v2.x or higher.
 - **MariaDB:** MariaDB v10.x or higher.
+- **Redis:** Redis v6.x or higher
 
-These prerequisites are essential for deploying and running Transcript Summarization in an environment.
+These prerequisites are essential for deploying and running Transcript Summarizer API in an environment.
 
 Please make sure to have these versions installed on your development server before proceeding with the setup.
 
-Make sure the MariaDB server is up and running.
-# This command checks if the MariaDB server is active and running.
-sudo systemctl status mariadb
+Make sure Redis and MariaDB server are up and running.
 
 ```bash
+sudo systemctl status redis
 sudo systemctl status mariadb
 ```
 
@@ -28,7 +28,7 @@ sudo systemctl status mariadb
 1. Clone the repository to your local machine:
 
    ```sh
-   git clone https://github.com/OsmosysSoftware/osm-transcript-summarizer
+   git clone https://github.com/OsmosysSoftware/osm-transcript-summarizer.git
    cd osm-transcript-summarizer/apps/api
    ```
 
@@ -41,18 +41,34 @@ sudo systemctl status mariadb
 3. Create a `.env` file in the project root and add the required environment variables:
 
    ```env
+   # Server
+   SERVER_PORT=3000
 
    # Node env
-   NODE_ENV=development
+   NODE_ENV=development # Use "development" for graphql playground to work
+
+   # Upload folder location
+   UPLOAD_FOLDER_PATH= # If not present will use "uploads" folder in the root cwd
 
    # Database configuration
-   DB_TYPE=mariadb
-   DB_HOST=localhost # use value as transcriptsummary-mariadb in docker
-   DB_PORT=3333
-   DB_USERNAME=root
-   DB_PASSWORD=your-password
-   DB_NAME=your-database
-   
+   DB_TYPE=
+   DB_HOST=transcript-summarizer-mariadb
+   DB_PORT=
+   DB_USERNAME=
+   DB_PASSWORD=
+   DB_NAME=
+   MARIADB_DOCKER_PORT= 3307
+
+   # Redis configuration
+   DB_HOST=transcript-summarizer-redis
+   REDIS_PORT=6379
+   REDIS_DOCKER_PORT=6379
+
+   OPENAI_API_KEY="sk-your api key"
+   GPT_MODEL="gpt-4o"
+
+   # Docker env
+   COMPOSE_PROJECT_NAME=transcript-summarizer-api 
    ```
 
    Alternatively, use the `.env.example` file instead.
@@ -75,4 +91,4 @@ sudo systemctl status mariadb
    npm run start:dev
    ```
 
-   Transcript Summarization will now be running locally at `http://localhost:3000`.
+   Transcript Summarizer API will now be running locally at `http://localhost:3000`.
