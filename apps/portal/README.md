@@ -51,3 +51,64 @@ Run `npm run ng e2e` to execute the end-to-end tests via a platform of your choi
 ## Further help
 
 To get more help on the Angular CLI use `npm run ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Documentation
+
+- [Development Setup](docs/development-setup.md)
+
+# Docker Deployment for Portal
+
+## Prerequisites
+
+Before deploying the Portal with Docker, ensure that you have the following installed:
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+Create an `.env` file and set the following value:
+
+```dotenv
+SERVER_PORT=5000
+```
+
+## Steps for Docker Deployment
+
+1. **Build and Run Containers:**
+
+   Open a terminal in the root directory of your Angular project and execute the following commands:
+
+   ```bash
+   docker-compose build
+   docker-compose up -d
+   ```
+
+2. **Access the Portal:**
+
+   Once the containers are running, access the Portal by navigating to `http://localhost:5000/transcript` in your web browser. If you specified a different port in your `docker-compose.yml` file, adjust the port number accordingly.
+
+3. **Stop the Containers:**
+
+   To stop the running containers, use the following command:
+
+   ```bash
+   docker-compose down
+   ```
+
+## Additional Notes
+
+- Customize the `docker-compose.yml` file if you need to adjust port mappings or other configurations.
+- If your application relies on additional environment variables, you can set them in the `.env` file in the same directory as your `docker-compose.yml` file.
+
+## Contributing
+
+We welcome contributions from the community! If you're interested in contributing to the OsmoX, please take a moment to review our [Contribution Guidelines](../../CONTRIBUTING.md).
+
+Your contributions help make our app even better. Whether you're a developer, designer, or just enthusiastic about enhancing user experiences, we'd love to have you on board.
+
+Before you get started, please familiarize yourself with our guidelines to ensure a smooth collaboration process.
+
+[Contribution Guidelines](../../CONTRIBUTING.md)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](../../LICENSE) file for details.

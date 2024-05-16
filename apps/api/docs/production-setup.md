@@ -1,0 +1,162 @@
+# Production Setup
+
+This document outlines the steps required to set up Transcript Summarizer API for production. Following these steps will ensure that your application is configured properly for a production environment.
+
+## Prerequisites
+
+Before setting up Transcript Summarizer API for production, ensure you have the following prerequisites with the specified versions:
+
+- **NVM (Node Version Manager):** Use NVM to manage Node.js versions.
+- **Node.js** Node.js v20.x or higher.
+- **Git:** Git v2.x or higher.
+- **MariaDB:** MariaDB v10.x or higher.
+- **Redis:** Redis v6.x or higher
+- **PM2 (Process Manager):** PM2 v5.x or higher.
+
+These prerequisites are essential for deploying and running Transcript Summarizer API in a environment.
+
+Make sure Redis and MariaDB server are up and running.
+
+## Server Configuration
+
+1. **Environment Variables:** Set the necessary environment variables on your production server. These variables include database configuration, SMTP settings, and any other variables your application requires. Ensure the `.env` file is properly configured with production values.
+
+   ```env
+   # Server
+   SERVER_PORT=3000
+
+   # Node env
+   NODE_ENV=development # Use "development" for graphql playground to work
+
+   # Upload folder location
+   UPLOAD_FOLDER_PATH= # If not present will use "uploads" folder in the root cwd
+
+   # Database configuration
+   DB_TYPE=
+   DB_HOST=transcript-summarizer-mariadb
+   DB_PORT=
+   DB_USERNAME=
+   DB_PASSWORD=
+   DB_NAME=
+   MARIADB_DOCKER_PORT= 3307
+
+   # Redis configuration
+   DB_HOST=transcript-summarizer-redis
+   REDIS_PORT=6379
+   REDIS_DOCKER_PORT=6379
+
+   OPENAI_API_KEY="sk-your api key"
+   GPT_MODEL="gpt-4o"
+
+   # Docker env
+   COMPOSE_PROJECT_NAME=transcript-summarizer-api 
+   ```
+
+Make sure to replace the above example values with appropriate values as per your setup and configuration. Server Port is `3000`, you can update it if you want to use a different port of your choice.
+
+## Building and Preparing
+
+1. **Build the Application:** Before starting the server, build Transcript Summarizer API by running:
+
+   ```sh
+   npm run build
+   ```
+
+  This command compiles your TypeScript code into JavaScript and generates the necessary build files.
+
+## Starting the Server
+### Using PM2
+1. **PM2 Configuration:** Create an ecosystem.config.js (or .ts) file to configure PM2. This file defines settings such as the application name, entry point, and other options. For example:
+
+  ```js
+  module.exports = {
+    apps: [
+      {
+        name: 'Transcript-Summarizer-API', // Name of your application
+        script: 'dist/main.js', // Path to the compiled NestJS entry file
+        instances: 1, // Use max to Automatically scale instances based on CPU cores
+        autorestart: true, // Auto-restart if the app crashes
+        watch: false, // Watch for file changes (disable for production)
+        max_memory_restart: '1G', // Restart if memory usage exceeds 1GB
+        env: {
+          NODE_ENV: 'production', // Set the environment to production
+        },
+      },
+    ],
+  };
+  ```
+
+2. **Start the Application with PM2:** Use PM2 to start your application:
+
+  ```sh
+  pm2 start ecosystem.config.js
+  ```
+
+To ensure your application starts on system boot:
+
+  ```sh
+  pm2 startup
+  ```
+
+Follow instruction given by the command if any.
+
+Save pm2 config:
+
+  ```sh
+  pm2 save
+  ```
+### Using Docker
+
+**Step 1: Update Environment Variables**
+
+Before using Docker, ensure you've configured the environment variables in your `.env` file correctly. Update values such as `MARIADB_DOCKER_PORT`, `REDIS_DOCKER_PORT`, `REDIS_HOST`, and `DB_HOST` as required for your Docker setup.
+
+**Step 2: Build your docker container**
+
+```bash
+docker-compose build
+```
+
+**Step 3: Start the Docker Containers**
+
+To start your application within Docker containers, run the following command:
+
+```bash
+docker-compose up -d
+```
+
+**Step 4: Database Migrations (First-Time Setup)**
+
+For the first-time setup, you need to run database migrations to create the required database tables. Execute the following command:
+
+```bash
+docker exec -it transcript-summarizer-api npm run typeorm:run-migrations
+```
+
+**Step 5: Update Environment Variables**
+
+If you need to update any environment variable values:
+
+1. Update the values in your `.env` file.
+
+2. Stop the running containers:
+
+   ```bash
+   docker-compose down
+   ```
+
+3. Rebuild the Docker containers with the updated environment variables:
+
+   ```bash
+   docker-compose build
+   ```
+
+4. Start the Docker containers again:
+
+   ```bash
+   docker-compose up -d
+   ```
+
+With these steps, your application should be up and running in Docker with the updated environment variables.
+
+For details on using the application and making API calls, refer to our [Usage Guide](usage-guide.md).
