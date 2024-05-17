@@ -24,6 +24,8 @@
     "@angular/platform-browser-dynamic": "^17.3.6",
     "@angular/router": "^17.3.6",
     "@apollo/client": "^3.10.3",
+    "@azure/msal-angular": "^3.0.17",
+    "@azure/msal-browser": "^3.14.0",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
     "@types/apollo-upload-client": "^18.0.0",

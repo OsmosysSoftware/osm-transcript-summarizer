@@ -40,9 +40,8 @@ export class TranscriptAnalyzerComponent {
   onRemove(): void {
     this.selectedFile = null;
   }
-  // eslint-disable-next-line
+
   summarizeTranscript(): void {
-    // eslint-disable-next-line
     if (!this.selectedFile) {
       this.translate.get('TRANSCRIPT.ERRORS.NO_FILE').subscribe((translation: string) => {
         this.messageService.add({
@@ -58,6 +57,19 @@ export class TranscriptAnalyzerComponent {
     this.fileService.uploadFile(this.selectedFile).subscribe(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (result: ApolloQueryResult<any>) => {
+        // Check if the result contains errors
+        if (result.errors && result.errors.length > 0) {
+          this.translate.get('TRANSCRIPT.ERRORS.FILE_UPLOAD').subscribe((translation: string) => {
+            this.messageService.add({
+              key: 'tst',
+              severity: 'error',
+              summary: '',
+              detail: `${translation}`,
+            });
+          });
+          return;
+        }
+
         const jobId = result?.data?.createSummary?.jobId;
 
         if (jobId) {
