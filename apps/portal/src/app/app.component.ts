@@ -55,6 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
       )
       .subscribe((result: EventMessage) => {
         const payload = result.payload as AuthenticationResult;
+        this.authService.instance.setActiveAccount(payload.account);
         sessionStorage.setItem('accessToken', payload.accessToken);
         this.setLoginDisplay();
       });
@@ -83,7 +84,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   tryAcquireToken(): void {
     const scopes = [environment.apiScope]; // Specify the scopes your app requires
-    const account = this.authService.instance.getAllAccounts()[0];
+    const account =
+      this.authService.instance.getActiveAccount() || this.authService.instance.getAllAccounts()[0];
 
     if (account) {
       this.authService.acquireTokenSilent({ scopes, account }).subscribe({

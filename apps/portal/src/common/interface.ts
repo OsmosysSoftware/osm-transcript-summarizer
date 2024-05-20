@@ -1,5 +1,6 @@
 export interface ErrorResponse {
-  extensions?: {
+  extensions: {
+    code: string;
     originalError?: {
       message?: string;
     };

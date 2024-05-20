@@ -1,5 +1,7 @@
-<h1 class="mt-4 mb-6 text-center text-cyan-400 text-5xl font-semibold">
-  {{ 'COMMON.TITLE' | translate }}
-</h1>
+<ng-container *ngIf="loginDisplay">
+  <h1 class="mt-4 mb-6 text-center text-cyan-400 text-5xl font-semibold">
+    {{ 'COMMON.TITLE' | translate }}
+  </h1></ng-container
+>
 <router-outlet></router-outlet>
 <p-toast key="tst"></p-toast>
