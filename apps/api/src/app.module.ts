@@ -8,16 +8,22 @@ import { DatabaseModule } from './database/database.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { ConfigService } from '@nestjs/config';
-const configService = new ConfigService();
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { PassportModule } from '@nestjs/passport';
+import { AzureADStrategy } from './auth/azure-ad.strategy';
+
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     DatabaseModule,
+    PassportModule.register({ defaultStrategy: 'azure-ad' }),
     SummaryModule,
     BullModule.forRoot({
       redis: {
-        host: configService.getOrThrow<string>('REDIS_HOST'),
-        port: +configService.getOrThrow<number>('REDIS_PORT'),
+        host: new ConfigService().getOrThrow<string>('REDIS_HOST'),
+        port: +new ConfigService().getOrThrow<number>('REDIS_PORT'),
       },
     }),
     ScheduleModule.forRoot(),
@@ -26,10 +32,10 @@ const configService = new ConfigService();
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gpl'),
       sortSchema: true,
-      playground: configService.getOrThrow('NODE_ENV') === 'development',
+      playground: new ConfigService().getOrThrow('NODE_ENV') === 'development',
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AzureADStrategy],
 })
 export class AppModule {}

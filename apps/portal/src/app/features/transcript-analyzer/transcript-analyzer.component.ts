@@ -1,8 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { ApolloQueryResult } from '@apollo/client';
 import { MessageService } from 'primeng/api';
+import { MsalService } from '@azure/msal-angular';
 import { FileService } from '../file.service';
+import { ResponseData } from '../../../common/interface';
 
 @Component({
   selector: 'app-transcript-analyzer',
@@ -15,6 +16,7 @@ export class TranscriptAnalyzerComponent {
     private translate: TranslateService,
     private fileService: FileService,
     private messageService: MessageService,
+    private authService: MsalService,
   ) {
     this.translate.setDefaultLang('en');
   }
@@ -40,9 +42,8 @@ export class TranscriptAnalyzerComponent {
   onRemove(): void {
     this.selectedFile = null;
   }
-  // eslint-disable-next-line
+
   summarizeTranscript(): void {
-    // eslint-disable-next-line
     if (!this.selectedFile) {
       this.translate.get('TRANSCRIPT.ERRORS.NO_FILE').subscribe((translation: string) => {
         this.messageService.add({
@@ -56,8 +57,40 @@ export class TranscriptAnalyzerComponent {
     }
 
     this.fileService.uploadFile(this.selectedFile).subscribe(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (result: ApolloQueryResult<any>) => {
+      (result: ResponseData) => {
+        // Check if the result contains errors
+        if (result.errors && result.errors.length > 0) {
+          const unauthorizedError = result.errors.find(
+            (error) =>
+              error.extensions.code === 'UNAUTHENTICATED' && error.message === 'Unauthorized',
+          );
+
+          if (unauthorizedError) {
+            this.translate
+              .get('TRANSCRIPT.ERRORS.UNAUTHORIZED')
+              .subscribe((translation: string) => {
+                this.messageService.add({
+                  key: 'tst',
+                  severity: 'error',
+                  summary: '',
+                  detail: `${translation}`,
+                });
+              });
+            this.handleUnauthorizedError();
+            return;
+          }
+
+          this.translate.get('TRANSCRIPT.ERRORS.FILE_UPLOAD').subscribe((translation: string) => {
+            this.messageService.add({
+              key: 'tst',
+              severity: 'error',
+              summary: '',
+              detail: `${translation}`,
+            });
+          });
+          return;
+        }
+
         const jobId = result?.data?.createSummary?.jobId;
 
         if (jobId) {
@@ -89,5 +122,12 @@ export class TranscriptAnalyzerComponent {
         }
       },
     );
+  }
+
+  private handleUnauthorizedError(): void {
+    // Redirect to error page or logout
+    this.authService.logoutRedirect({
+      postLogoutRedirectUri: '/',
+    });
   }
 }

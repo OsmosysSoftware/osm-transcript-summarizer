@@ -3,10 +3,12 @@ import * as FileSaver from 'file-saver';
 import { MessageService } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription, interval } from 'rxjs';
+import { MsalService } from '@azure/msal-angular';
 import { JobDetails } from '../../shared/job-details.interface';
 import { JobStatus } from '../../shared/jobs';
 import { FileService } from '../file.service';
 import { Summary } from '../../shared/summary.interface';
+import { ResponseData } from '../../../common/interface';
 
 const POLLING_DELAY_IN_MILLISECONDS = 5000;
 @Component({
@@ -27,6 +29,7 @@ export class FileProcessorComponent implements OnInit, OnDestroy {
     private fileService: FileService,
     private messageService: MessageService,
     private translateService: TranslateService,
+    private authService: MsalService,
   ) {
     this.translateService.setDefaultLang('en');
   }
@@ -63,8 +66,42 @@ export class FileProcessorComponent implements OnInit, OnDestroy {
 
   fetchSummaries(): void {
     this.fileService.fetchSummaries(this.jobIds).subscribe(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (result: any) => {
+      (result: ResponseData) => {
+        // Check if the result contains errors
+        if (result.errors && result.errors.length > 0) {
+          const unauthorizedError = result.errors.find(
+            (error) =>
+              error.extensions.code === 'UNAUTHENTICATED' && error.message === 'Unauthorized',
+          );
+
+          if (unauthorizedError) {
+            this.translateService
+              .get('TRANSCRIPT.ERRORS.UNAUTHORIZED')
+              .subscribe((translation: string) => {
+                this.messageService.add({
+                  key: 'tst',
+                  severity: 'error',
+                  summary: '',
+                  detail: `${translation}`,
+                });
+              });
+            this.handleUnauthorizedError();
+            return;
+          }
+
+          this.translateService
+            .get('TRANSCRIPT.ERRORS.FILE_UPLOAD')
+            .subscribe((translation: string) => {
+              this.messageService.add({
+                key: 'tst',
+                severity: 'error',
+                summary: '',
+                detail: `${translation}`,
+              });
+            });
+          return;
+        }
+
         this.summaries = result.data.summaries.summaries;
         this.jobDetails = this.summaries.map((summary) => ({
           fileName: summary.inputFile.split('_')[1] || summary.inputFile,
@@ -136,5 +173,12 @@ export class FileProcessorComponent implements OnInit, OnDestroy {
       const blob = new Blob([summary], { type: 'text/markdown' });
       FileSaver.saveAs(blob, `${fileName.replace(/\.(txt|vtt)$/i, '')}.md`);
     }
+  }
+
+  private handleUnauthorizedError(): void {
+    // Redirect to error page or logout
+    this.authService.logoutRedirect({
+      postLogoutRedirectUri: '/',
+    });
   }
 }

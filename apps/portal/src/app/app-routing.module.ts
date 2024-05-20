@@ -1,5 +1,6 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { MsalGuard } from '@azure/msal-angular';
 import { TranscriptAnalyzerComponent } from './features/transcript-analyzer/transcript-analyzer.component';
 
 @NgModule({
@@ -9,6 +10,7 @@ import { TranscriptAnalyzerComponent } from './features/transcript-analyzer/tran
         {
           path: 'transcript',
           component: TranscriptAnalyzerComponent,
+          canActivate: [MsalGuard],
         },
         {
           path: '**',
