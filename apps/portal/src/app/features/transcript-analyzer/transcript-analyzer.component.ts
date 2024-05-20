@@ -76,7 +76,7 @@ export class TranscriptAnalyzerComponent {
                   detail: `${translation}`,
                 });
               });
-            // this.handleUnauthorizedError();
+            this.handleUnauthorizedError();
             return;
           }
 
