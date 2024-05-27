@@ -23,6 +23,12 @@ export class AzureADStrategy extends PassportStrategy(BearerStrategy, 'azure-ad'
   async validate(profile: any): Promise<any> {
     // Implement user validation and extraction of necessary user information from profile
     // Example: Extract and store user details in a session
+    const currentUser = {
+      id: profile.oid,
+      name: profile.name,
+      email: profile.upn || profile.unique_name,
+    };
+    profile.currentUser = currentUser;
     return profile;
   }
 }

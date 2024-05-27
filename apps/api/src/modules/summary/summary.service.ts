@@ -27,7 +27,7 @@ export class SummaryService extends CoreService<Summary> {
     super(summaryRepository);
   }
 
-  async createSummary(createSummaryInput: CreateSummaryDTO): Promise<Summary> {
+  async createSummary(createSummaryInput: CreateSummaryDTO, userEmail: string): Promise<Summary> {
     const { inputFile } = createSummaryInput;
 
     if (inputFile) {
@@ -55,6 +55,11 @@ export class SummaryService extends CoreService<Summary> {
               this.logger.log(
                 `Saving Uploaded File Details for ${modifiedFilename} at ${fileLocation}`,
               );
+
+              if (userEmail) {
+                summary.createdBy = userEmail;
+              }
+
               const savedSummary = await this.summaryRepository.save(summary);
               resolve(savedSummary);
             } catch (error) {
