@@ -58,6 +58,7 @@ export class SummaryService extends CoreService<Summary> {
 
               if (userEmail) {
                 summary.createdBy = userEmail;
+                summary.modifiedBy = userEmail;
               }
 
               const savedSummary = await this.summaryRepository.save(summary);
