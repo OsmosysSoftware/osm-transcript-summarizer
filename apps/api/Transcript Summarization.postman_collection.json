@@ -1,155 +1,246 @@
 {
-  "info": {
-    "_postman_id": "46550175-1f28-4125-9d41-deb10ca7fd28",
-    "name": "Transcript Summarization",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "29819951"
-  },
-  "item": [
-    {
-      "name": "File Upload using graphQL",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Accept-Encoding",
-            "value": "gzip, deflate, br"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          },
-          {
-            "key": "Accept",
-            "value": "application/json"
-          },
-          {
-            "key": "Connection",
-            "value": "keep-alive"
-          },
-          {
-            "key": "Origin",
-            "value": "chrome-extension://flnheeellpciglgpaodhkhmapeljopja"
-          },
-          {
-            "key": "x-apollo-operation-name",
-            "value": "createSummary"
-          }
-        ],
-        "body": {
-          "mode": "formdata",
-          "formdata": [
-            {
-              "key": "operations",
-              "value": "{\"query\":\"mutation ($file: Upload!) {\\n  createSummary(createSummaryInput: { inputFile: $file }) {\\n    jobId\\n  }\\n}\"}",
-              "type": "text"
-            },
-            {
-              "key": "map",
-              "value": "{\"0\": [\"variables.file\"]}",
-              "type": "text"
-            },
-            {
-              "key": "0",
-              "type": "file",
-              "src": "postman-cloud:///1ef0e9e3-58cb-4450-8333-d05a715d4544"
-            }
-          ]
-        },
-        "url": {
-          "raw": "http://localhost:3000/graphql",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["graphql"]
-        }
-      },
-      "response": [
-        {
-          "data": {
-            "createSummary": {
-              "jobId": 8
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "FetchAllRecords",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Accept-Encoding",
-            "value": "gzip, deflate, br"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          },
-          {
-            "key": "Accept",
-            "value": "application/json"
-          },
-          {
-            "key": "Connection",
-            "value": "keep-alive"
-          },
-          {
-            "key": "Origin",
-            "value": "chrome-extension://flnheeellpciglgpaodhkhmapeljopja"
-          }
-        ],
-        "body": {
-          "mode": "graphql",
-          "graphql": {
-            "query": "{summaries(options:{limit:10 offset:0 sortOrder:ASC filters:[{field:\"jobId\",operator:\"in\",value:\"[5,6]\"}]}){limit offset summaries{createdBy createdOn jobId inputFile jobStatus modifiedBy modifiedOn outputText status}total}}",
-            "variables": ""
-          }
-        },
-        "url": {
-          "raw": "http://localhost:3000/graphql",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["graphql"]
-        }
-      },
-      "response": [
-        {
-          "data": {
-            "summaries": {
-              "limit": 10,
-              "offset": 0,
-              "summaries": [
-                {
-                  "createdBy": "admin",
-                  "createdOn": "2024-05-11T07:19:29.000Z",
-                  "job_id": 5,
-                  "inputFile": "98fc73e3-caec-4ff1-b24b-f9f74fee5f6d_uploadfileapi.json",
-                  "jobStatus": 1,
-                  "modifiedBy": "admin",
-                  "modifiedOn": "2024-05-11T07:19:29.000Z",
-                  "outputText": null,
-                  "status": 1
-                },
-                {
-                  "createdBy": "admin",
-                  "createdOn": "2024-05-11T07:19:34.000Z",
-                  "job_id": 6,
-                  "inputFile": "7a995221-b5f9-4a82-8518-c97f1b78c4a3_uploadfileapi.json",
-                  "jobStatus": 1,
-                  "modifiedBy": "admin",
-                  "modifiedOn": "2024-05-11T07:19:34.000Z",
-                  "outputText": null,
-                  "status": 1
-                }
-              ],
-              "total": 2
-            }
-          }
-        }
-      ]
-    }
-  ]
+	"info": {
+		"_postman_id": "102cfd2e-16ee-4c0b-9567-96158dc9427a",
+		"name": "Transcript Summarization",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "20654268"
+	},
+	"item": [
+		{
+			"name": "File Upload using graphQL",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br",
+						"uuid": "ff8f8915-d306-465d-a085-1030cf805690"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"uuid": "4cae4956-2a10-4132-a5e2-bf1a379c3a5a"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"uuid": "624f9968-7176-411a-8715-4584a1a5dad3"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"uuid": "6cba5432-4dc7-4bbb-9885-87394a1eeeaa"
+					},
+					{
+						"key": "Origin",
+						"value": "chrome-extension://flnheeellpciglgpaodhkhmapeljopja",
+						"uuid": "da802fc2-1c40-4917-b9f7-bca94a219568"
+					},
+					{
+						"key": "x-apollo-operation-name",
+						"value": "createSummary",
+						"uuid": "bcfbac4a-4986-4b8a-8886-c138faa92135"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkwxS2ZLRklfam5YYndXYzIyeFp4dzFzVUhIMCIsImtpZCI6IkwxS2ZLRklfam5YYndXYzIyeFp4dzFzVUhIMCJ9.eyJhdWQiOiJhcGk6Ly9mNDQ0N2QwYy04YzY4LTRlODMtYWU5MS1lNjJlMjc1NmExNDciLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NWNhODVjYi0yMGM5LTQ1YzUtYmJmYy1iZTJkMGFjMmU2NTcvIiwiaWF0IjoxNzE2ODEyMjIwLCJuYmYiOjE3MTY4MTIyMjAsImV4cCI6MTcxNjgxNzgxNSwiYWNyIjoiMSIsImFpbyI6IkFUUUF5LzhXQUFBQUVKandMclNlaDV2Qlg1TmticC92UDVqSmhUNlg4TFp0Y0gzRkhTekpXbHdMbXhVZzR6R3JLcXc4Und5R2ZjdlIiLCJhbXIiOlsicHdkIl0sImFwcGlkIjoiMmIwM2U3M2UtMTdlMS00OGYzLWIyNGEtN2QyNzAxOTZmNDc3IiwiYXBwaWRhY3IiOiIwIiwiZ2l2ZW5fbmFtZSI6IkhhcmlzaCIsImlwYWRkciI6IjE0Ljk5LjIwMy41MCIsIm5hbWUiOiJIYXJpc2giLCJvaWQiOiI0NjFhZWRlNi1kOWRlLTQ4NTctOTc5ZS0yZWVmZDQ5ODU1MTYiLCJyaCI6IjAuQVZZQXk0WEtsY2tneFVXN19MNHRDc0xtVnd4OVJQUm9qSU5PcnBIbUxpZFdvVWRXQUlVLiIsInNjcCI6ImFwaS5jb25zdW1lIiwic3ViIjoidkRsb0VSUTZMRndjLTYyS2prRnUwMWdXSHRvbVNSOXdJaE92aXpLNEV6MCIsInRpZCI6Ijk1Y2E4NWNiLTIwYzktNDVjNS1iYmZjLWJlMmQwYWMyZTY1NyIsInVuaXF1ZV9uYW1lIjoiaGFyaXNoQG9zbW9zeXMuY28iLCJ1cG4iOiJoYXJpc2hAb3Ntb3N5cy5jbyIsInV0aSI6ImtOSlRYdUVhbEVPTjFaRWUxeHY0QUEiLCJ2ZXIiOiIxLjAifQ.Lo4UPQ3oOWfhkTECerSqP3aewhzl-eAREQVc1MajDNL1xGBbtK2d7d8qw7CmphR97AUY47UjH6ZjN0xbBYMN-2nBokDlSvUj1SLJkdwj4_NS9-xDUYdqwHSBbOx7ue6Qt-RCs4W6vVgDpCVT1wRldGjfTOn4Vni-CbVmfjHz3Rwv1LDJEj3atM4pYG8katXgvwR3ztl5lu0taDA48cciwPSHZFqwN8SoBN8KpoB5II2GQRrkkWybGXPz-4daeXAlPuFrTJ68ExW3LlrmMW3ZSZavlbv8VIUjVHtz9j7PRoRJzurO_C_AWKLNqBh6Q3WWWZRx4KqE3aDaemwHOS-x4w",
+						"type": "text",
+						"uuid": "2095ff28-47a7-46ca-b775-f838b3831a76"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "operations",
+							"value": "{\"query\":\"mutation ($file: Upload!) {\\n  createSummary(createSummaryInput: { inputFile: $file }) {\\n    jobId\\n  }\\n}\"}",
+							"type": "text"
+						},
+						{
+							"key": "map",
+							"value": "{\"0\": [\"variables.file\"]}",
+							"type": "text"
+						},
+						{
+							"key": "0",
+							"type": "file",
+							"src": "/home/harish-work/sample.txt"
+						}
+					]
+				},
+				"url": "http://localhost:3000/graphql"
+			},
+			"response": [
+				{
+					"name": "Untitled Response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Encoding",
+								"value": "gzip, deflate, br",
+								"uuid": "ff8f8915-d306-465d-a085-1030cf805690"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"uuid": "4cae4956-2a10-4132-a5e2-bf1a379c3a5a"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"uuid": "624f9968-7176-411a-8715-4584a1a5dad3"
+							},
+							{
+								"key": "Connection",
+								"value": "keep-alive",
+								"uuid": "6cba5432-4dc7-4bbb-9885-87394a1eeeaa"
+							},
+							{
+								"key": "Origin",
+								"value": "chrome-extension://flnheeellpciglgpaodhkhmapeljopja",
+								"uuid": "da802fc2-1c40-4917-b9f7-bca94a219568"
+							},
+							{
+								"key": "x-apollo-operation-name",
+								"value": "createSummary",
+								"uuid": "bcfbac4a-4986-4b8a-8886-c138faa92135"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkwxS2ZLRklfam5YYndXYzIyeFp4dzFzVUhIMCIsImtpZCI6IkwxS2ZLRklfam5YYndXYzIyeFp4dzFzVUhIMCJ9.eyJhdWQiOiJhcGk6Ly9mNDQ0N2QwYy04YzY4LTRlODMtYWU5MS1lNjJlMjc1NmExNDciLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NWNhODVjYi0yMGM5LTQ1YzUtYmJmYy1iZTJkMGFjMmU2NTcvIiwiaWF0IjoxNzE2ODEyMjIwLCJuYmYiOjE3MTY4MTIyMjAsImV4cCI6MTcxNjgxNzgxNSwiYWNyIjoiMSIsImFpbyI6IkFUUUF5LzhXQUFBQUVKandMclNlaDV2Qlg1TmticC92UDVqSmhUNlg4TFp0Y0gzRkhTekpXbHdMbXhVZzR6R3JLcXc4Und5R2ZjdlIiLCJhbXIiOlsicHdkIl0sImFwcGlkIjoiMmIwM2U3M2UtMTdlMS00OGYzLWIyNGEtN2QyNzAxOTZmNDc3IiwiYXBwaWRhY3IiOiIwIiwiZ2l2ZW5fbmFtZSI6IkhhcmlzaCIsImlwYWRkciI6IjE0Ljk5LjIwMy41MCIsIm5hbWUiOiJIYXJpc2giLCJvaWQiOiI0NjFhZWRlNi1kOWRlLTQ4NTctOTc5ZS0yZWVmZDQ5ODU1MTYiLCJyaCI6IjAuQVZZQXk0WEtsY2tneFVXN19MNHRDc0xtVnd4OVJQUm9qSU5PcnBIbUxpZFdvVWRXQUlVLiIsInNjcCI6ImFwaS5jb25zdW1lIiwic3ViIjoidkRsb0VSUTZMRndjLTYyS2prRnUwMWdXSHRvbVNSOXdJaE92aXpLNEV6MCIsInRpZCI6Ijk1Y2E4NWNiLTIwYzktNDVjNS1iYmZjLWJlMmQwYWMyZTY1NyIsInVuaXF1ZV9uYW1lIjoiaGFyaXNoQG9zbW9zeXMuY28iLCJ1cG4iOiJoYXJpc2hAb3Ntb3N5cy5jbyIsInV0aSI6ImtOSlRYdUVhbEVPTjFaRWUxeHY0QUEiLCJ2ZXIiOiIxLjAifQ.Lo4UPQ3oOWfhkTECerSqP3aewhzl-eAREQVc1MajDNL1xGBbtK2d7d8qw7CmphR97AUY47UjH6ZjN0xbBYMN-2nBokDlSvUj1SLJkdwj4_NS9-xDUYdqwHSBbOx7ue6Qt-RCs4W6vVgDpCVT1wRldGjfTOn4Vni-CbVmfjHz3Rwv1LDJEj3atM4pYG8katXgvwR3ztl5lu0taDA48cciwPSHZFqwN8SoBN8KpoB5II2GQRrkkWybGXPz-4daeXAlPuFrTJ68ExW3LlrmMW3ZSZavlbv8VIUjVHtz9j7PRoRJzurO_C_AWKLNqBh6Q3WWWZRx4KqE3aDaemwHOS-x4w",
+								"type": "text",
+								"uuid": "2095ff28-47a7-46ca-b775-f838b3831a76"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "operations",
+									"value": "{\"query\":\"mutation ($file: Upload!) {\\n  createSummary(createSummaryInput: { inputFile: $file }) {\\n    jobId\\n  }\\n}\"}",
+									"type": "text"
+								},
+								{
+									"key": "map",
+									"value": "{\"0\": [\"variables.file\"]}",
+									"type": "text"
+								},
+								{
+									"key": "0",
+									"type": "file",
+									"src": "/home/harish-work/sample.txt"
+								}
+							]
+						},
+						"url": "http://localhost:3000/graphql"
+					},
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "FetchAllRecords",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br",
+						"uuid": "6a27d6e3-a963-4660-b63c-a737f9f9cc4c"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"uuid": "3b63dce7-db61-40dc-9be4-1448e0fb3edf"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"uuid": "3e0c90f9-d0de-4cbb-9189-332ca8aae4a0"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"uuid": "4a043dd2-d248-4416-a197-fbe174b08746"
+					},
+					{
+						"key": "Origin",
+						"value": "chrome-extension://flnheeellpciglgpaodhkhmapeljopja",
+						"uuid": "13fe81c3-a5fa-4a3d-95ce-0e978bb945e9"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkwxS2ZLRklfam5YYndXYzIyeFp4dzFzVUhIMCIsImtpZCI6IkwxS2ZLRklfam5YYndXYzIyeFp4dzFzVUhIMCJ9.eyJhdWQiOiJhcGk6Ly9mNDQ0N2QwYy04YzY4LTRlODMtYWU5MS1lNjJlMjc1NmExNDciLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NWNhODVjYi0yMGM5LTQ1YzUtYmJmYy1iZTJkMGFjMmU2NTcvIiwiaWF0IjoxNzE2ODc4NDQxLCJuYmYiOjE3MTY4Nzg0NDEsImV4cCI6MTcxNjg4Mzk0MSwiYWNyIjoiMSIsImFpbyI6IkFUUUF5LzhXQUFBQUlqK2dFNzNRZ2lkZUhUV2F1MFViOWVlUVVvZllhcGxQbHBJVmdoNXE5VGphMmUyOGF0aWMrRThkWUJUck1jWUkiLCJhbXIiOlsicHdkIl0sImFwcGlkIjoiMmIwM2U3M2UtMTdlMS00OGYzLWIyNGEtN2QyNzAxOTZmNDc3IiwiYXBwaWRhY3IiOiIwIiwiZ2l2ZW5fbmFtZSI6IkhhcmlzaCIsImlwYWRkciI6IjE0Ljk5LjIwMy41MCIsIm5hbWUiOiJIYXJpc2giLCJvaWQiOiI0NjFhZWRlNi1kOWRlLTQ4NTctOTc5ZS0yZWVmZDQ5ODU1MTYiLCJyaCI6IjAuQVZZQXk0WEtsY2tneFVXN19MNHRDc0xtVnd4OVJQUm9qSU5PcnBIbUxpZFdvVWRXQUlVLiIsInNjcCI6ImFwaS5jb25zdW1lIiwic3ViIjoidkRsb0VSUTZMRndjLTYyS2prRnUwMWdXSHRvbVNSOXdJaE92aXpLNEV6MCIsInRpZCI6Ijk1Y2E4NWNiLTIwYzktNDVjNS1iYmZjLWJlMmQwYWMyZTY1NyIsInVuaXF1ZV9uYW1lIjoiaGFyaXNoQG9zbW9zeXMuY28iLCJ1cG4iOiJoYXJpc2hAb3Ntb3N5cy5jbyIsInV0aSI6Ik96NHNMdEJhTFVtdTNlS0hjTkFOQUEiLCJ2ZXIiOiIxLjAifQ.kk0RedjQn9PAcCLnLlGJtMKa9cvdV1nF4XzU17QpyfACg6YJSDev1JKl6xvUIkDmP0hbGbyaWbswLcG-k-shS1UJ04EMHychDDOVlMKCCinusZo2C03z_s4PUTi8eomt1RyxshndQy9OozvF1RQrv6_MgvHm3GWrn5c3tjya7zBGYgoL854dje6V8x_GhWE6zPOyR-iEkryc6SySpwUShI6CZfO8M9i4EklNbb_ikjmKni_ZeiqPBcXxK9t8zbREqhLACm8Xl7ueyvJlhivMhYhnXJWIGlaLDSa669Grz0vfGxs35DUncv0Rz_XXdHgBh3Bl6a_4cvxB_NIyNy_UVA",
+						"type": "text",
+						"uuid": "6ece77f5-183a-40ed-a8f9-dd6d2e2a67ec"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "{\n  summaries(\n    options: {\n      limit: 10\n      offset: 0\n      sortOrder: ASC\n      filters: [ #Remove filter if you want complete data \n        { field: \"createdOn\", operator: \"gte\", value: \"2023-01-01\" } #Specify the date range to fetch record\n        { field: \"createdOn\", operator: \"lte\", value: \"2024-06-06\" }\n        { field: \"createdBy\", operator: \"in\", value: \"[\\\"vikas.k@osmosys.co\\\",\\\"harish@osmosys.co\\\"]\" } # Specify the email id of the person whose record you want to find \n      ]\n    }\n  ) {\n    limit\n    offset\n    summaries {\n      createdBy\n      createdOn\n      jobId\n      inputFile\n      jobStatus\n      modifiedBy\n      modifiedOn\n      outputText\n      status\n    }\n    total\n  }\n}\n",
+						"variables": ""
+					}
+				},
+				"url": "http://localhost:3000/graphql"
+			},
+			"response": [
+				{
+					"name": "Untitled Response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Encoding",
+								"value": "gzip, deflate, br",
+								"uuid": "6a27d6e3-a963-4660-b63c-a737f9f9cc4c"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"uuid": "3b63dce7-db61-40dc-9be4-1448e0fb3edf"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"uuid": "3e0c90f9-d0de-4cbb-9189-332ca8aae4a0"
+							},
+							{
+								"key": "Connection",
+								"value": "keep-alive",
+								"uuid": "4a043dd2-d248-4416-a197-fbe174b08746"
+							},
+							{
+								"key": "Origin",
+								"value": "chrome-extension://flnheeellpciglgpaodhkhmapeljopja",
+								"uuid": "13fe81c3-a5fa-4a3d-95ce-0e978bb945e9"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkwxS2ZLRklfam5YYndXYzIyeFp4dzFzVUhIMCIsImtpZCI6IkwxS2ZLRklfam5YYndXYzIyeFp4dzFzVUhIMCJ9.eyJhdWQiOiJhcGk6Ly9mNDQ0N2QwYy04YzY4LTRlODMtYWU5MS1lNjJlMjc1NmExNDciLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NWNhODVjYi0yMGM5LTQ1YzUtYmJmYy1iZTJkMGFjMmU2NTcvIiwiaWF0IjoxNzE2ODc4NDQxLCJuYmYiOjE3MTY4Nzg0NDEsImV4cCI6MTcxNjg4Mzk0MSwiYWNyIjoiMSIsImFpbyI6IkFUUUF5LzhXQUFBQUlqK2dFNzNRZ2lkZUhUV2F1MFViOWVlUVVvZllhcGxQbHBJVmdoNXE5VGphMmUyOGF0aWMrRThkWUJUck1jWUkiLCJhbXIiOlsicHdkIl0sImFwcGlkIjoiMmIwM2U3M2UtMTdlMS00OGYzLWIyNGEtN2QyNzAxOTZmNDc3IiwiYXBwaWRhY3IiOiIwIiwiZ2l2ZW5fbmFtZSI6IkhhcmlzaCIsImlwYWRkciI6IjE0Ljk5LjIwMy41MCIsIm5hbWUiOiJIYXJpc2giLCJvaWQiOiI0NjFhZWRlNi1kOWRlLTQ4NTctOTc5ZS0yZWVmZDQ5ODU1MTYiLCJyaCI6IjAuQVZZQXk0WEtsY2tneFVXN19MNHRDc0xtVnd4OVJQUm9qSU5PcnBIbUxpZFdvVWRXQUlVLiIsInNjcCI6ImFwaS5jb25zdW1lIiwic3ViIjoidkRsb0VSUTZMRndjLTYyS2prRnUwMWdXSHRvbVNSOXdJaE92aXpLNEV6MCIsInRpZCI6Ijk1Y2E4NWNiLTIwYzktNDVjNS1iYmZjLWJlMmQwYWMyZTY1NyIsInVuaXF1ZV9uYW1lIjoiaGFyaXNoQG9zbW9zeXMuY28iLCJ1cG4iOiJoYXJpc2hAb3Ntb3N5cy5jbyIsInV0aSI6Ik96NHNMdEJhTFVtdTNlS0hjTkFOQUEiLCJ2ZXIiOiIxLjAifQ.kk0RedjQn9PAcCLnLlGJtMKa9cvdV1nF4XzU17QpyfACg6YJSDev1JKl6xvUIkDmP0hbGbyaWbswLcG-k-shS1UJ04EMHychDDOVlMKCCinusZo2C03z_s4PUTi8eomt1RyxshndQy9OozvF1RQrv6_MgvHm3GWrn5c3tjya7zBGYgoL854dje6V8x_GhWE6zPOyR-iEkryc6SySpwUShI6CZfO8M9i4EklNbb_ikjmKni_ZeiqPBcXxK9t8zbREqhLACm8Xl7ueyvJlhivMhYhnXJWIGlaLDSa669Grz0vfGxs35DUncv0Rz_XXdHgBh3Bl6a_4cvxB_NIyNy_UVA",
+								"type": "text",
+								"uuid": "6ece77f5-183a-40ed-a8f9-dd6d2e2a67ec"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{\n  summaries(\n    options: {\n      limit: 10\n      offset: 0\n      sortOrder: ASC\n      filters: [ #Remove filter if you want complete data \n        { field: \"createdOn\", operator: \"gte\", value: \"2023-01-01\" } #Specify the date range to fetch record\n        { field: \"createdOn\", operator: \"lte\", value: \"2024-06-06\" }\n        { field: \"createdBy\", operator: \"in\", value: \"[\\\"vikas.k@osmosys.co\\\",\\\"harish@osmosys.co\\\"]\" } # Specify the email id of the person whose record you want to find \n      ]\n    }\n  ) {\n    limit\n    offset\n    summaries {\n      createdBy\n      createdOn\n      jobId\n      inputFile\n      jobStatus\n      modifiedBy\n      modifiedOn\n      outputText\n      status\n    }\n    total\n  }\n}\n",
+								"variables": ""
+							}
+						},
+						"url": "http://localhost:3000/graphql"
+					},
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		}
+	]
 }

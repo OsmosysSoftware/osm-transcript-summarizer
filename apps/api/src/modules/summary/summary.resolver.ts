@@ -6,6 +6,7 @@ import { QueryOptionsDto } from 'src/common/graphql/dtos/query-options.dto';
 import { SummaryResponse } from './dto/summary-response.dto';
 import { UseGuards } from '@nestjs/common';
 import { AzureADGuard } from 'src/auth/azure-ad.guard';
+import { CurrentUser } from 'src/Decorator/user.decorator';
 
 @Resolver(() => Summary)
 export class SummaryResolver {
@@ -15,8 +16,9 @@ export class SummaryResolver {
   @UseGuards(AzureADGuard)
   async createSummary(
     @Args('createSummaryInput') createSummaryInput: CreateSummaryDTO,
+    @CurrentUser('email') userEmail: string,
   ): Promise<Summary> {
-    return this.summaryService.createSummary(createSummaryInput);
+    return this.summaryService.createSummary(createSummaryInput, userEmail);
   }
 
   @Query(() => SummaryResponse, { name: 'summaries' })
