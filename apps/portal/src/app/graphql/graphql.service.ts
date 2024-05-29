@@ -38,10 +38,7 @@ export class GraphqlService {
 
         return throwError('Failed to acquire token');
       }),
-      catchError((error) => {
-        console.error('Error acquiring token silently', error);
-        return throwError(error);
-      }),
+      catchError((error) => throwError(error)),
     );
     return token;
   }
