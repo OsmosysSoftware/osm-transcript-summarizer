@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { ApolloQueryResult } from '@apollo/client';
 import { catchError, switchMap } from 'rxjs/operators';
 import { MsalService } from '@azure/msal-angular';
-import { AuthenticationResult } from '@azure/msal-browser';
+import { AuthenticationResult, InteractionRequiredAuthError } from '@azure/msal-browser';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -38,7 +38,15 @@ export class GraphqlService {
 
         return throwError('Failed to acquire token');
       }),
-      catchError((error) => throwError(error)),
+      catchError((error) => {
+        if (error instanceof InteractionRequiredAuthError) {
+          // fallback to interaction when silent call fails
+          this.authService.acquireTokenRedirect(request);
+          return throwError('Redirecting for token acquisition');
+        }
+
+        return throwError(error);
+      }),
     );
     return token;
   }
