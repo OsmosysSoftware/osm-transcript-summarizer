@@ -54,7 +54,7 @@
     "graphql-upload": "^15.0.2",
     "graphql-upload-minimal": "^1.6.1",
     "mariadb": "^3.3.0",
-    "mysql2": "^3.9.7",
+    "mysql2": "^3.9.8",
     "nest-winston": "^1.9.4",
     "openai": "^4.46.1",
     "passport": "^0.7.0",
