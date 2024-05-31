@@ -42,7 +42,6 @@ export class GraphqlService {
         if (error instanceof InteractionRequiredAuthError) {
           // fallback to interaction when silent call fails
           this.authService.acquireTokenRedirect(request);
-          return throwError('Redirecting for token acquisition');
         }
 
         return throwError(error);
