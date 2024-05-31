@@ -6,7 +6,7 @@ import { QueryOptionsDto } from 'src/common/graphql/dtos/query-options.dto';
 import { SummaryResponse } from './dto/summary-response.dto';
 import { UseGuards } from '@nestjs/common';
 import { AzureADGuard } from 'src/auth/azure-ad.guard';
-import { CurrentUser } from 'src/Decorator/user.decorator';
+import { CurrentUser } from 'src/common/decorators/user.decorator';
 
 @Resolver(() => Summary)
 export class SummaryResolver {
