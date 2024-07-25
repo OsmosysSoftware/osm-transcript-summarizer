@@ -32,13 +32,15 @@ export class MeetingSummaryService {
       .split('\n')
       .map((line) => line.trim())
       .filter((line) => line);
-    const timePattern =
+    const timePattern1 =
       /(\d{1,2}:\d{2}:\d{2}(?:\.\d{1,3})?) --> (\d{1,2}:\d{2}:\d{2}(?:\.\d{1,3})?)/; // Matches time format "HH:MM:SS" or "HH:MM:SS.mmm"
+    const timePattern2 =
+      /(\d{1,2}:\d{1,2}:\d{1,2}(?:\.\d{1,3})?) --> (\d{1,2}:\d{1,2}:\d{1,2}(?:\.\d{1,3})?)/; // Matches time format "H:M:S" or "H:M:S.mmm"
     const chunks: Chunk[] = [];
     let i = 0;
 
     while (i < lines.length) {
-      const match = lines[i].match(timePattern);
+      const match = lines[i].match(timePattern1) || lines[i].match(timePattern2);
 
       if (match) {
         const [startTime, endTime] = match.slice(1, 3);
