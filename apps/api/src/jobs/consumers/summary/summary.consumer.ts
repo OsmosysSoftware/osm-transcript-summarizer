@@ -1,6 +1,6 @@
-import { Logger } from '@nestjs/common';
-import { Process, Processor } from '@nestjs/bull';
-import { Job } from 'bull';
+import { Logger, OnModuleDestroy } from '@nestjs/common';
+import { InjectQueue, Process, Processor } from '@nestjs/bull';
+import { Job, Queue } from 'bull';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Summary } from 'src/modules/summary/entities/summary.entity';
@@ -13,7 +13,7 @@ import { SUMMARY_QUEUE } from 'src/modules/summary/queues/summary.queue';
 import { uploadDir } from 'src/main';
 
 @Processor(SUMMARY_QUEUE)
-export class SummaryConsumer {
+export class SummaryConsumer implements OnModuleDestroy {
   private readonly logger = new Logger(SummaryConsumer.name);
 
   constructor(
@@ -21,6 +21,7 @@ export class SummaryConsumer {
     private readonly summaryRepository: Repository<Summary>,
     private readonly summaryService: SummaryService,
     private readonly meetingSummarizerService: MeetingSummaryService,
+    @InjectQueue(SUMMARY_QUEUE) private readonly summaryQueue: Queue,
   ) {}
 
   @Process()
@@ -49,8 +50,7 @@ export class SummaryConsumer {
       const summaryText = await this.meetingSummarizerService.generateMeetingSummary(fileContent);
       summary.outputText =
         summaryText ||
-        'Summary could not be generated, please check if its a valid teams transcript file';
-      // Update job status to SUCCESS
+        "Summary could not be generated, please check if it's a valid teams transcript file";
       summary.jobStatus = JobStatus.SUCCESS;
       this.logger.log(`Summary generated successfully for job with ID: ${jobId}`);
     } catch (error) {
@@ -60,6 +60,12 @@ export class SummaryConsumer {
       this.logger.error(JSON.stringify(error, ['message', 'stack', 2]));
     } finally {
       await this.summaryRepository.save(summary);
+    }
+  }
+
+  async onModuleDestroy(): Promise<void> {
+    if (this.summaryQueue) {
+      await this.summaryQueue.close();
     }
   }
 }

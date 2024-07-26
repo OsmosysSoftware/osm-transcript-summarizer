@@ -46,8 +46,10 @@ export class SummaryService extends CoreService<Summary> {
       const fileLocation = join(uploadDir, modifiedFilename);
 
       return new Promise((resolve, reject) => {
+        const writeStream = createWriteStream(fileLocation);
+
         createReadStream()
-          .pipe(createWriteStream(fileLocation))
+          .pipe(writeStream)
           .on('finish', async () => {
             const summary = this.summaryRepository.create({ inputFile: modifiedFilename });
 
@@ -65,9 +67,12 @@ export class SummaryService extends CoreService<Summary> {
               resolve(savedSummary);
             } catch (error) {
               reject(error);
+            } finally {
+              writeStream.close();
             }
           })
           .on('error', (error) => {
+            writeStream.close();
             reject(error);
           });
       });
@@ -98,6 +103,7 @@ export class SummaryService extends CoreService<Summary> {
       },
     });
   }
+
   getPendingSummary(): Promise<Summary[]> {
     this.logger.log('Getting all active pending summaries');
     return this.summaryRepository.find({
@@ -145,5 +151,6 @@ export class SummaryService extends CoreService<Summary> {
     }
 
     this.isProcessingQueue = false;
+    this.logger.log('Finished processing cron');
   }
 }
