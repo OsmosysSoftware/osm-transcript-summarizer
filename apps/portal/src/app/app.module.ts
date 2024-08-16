@@ -1,7 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -65,7 +65,6 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     PrimeNgModule,
     GraphQLModule,
     BrowserAnimationsModule,
@@ -92,6 +91,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     MessageService,
     MsalService,
     MsalGuard,
+    provideHttpClient(withInterceptorsFromDi()),
   ],
   bootstrap: [AppComponent],
 })

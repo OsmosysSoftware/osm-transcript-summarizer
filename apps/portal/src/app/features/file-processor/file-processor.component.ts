@@ -145,15 +145,15 @@ export class FileProcessorComponent implements OnInit, OnDestroy {
     );
   }
 
-  getSeverity(status: number): string {
-    const severityMap: { [key: number]: string } = {
+  getSeverity(status: number): 'success' | 'secondary' | 'info' | 'warning' | 'danger' | 'contrast' | undefined {
+    const severityMap: { [key: number]: 'success' | 'secondary' | 'info' | 'warning' | 'danger' | 'contrast' } = {
       1: 'warning',
-      2: 'primary',
+      2: 'secondary',
       3: 'info',
       4: 'success',
       5: 'danger',
     };
-    return severityMap[status] || 'error';
+    return severityMap[status] || undefined;
   }
 
   getStatusText(status: number): string {
