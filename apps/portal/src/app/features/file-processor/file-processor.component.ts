@@ -145,14 +145,14 @@ export class FileProcessorComponent implements OnInit, OnDestroy {
     );
   }
 
-  getSeverity(
-    status: number,
-  ): 'success' | 'secondary' | 'info' | 'warning' | 'danger' | 'contrast' | undefined {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getSeverity(status: number): any {
     const severityMap: {
-      [key: number]: 'success' | 'secondary' | 'info' | 'warning' | 'danger' | 'contrast';
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      [key: number]: any;
     } = {
       1: 'warning',
-      2: 'secondary',
+      2: 'primary',
       3: 'info',
       4: 'success',
       5: 'danger',
