@@ -145,8 +145,12 @@ export class FileProcessorComponent implements OnInit, OnDestroy {
     );
   }
 
-  getSeverity(status: number): 'success' | 'secondary' | 'info' | 'warning' | 'danger' | 'contrast' | undefined {
-    const severityMap: { [key: number]: 'success' | 'secondary' | 'info' | 'warning' | 'danger' | 'contrast' } = {
+  getSeverity(
+    status: number,
+  ): 'success' | 'secondary' | 'info' | 'warning' | 'danger' | 'contrast' | undefined {
+    const severityMap: {
+      [key: number]: 'success' | 'secondary' | 'info' | 'warning' | 'danger' | 'contrast';
+    } = {
       1: 'warning',
       2: 'secondary',
       3: 'info',
