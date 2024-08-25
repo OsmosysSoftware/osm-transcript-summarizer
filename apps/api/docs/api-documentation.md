@@ -37,7 +37,6 @@ curl --location 'http://localhost:3000/graphql' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
 --header 'Connection: keep-alive' \
---header 'Origin: chrome-extension://flnheeellpciglgpaodhkhmapeljopja' \
 --header 'x-apollo-operation-name: createSummary' \
 --header 'Authorization: Bearer auth-token' \
 --form 'operations="{\"query\":\"mutation (\$file: Upload\!) {\\n  createSummary(createSummaryInput: { inputFile: \$file }) {\\n    jobId\\n  }\\n}\"}"' \
@@ -68,7 +67,7 @@ The different options that can be used while fetching summaries are as follows:
 - `sortBy:` Sort the results by the provided key
 - `sortOrder:` Sort the results in either `ASC`ending or `DESC`ending order
 - `search:` Display those results which contain the input string. Searchable fields: `inputFile`, `createdBy`, `outputText`
-- `filters:` Filter the results based on the provided `createdOn` and `createdBy`. Operator can be `eq` (equal), `ne` (not equal), `contains`, `gt` (greater than) or `lt` (less than)
+- `filters:` Filter the results based on the provided `createdOn` and `createdBy`. Operator can be `eq` (equal), `ne` (not equal), `contains`, `gt` (greater than), `gte` (greater than or equal to), `lt` (less than) or `lte` (less than or equal to)
 
 **Endpoint:** `http://localhost:3000/graphql`
 
@@ -127,7 +126,6 @@ curl --location 'http://localhost:3000/graphql' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
 --header 'Connection: keep-alive' \
---header 'Origin: chrome-extension://flnheeellpciglgpaodhkhmapeljopja' \
 --header 'Authorization: Bearer auth-token' \
 --data-raw '{"query":"{\n  summaries(\n    options: {\n      limit: 10\n      offset: 0\n      sortOrder: ASC\n      search: \"John Doe\" # Remove search if you want complete data\n      filters: [ # Remove filters if you want complete data\n        { field: \"createdOn\", operator: \"gte\", value: \"2023-01-01\" } # Specify the date range to fetch record\n        { field: \"createdOn\", operator: \"lte\", value: \"2024-06-06\" } # Specify the upper limit for the date range\n        { field: \"createdBy\", operator: \"in\", value: \"[\\\"user@example.com\\\",\\\"admin@example.com\\\"]\" } # Specify the email id of the person whose record you want to find\n      ]\n    }\n  ) {\n    limit\n    offset\n    summaries {\n      createdBy\n      createdOn\n      jobId\n      inputFile\n      jobStatus\n      modifiedBy\n      modifiedOn\n      outputText\n      status\n    }\n    total\n  }\n}\n","variables":{}}'
 ```
