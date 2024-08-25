@@ -1,116 +1,71 @@
 {
 	"info": {
-		"_postman_id": "102cfd2e-16ee-4c0b-9567-96158dc9427a",
+		"_postman_id": "1946e044-5b83-4f6b-9c00-dda0f57174ad",
 		"name": "Transcript Summarization",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "20654268"
+		"description": "Transcript Summarization API helps creating uploading transcripts for processing as well as fetching details of past summaries",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27217372"
 	},
 	"item": [
 		{
-			"name": "File Upload using graphQL",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept-Encoding",
-						"value": "gzip, deflate, br",
-						"uuid": "ff8f8915-d306-465d-a085-1030cf805690"
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"uuid": "4cae4956-2a10-4132-a5e2-bf1a379c3a5a"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"uuid": "624f9968-7176-411a-8715-4584a1a5dad3"
-					},
-					{
-						"key": "Connection",
-						"value": "keep-alive",
-						"uuid": "6cba5432-4dc7-4bbb-9885-87394a1eeeaa"
-					},
-					{
-						"key": "Origin",
-						"value": "chrome-extension://flnheeellpciglgpaodhkhmapeljopja",
-						"uuid": "da802fc2-1c40-4917-b9f7-bca94a219568"
-					},
-					{
-						"key": "x-apollo-operation-name",
-						"value": "createSummary",
-						"uuid": "bcfbac4a-4986-4b8a-8886-c138faa92135"
-					},
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkwxS2ZLRklfam5YYndXYzIyeFp4dzFzVUhIMCIsImtpZCI6IkwxS2ZLRklfam5YYndXYzIyeFp4dzFzVUhIMCJ9.eyJhdWQiOiJhcGk6Ly9mNDQ0N2QwYy04YzY4LTRlODMtYWU5MS1lNjJlMjc1NmExNDciLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NWNhODVjYi0yMGM5LTQ1YzUtYmJmYy1iZTJkMGFjMmU2NTcvIiwiaWF0IjoxNzE2ODEyMjIwLCJuYmYiOjE3MTY4MTIyMjAsImV4cCI6MTcxNjgxNzgxNSwiYWNyIjoiMSIsImFpbyI6IkFUUUF5LzhXQUFBQUVKandMclNlaDV2Qlg1TmticC92UDVqSmhUNlg4TFp0Y0gzRkhTekpXbHdMbXhVZzR6R3JLcXc4Und5R2ZjdlIiLCJhbXIiOlsicHdkIl0sImFwcGlkIjoiMmIwM2U3M2UtMTdlMS00OGYzLWIyNGEtN2QyNzAxOTZmNDc3IiwiYXBwaWRhY3IiOiIwIiwiZ2l2ZW5fbmFtZSI6IkhhcmlzaCIsImlwYWRkciI6IjE0Ljk5LjIwMy41MCIsIm5hbWUiOiJIYXJpc2giLCJvaWQiOiI0NjFhZWRlNi1kOWRlLTQ4NTctOTc5ZS0yZWVmZDQ5ODU1MTYiLCJyaCI6IjAuQVZZQXk0WEtsY2tneFVXN19MNHRDc0xtVnd4OVJQUm9qSU5PcnBIbUxpZFdvVWRXQUlVLiIsInNjcCI6ImFwaS5jb25zdW1lIiwic3ViIjoidkRsb0VSUTZMRndjLTYyS2prRnUwMWdXSHRvbVNSOXdJaE92aXpLNEV6MCIsInRpZCI6Ijk1Y2E4NWNiLTIwYzktNDVjNS1iYmZjLWJlMmQwYWMyZTY1NyIsInVuaXF1ZV9uYW1lIjoiaGFyaXNoQG9zbW9zeXMuY28iLCJ1cG4iOiJoYXJpc2hAb3Ntb3N5cy5jbyIsInV0aSI6ImtOSlRYdUVhbEVPTjFaRWUxeHY0QUEiLCJ2ZXIiOiIxLjAifQ.Lo4UPQ3oOWfhkTECerSqP3aewhzl-eAREQVc1MajDNL1xGBbtK2d7d8qw7CmphR97AUY47UjH6ZjN0xbBYMN-2nBokDlSvUj1SLJkdwj4_NS9-xDUYdqwHSBbOx7ue6Qt-RCs4W6vVgDpCVT1wRldGjfTOn4Vni-CbVmfjHz3Rwv1LDJEj3atM4pYG8katXgvwR3ztl5lu0taDA48cciwPSHZFqwN8SoBN8KpoB5II2GQRrkkWybGXPz-4daeXAlPuFrTJ68ExW3LlrmMW3ZSZavlbv8VIUjVHtz9j7PRoRJzurO_C_AWKLNqBh6Q3WWWZRx4KqE3aDaemwHOS-x4w",
-						"type": "text",
-						"uuid": "2095ff28-47a7-46ca-b775-f838b3831a76"
-					}
-				],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "operations",
-							"value": "{\"query\":\"mutation ($file: Upload!) {\\n  createSummary(createSummaryInput: { inputFile: $file }) {\\n    jobId\\n  }\\n}\"}",
-							"type": "text"
-						},
-						{
-							"key": "map",
-							"value": "{\"0\": [\"variables.file\"]}",
-							"type": "text"
-						},
-						{
-							"key": "0",
-							"type": "file",
-							"src": "/home/harish-work/sample.txt"
-						}
-					]
-				},
-				"url": "http://localhost:3000/graphql"
-			},
-			"response": [
+			"name": "File upload using GraphQL",
+			"item": [
 				{
-					"name": "Untitled Response",
-					"originalRequest": {
+					"name": "File Upload using graphQL - Success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is valid JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"pm.test(\"Response has valid 'data' property\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"data\").to.be.an(\"object\");",
+									"});",
+									"pm.test(\"Response contains a valid 'createSummary' object\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property(\"createSummary\").to.be.an(\"object\");",
+									"});",
+									"pm.test(\"Response 'createSummary' contains a valid 'jobId' \", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.createSummary).to.have.property(\"jobId\").to.be.a(\"number\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Accept-Encoding",
-								"value": "gzip, deflate, br",
-								"uuid": "ff8f8915-d306-465d-a085-1030cf805690"
+								"value": "gzip, deflate, br"
 							},
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"uuid": "4cae4956-2a10-4132-a5e2-bf1a379c3a5a"
+								"value": "application/json"
 							},
 							{
 								"key": "Accept",
-								"value": "application/json",
-								"uuid": "624f9968-7176-411a-8715-4584a1a5dad3"
+								"value": "application/json"
 							},
 							{
 								"key": "Connection",
-								"value": "keep-alive",
-								"uuid": "6cba5432-4dc7-4bbb-9885-87394a1eeeaa"
-							},
-							{
-								"key": "Origin",
-								"value": "chrome-extension://flnheeellpciglgpaodhkhmapeljopja",
-								"uuid": "da802fc2-1c40-4917-b9f7-bca94a219568"
+								"value": "keep-alive"
 							},
 							{
 								"key": "x-apollo-operation-name",
-								"value": "createSummary",
-								"uuid": "bcfbac4a-4986-4b8a-8886-c138faa92135"
+								"value": "createSummary"
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkwxS2ZLRklfam5YYndXYzIyeFp4dzFzVUhIMCIsImtpZCI6IkwxS2ZLRklfam5YYndXYzIyeFp4dzFzVUhIMCJ9.eyJhdWQiOiJhcGk6Ly9mNDQ0N2QwYy04YzY4LTRlODMtYWU5MS1lNjJlMjc1NmExNDciLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NWNhODVjYi0yMGM5LTQ1YzUtYmJmYy1iZTJkMGFjMmU2NTcvIiwiaWF0IjoxNzE2ODEyMjIwLCJuYmYiOjE3MTY4MTIyMjAsImV4cCI6MTcxNjgxNzgxNSwiYWNyIjoiMSIsImFpbyI6IkFUUUF5LzhXQUFBQUVKandMclNlaDV2Qlg1TmticC92UDVqSmhUNlg4TFp0Y0gzRkhTekpXbHdMbXhVZzR6R3JLcXc4Und5R2ZjdlIiLCJhbXIiOlsicHdkIl0sImFwcGlkIjoiMmIwM2U3M2UtMTdlMS00OGYzLWIyNGEtN2QyNzAxOTZmNDc3IiwiYXBwaWRhY3IiOiIwIiwiZ2l2ZW5fbmFtZSI6IkhhcmlzaCIsImlwYWRkciI6IjE0Ljk5LjIwMy41MCIsIm5hbWUiOiJIYXJpc2giLCJvaWQiOiI0NjFhZWRlNi1kOWRlLTQ4NTctOTc5ZS0yZWVmZDQ5ODU1MTYiLCJyaCI6IjAuQVZZQXk0WEtsY2tneFVXN19MNHRDc0xtVnd4OVJQUm9qSU5PcnBIbUxpZFdvVWRXQUlVLiIsInNjcCI6ImFwaS5jb25zdW1lIiwic3ViIjoidkRsb0VSUTZMRndjLTYyS2prRnUwMWdXSHRvbVNSOXdJaE92aXpLNEV6MCIsInRpZCI6Ijk1Y2E4NWNiLTIwYzktNDVjNS1iYmZjLWJlMmQwYWMyZTY1NyIsInVuaXF1ZV9uYW1lIjoiaGFyaXNoQG9zbW9zeXMuY28iLCJ1cG4iOiJoYXJpc2hAb3Ntb3N5cy5jbyIsInV0aSI6ImtOSlRYdUVhbEVPTjFaRWUxeHY0QUEiLCJ2ZXIiOiIxLjAifQ.Lo4UPQ3oOWfhkTECerSqP3aewhzl-eAREQVc1MajDNL1xGBbtK2d7d8qw7CmphR97AUY47UjH6ZjN0xbBYMN-2nBokDlSvUj1SLJkdwj4_NS9-xDUYdqwHSBbOx7ue6Qt-RCs4W6vVgDpCVT1wRldGjfTOn4Vni-CbVmfjHz3Rwv1LDJEj3atM4pYG8katXgvwR3ztl5lu0taDA48cciwPSHZFqwN8SoBN8KpoB5II2GQRrkkWybGXPz-4daeXAlPuFrTJ68ExW3LlrmMW3ZSZavlbv8VIUjVHtz9j7PRoRJzurO_C_AWKLNqBh6Q3WWWZRx4KqE3aDaemwHOS-x4w",
-								"type": "text",
-								"uuid": "2095ff28-47a7-46ca-b775-f838b3831a76"
+								"value": "Bearer {{auth-token}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -119,128 +74,354 @@
 								{
 									"key": "operations",
 									"value": "{\"query\":\"mutation ($file: Upload!) {\\n  createSummary(createSummaryInput: { inputFile: $file }) {\\n    jobId\\n  }\\n}\"}",
+									"description": "Parameterized GraphQL query to upload file for processing",
 									"type": "text"
 								},
 								{
 									"key": "map",
 									"value": "{\"0\": [\"variables.file\"]}",
+									"description": "Used to map the uploaded file and GraphQL query",
 									"type": "text"
 								},
 								{
 									"key": "0",
+									"description": "Transcript file uploaded from local machine for processing. Allowed extensions: .txt, .vtt",
 									"type": "file",
-									"src": "/home/harish-work/sample.txt"
+									"src": "/home/testuser/Downloads/sample-transcript.txt"
 								}
 							]
 						},
-						"url": "http://localhost:3000/graphql"
+						"url": {
+							"raw": "http://localhost:3000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"graphql"
+							]
+						},
+						"description": "Allows uploading of a .txt or .vtt file for processing"
 					},
-					"_postman_previewlanguage": "Text",
-					"header": [],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "FetchAllRecords",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept-Encoding",
-						"value": "gzip, deflate, br",
-						"uuid": "6a27d6e3-a963-4660-b63c-a737f9f9cc4c"
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"uuid": "3b63dce7-db61-40dc-9be4-1448e0fb3edf"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"uuid": "3e0c90f9-d0de-4cbb-9189-332ca8aae4a0"
-					},
-					{
-						"key": "Connection",
-						"value": "keep-alive",
-						"uuid": "4a043dd2-d248-4416-a197-fbe174b08746"
-					},
-					{
-						"key": "Origin",
-						"value": "chrome-extension://flnheeellpciglgpaodhkhmapeljopja",
-						"uuid": "13fe81c3-a5fa-4a3d-95ce-0e978bb945e9"
-					},
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkwxS2ZLRklfam5YYndXYzIyeFp4dzFzVUhIMCIsImtpZCI6IkwxS2ZLRklfam5YYndXYzIyeFp4dzFzVUhIMCJ9.eyJhdWQiOiJhcGk6Ly9mNDQ0N2QwYy04YzY4LTRlODMtYWU5MS1lNjJlMjc1NmExNDciLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NWNhODVjYi0yMGM5LTQ1YzUtYmJmYy1iZTJkMGFjMmU2NTcvIiwiaWF0IjoxNzE2ODc4NDQxLCJuYmYiOjE3MTY4Nzg0NDEsImV4cCI6MTcxNjg4Mzk0MSwiYWNyIjoiMSIsImFpbyI6IkFUUUF5LzhXQUFBQUlqK2dFNzNRZ2lkZUhUV2F1MFViOWVlUVVvZllhcGxQbHBJVmdoNXE5VGphMmUyOGF0aWMrRThkWUJUck1jWUkiLCJhbXIiOlsicHdkIl0sImFwcGlkIjoiMmIwM2U3M2UtMTdlMS00OGYzLWIyNGEtN2QyNzAxOTZmNDc3IiwiYXBwaWRhY3IiOiIwIiwiZ2l2ZW5fbmFtZSI6IkhhcmlzaCIsImlwYWRkciI6IjE0Ljk5LjIwMy41MCIsIm5hbWUiOiJIYXJpc2giLCJvaWQiOiI0NjFhZWRlNi1kOWRlLTQ4NTctOTc5ZS0yZWVmZDQ5ODU1MTYiLCJyaCI6IjAuQVZZQXk0WEtsY2tneFVXN19MNHRDc0xtVnd4OVJQUm9qSU5PcnBIbUxpZFdvVWRXQUlVLiIsInNjcCI6ImFwaS5jb25zdW1lIiwic3ViIjoidkRsb0VSUTZMRndjLTYyS2prRnUwMWdXSHRvbVNSOXdJaE92aXpLNEV6MCIsInRpZCI6Ijk1Y2E4NWNiLTIwYzktNDVjNS1iYmZjLWJlMmQwYWMyZTY1NyIsInVuaXF1ZV9uYW1lIjoiaGFyaXNoQG9zbW9zeXMuY28iLCJ1cG4iOiJoYXJpc2hAb3Ntb3N5cy5jbyIsInV0aSI6Ik96NHNMdEJhTFVtdTNlS0hjTkFOQUEiLCJ2ZXIiOiIxLjAifQ.kk0RedjQn9PAcCLnLlGJtMKa9cvdV1nF4XzU17QpyfACg6YJSDev1JKl6xvUIkDmP0hbGbyaWbswLcG-k-shS1UJ04EMHychDDOVlMKCCinusZo2C03z_s4PUTi8eomt1RyxshndQy9OozvF1RQrv6_MgvHm3GWrn5c3tjya7zBGYgoL854dje6V8x_GhWE6zPOyR-iEkryc6SySpwUShI6CZfO8M9i4EklNbb_ikjmKni_ZeiqPBcXxK9t8zbREqhLACm8Xl7ueyvJlhivMhYhnXJWIGlaLDSa669Grz0vfGxs35DUncv0Rz_XXdHgBh3Bl6a_4cvxB_NIyNy_UVA",
-						"type": "text",
-						"uuid": "6ece77f5-183a-40ed-a8f9-dd6d2e2a67ec"
-					}
-				],
-				"body": {
-					"mode": "graphql",
-					"graphql": {
-						"query": "{\n  summaries(\n    options: {\n      limit: 10\n      offset: 0\n      sortOrder: ASC\n      filters: [ #Remove filter if you want complete data \n        { field: \"createdOn\", operator: \"gte\", value: \"2023-01-01\" } #Specify the date range to fetch record\n        { field: \"createdOn\", operator: \"lte\", value: \"2024-06-06\" }\n        { field: \"createdBy\", operator: \"in\", value: \"[\\\"vikas.k@osmosys.co\\\",\\\"harish@osmosys.co\\\"]\" } # Specify the email id of the person whose record you want to find \n      ]\n    }\n  ) {\n    limit\n    offset\n    summaries {\n      createdBy\n      createdOn\n      jobId\n      inputFile\n      jobStatus\n      modifiedBy\n      modifiedOn\n      outputText\n      status\n    }\n    total\n  }\n}\n",
-						"variables": ""
-					}
+					"response": []
 				},
-				"url": "http://localhost:3000/graphql"
-			},
-			"response": [
 				{
-					"name": "Untitled Response",
-					"originalRequest": {
+					"name": "File Upload using graphQL - No Attachments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is valid JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"pm.test(\"Response has valid 'errors' and 'data' properties\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"data\");",
+									"    pm.expect(jsonData).to.have.property(\"errors\").to.be.an(\"array\");",
+									"});",
+									"pm.test(\"message: File missing in the request.\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"data\");",
+									"    pm.expect(jsonData).to.have.property(\"errors\").to.be.an(\"array\");",
+									"    pm.expect(jsonData.errors[0]).to.have.property(\"message\").contain(\"File missing in the request.\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Accept-Encoding",
-								"value": "gzip, deflate, br",
-								"uuid": "6a27d6e3-a963-4660-b63c-a737f9f9cc4c"
+								"value": "gzip, deflate, br"
 							},
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"uuid": "3b63dce7-db61-40dc-9be4-1448e0fb3edf"
+								"value": "application/json"
 							},
 							{
 								"key": "Accept",
-								"value": "application/json",
-								"uuid": "3e0c90f9-d0de-4cbb-9189-332ca8aae4a0"
+								"value": "application/json"
 							},
 							{
 								"key": "Connection",
-								"value": "keep-alive",
-								"uuid": "4a043dd2-d248-4416-a197-fbe174b08746"
+								"value": "keep-alive"
 							},
 							{
-								"key": "Origin",
-								"value": "chrome-extension://flnheeellpciglgpaodhkhmapeljopja",
-								"uuid": "13fe81c3-a5fa-4a3d-95ce-0e978bb945e9"
+								"key": "x-apollo-operation-name",
+								"value": "createSummary"
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkwxS2ZLRklfam5YYndXYzIyeFp4dzFzVUhIMCIsImtpZCI6IkwxS2ZLRklfam5YYndXYzIyeFp4dzFzVUhIMCJ9.eyJhdWQiOiJhcGk6Ly9mNDQ0N2QwYy04YzY4LTRlODMtYWU5MS1lNjJlMjc1NmExNDciLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85NWNhODVjYi0yMGM5LTQ1YzUtYmJmYy1iZTJkMGFjMmU2NTcvIiwiaWF0IjoxNzE2ODc4NDQxLCJuYmYiOjE3MTY4Nzg0NDEsImV4cCI6MTcxNjg4Mzk0MSwiYWNyIjoiMSIsImFpbyI6IkFUUUF5LzhXQUFBQUlqK2dFNzNRZ2lkZUhUV2F1MFViOWVlUVVvZllhcGxQbHBJVmdoNXE5VGphMmUyOGF0aWMrRThkWUJUck1jWUkiLCJhbXIiOlsicHdkIl0sImFwcGlkIjoiMmIwM2U3M2UtMTdlMS00OGYzLWIyNGEtN2QyNzAxOTZmNDc3IiwiYXBwaWRhY3IiOiIwIiwiZ2l2ZW5fbmFtZSI6IkhhcmlzaCIsImlwYWRkciI6IjE0Ljk5LjIwMy41MCIsIm5hbWUiOiJIYXJpc2giLCJvaWQiOiI0NjFhZWRlNi1kOWRlLTQ4NTctOTc5ZS0yZWVmZDQ5ODU1MTYiLCJyaCI6IjAuQVZZQXk0WEtsY2tneFVXN19MNHRDc0xtVnd4OVJQUm9qSU5PcnBIbUxpZFdvVWRXQUlVLiIsInNjcCI6ImFwaS5jb25zdW1lIiwic3ViIjoidkRsb0VSUTZMRndjLTYyS2prRnUwMWdXSHRvbVNSOXdJaE92aXpLNEV6MCIsInRpZCI6Ijk1Y2E4NWNiLTIwYzktNDVjNS1iYmZjLWJlMmQwYWMyZTY1NyIsInVuaXF1ZV9uYW1lIjoiaGFyaXNoQG9zbW9zeXMuY28iLCJ1cG4iOiJoYXJpc2hAb3Ntb3N5cy5jbyIsInV0aSI6Ik96NHNMdEJhTFVtdTNlS0hjTkFOQUEiLCJ2ZXIiOiIxLjAifQ.kk0RedjQn9PAcCLnLlGJtMKa9cvdV1nF4XzU17QpyfACg6YJSDev1JKl6xvUIkDmP0hbGbyaWbswLcG-k-shS1UJ04EMHychDDOVlMKCCinusZo2C03z_s4PUTi8eomt1RyxshndQy9OozvF1RQrv6_MgvHm3GWrn5c3tjya7zBGYgoL854dje6V8x_GhWE6zPOyR-iEkryc6SySpwUShI6CZfO8M9i4EklNbb_ikjmKni_ZeiqPBcXxK9t8zbREqhLACm8Xl7ueyvJlhivMhYhnXJWIGlaLDSa669Grz0vfGxs35DUncv0Rz_XXdHgBh3Bl6a_4cvxB_NIyNy_UVA",
-								"type": "text",
-								"uuid": "6ece77f5-183a-40ed-a8f9-dd6d2e2a67ec"
+								"value": "Bearer {{auth-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "operations",
+									"value": "{\"query\":\"mutation ($file: Upload!) {\\n  createSummary(createSummaryInput: { inputFile: $file }) {\\n    jobId\\n  }\\n}\"}",
+									"description": "Parameterized GraphQL query to upload file for processing",
+									"type": "text"
+								},
+								{
+									"key": "map",
+									"value": "{\"0\": [\"variables.file\"]}",
+									"description": "Used to map the uploaded file and GraphQL query",
+									"type": "text"
+								},
+								{
+									"key": "0",
+									"description": "Transcript file uploaded from local machine for processing. Allowed extensions: .txt, .vtt",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"graphql"
+							]
+						},
+						"description": "Allows uploading of a .txt or .vtt file for processing"
+					},
+					"response": []
+				}
+			],
+			"description": "Collection of requests pertaining to uploading files using graphQL"
+		},
+		{
+			"name": "Fetch all Summaries",
+			"item": [
+				{
+					"name": "Fetch All Summaries - Success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is valid JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"pm.test(\"Response has valid 'data' property\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"data\").to.be.an(\"object\");",
+									"});",
+									"pm.test(\"Response contains a valid 'summaries' object\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.property(\"summaries\").to.be.an(\"object\");",
+									"});",
+									"pm.test(\"Response contains a valid 'summaries' array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.summaries).to.have.property(\"summaries\").to.be.an(\"array\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Encoding",
+								"value": "gzip, deflate, br"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Connection",
+								"value": "keep-alive"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth-token}}",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "{\n  summaries(\n    options: {\n      limit: 10\n      offset: 0\n      sortOrder: ASC\n      filters: [ #Remove filter if you want complete data \n        { field: \"createdOn\", operator: \"gte\", value: \"2023-01-01\" } #Specify the date range to fetch record\n        { field: \"createdOn\", operator: \"lte\", value: \"2024-06-06\" }\n        { field: \"createdBy\", operator: \"in\", value: \"[\\\"vikas.k@osmosys.co\\\",\\\"harish@osmosys.co\\\"]\" } # Specify the email id of the person whose record you want to find \n      ]\n    }\n  ) {\n    limit\n    offset\n    summaries {\n      createdBy\n      createdOn\n      jobId\n      inputFile\n      jobStatus\n      modifiedBy\n      modifiedOn\n      outputText\n      status\n    }\n    total\n  }\n}\n",
+								"query": "{\n  summaries(\n    options: {\n      limit: 10\n      offset: 0\n      sortOrder: ASC\n      search: \"John Doe\" # Remove search if you want complete data\n      filters: [ # Remove filter if you want complete data\n        { field: \"createdOn\", operator: \"gte\", value: \"2023-01-01\" } # Specify the date range to fetch record\n        { field: \"createdOn\", operator: \"lte\", value: \"2024-09-01\" } # Specify the upper limit for the date range\n        # { field: \"createdBy\", operator: \"in\", value: \"[\\\"user@example.com\\\",\\\"admin@example.com\\\"]\" } # Specify the email id of the person whose record you want to find\n      ]\n    }\n  ) {\n    limit\n    offset\n    summaries {\n      createdBy\n      createdOn\n      jobId\n      inputFile\n      jobStatus\n      modifiedBy\n      modifiedOn\n      outputText\n      status\n    }\n    total\n  }\n}",
 								"variables": ""
 							}
 						},
-						"url": "http://localhost:3000/graphql"
+						"url": {
+							"raw": "http://localhost:3000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"graphql"
+							]
+						},
+						"description": "Allows successfully fetching all summaries based on the options passed"
 					},
-					"_postman_previewlanguage": "Text",
-					"header": [],
-					"cookie": [],
-					"body": ""
+					"response": []
+				},
+				{
+					"name": "Fetch All Summaries - Unauthorized",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is valid JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"pm.test(\"Response has valid 'errors' and 'data' properties\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"data\");",
+									"    pm.expect(jsonData).to.have.property(\"errors\").to.be.an(\"array\");",
+									"});",
+									"pm.test(\"message: Unauthorized\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"data\");",
+									"    pm.expect(jsonData).to.have.property(\"errors\").to.be.an(\"array\");",
+									"    pm.expect(jsonData.errors[0]).to.have.property(\"message\", \"Unauthorized\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Encoding",
+								"value": "gzip, deflate, br"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Connection",
+								"value": "keep-alive"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{\n  summaries(\n    options: {\n      limit: 10\n      offset: 0\n      sortOrder: ASC\n      search: \"John Doe\" # Remove search if you want complete data\n      filters: [ # Remove filter if you want complete data\n        { field: \"createdOn\", operator: \"gte\", value: \"2023-01-01\" } # Specify the date range to fetch record\n        { field: \"createdOn\", operator: \"lte\", value: \"2024-09-01\" } # Specify the upper limit for the date range\n        # { field: \"createdBy\", operator: \"in\", value: \"[\\\"user@example.com\\\",\\\"admin@example.com\\\"]\" } # Specify the email id of the person whose record you want to find\n      ]\n    }\n  ) {\n    limit\n    offset\n    summaries {\n      createdBy\n      createdOn\n      jobId\n      inputFile\n      jobStatus\n      modifiedBy\n      modifiedOn\n      outputText\n      status\n    }\n    total\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"graphql"
+							]
+						},
+						"description": "Allows successfully fetching all summaries based on the options passed"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch All Summaries - Bad Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is valid JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"pm.test(\"Response for fetching summaries with bad request\", function () {",
+									"    pm.expect(pm.response.code).to.equal(400);",
+									"    pm.expect(pm.response.json().errors).to.be.an(\"array\");",
+									"    pm.expect(pm.response.json().errors[0].message).to.be.a(\"string\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Encoding",
+								"value": "gzip, deflate, br"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Connection",
+								"value": "keep-alive"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{\n  summaries(\n    options: {\n      unknownValue: \"Some unknown parameter\",\n      limit: 10\n      offset: 0\n      sortOrder: ASC\n      search: \"John Doe\" # Remove search if you want complete data\n      filters: [ # Remove filter if you want complete data\n        { field: \"createdOn\", operator: \"gte\", value: \"2023-01-01\" } # Specify the date range to fetch record\n        { field: \"createdOn\", operator: \"lte\", value: \"2024-09-01\" } # Specify the upper limit for the date range\n        { field: \"createdBy\", operator: \"in\", value: \"[\\\"user@example.com\\\",\\\"admin@example.com\\\"]\" } # Specify the email id of the person whose record you want to find\n      ]\n    }\n  ) {\n    limit\n    offset\n    summaries {\n      createdBy\n      createdOn\n      jobId\n      inputFile\n      jobStatus\n      modifiedBy\n      modifiedOn\n      outputText\n      status\n    }\n    total\n  }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"graphql"
+							]
+						},
+						"description": "Allows successfully fetching all summaries based on the options passed"
+					},
+					"response": []
 				}
-			]
+			],
+			"description": "Collection of requests pertaining to fetching all summaries"
 		}
 	]
 }
