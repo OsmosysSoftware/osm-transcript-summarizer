@@ -29,14 +29,18 @@ Please make sure to have these versions installed on your development server bef
    npm install
    ```
 
-3. Configure `src/environments/environment.ts` with environment variable values as needed:
+3. Configure `src/environments/environment.prod.ts` (or `src/environments/environment.ts` for development) with environment variable values as needed:
 
    ```ts
    import { Environment } from './environment.interface';
 
    export const environment: Environment = {
-     production: false,
+     production: true, // false for development setup
      graphqlEndpoint: 'http://localhost:3000/graphql',
+     tenantId: 'tenant-id',
+     clientId: 'client-id',
+     redirectUri: 'http://localhost:4200',
+     apiScope: 'api://client-id/api.consume',
    };
    ```
 

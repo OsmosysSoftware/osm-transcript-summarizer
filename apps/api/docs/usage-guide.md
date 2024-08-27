@@ -11,6 +11,8 @@ Welcome to the usage guide for Transcript Summarizer, a powerful transcript mana
   - [Table of Contents](#table-of-contents)
   - [1. Overview](#1-overview)
   - [2. Setup](#2-setup)
+    - [Microsoft account for Azure Authentication](#microsoft-account-for-azure-authentication)
+    - [Codebase](#codebase)
   - [3. Using the Transcript Summarizer Portal](#3-using-the-transcript-summarizer-portal)
   - [4. Using the API](#4-using-the-api)
     - [Getting your Microsoft authentication token](#getting-your-microsoft-authentication-token)
@@ -23,12 +25,11 @@ Transcript Summarizer is a powerful tool designed to streamline the process of s
 
 ## 2. Setup
 
-Users must have a valid **Microsoft account** that is **authorized** for the `tenantId`, `clientId`, and `apiScope` configured in the specific Portal environment being used.
+### Microsoft account for Azure Authentication
 
-Ensure you have set up the Portal environment based on your requirement:
+Users must have a valid **Microsoft account** for **Azure Authentication**. Ensure that you obtain the necessary credentials `tenantId`, `clientId`, `apiScope` from your Azure account for proper configuration of the Portal environment.
 
-- [Development Environment](../../portal/src/environments/environment.ts)
-- [Production Environment](../../portal/src/environments/environment.prod.ts)
+### Codebase
 
 Follow the development setup guides for API and portal to set up the codebase before proceeding further:
 
@@ -49,14 +50,15 @@ Follow the development setup guides for API and portal to set up the codebase be
     - You will be prompted to log in to your Microsoft account.
     - Log in using your credentials to access the Transcript Summarization Portal.
 4. **Upload Your Transcript**
-    - Click the `+ Choose File` button to upload your transcript. Supported file types are .vtt and .txt.
-    - The uploaded raw transcripts will be stored locally in the uploads folder.
+    - Click the `+ Choose File` button to upload your transcript. Supported file types are `.vtt` and `.txt`.
+    - The uploaded raw transcripts will be stored locally in the path specified in `.env` file.
+    - Default storage folder: `osm-transcript-summarizer/apps/api/uploads`
 5. **Process the Transcript**
-    - Click on `Summarize Me` button to process your transcript.
-    - You can monitor the [job status](#5-job-status-information) for the summarization process.
+    - Click on the `Summarize Me` button to process your transcript.
+    - You can monitor the **[job status](#5-job-status-information)** for the summarization process.
     - You can also view a list of summaries created during your session.
 6. **Download the Summary**
-    - Once the process is successful, you will receive a link to download the summary as a markdown file.
+    - Once the process is successful, click the `Download` button to download the summary as a markdown file.
 
 ## 4. Using the API
 
@@ -69,7 +71,7 @@ When using the API, you'll need to set your **Microsoft authentication token** a
 1. Start the API
 2. Start the Portal
 3. Transcript Summarizer Portal should be running locally at `http://localhost:4200` (or `http://localhost:5000` for docker setup).
-4. Open the portal URL. You will be prompted to login to your Microsoft account.
+4. Open the portal URL. You will be prompted to log in to your Microsoft account.
 5. Before proceeding, open developer tools (`ctrl+shift+i` OR `F12`) and open the **Network** tab.
 6. Login using your credentials. You will be directed to the Portal
 7. The request named `token` contains the Microsoft auth token that you can use for API.
