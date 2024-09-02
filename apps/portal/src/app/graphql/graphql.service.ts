@@ -23,7 +23,7 @@ export class GraphqlService {
 
     if (!account) {
       // eslint-disable-next-line prefer-promise-reject-errors
-      return throwError('No active account found');
+      return throwError(() => new Error('No active account found'));
     }
 
     const request = {
@@ -36,7 +36,7 @@ export class GraphqlService {
           return [response.accessToken];
         }
 
-        return throwError('Failed to acquire token');
+        return throwError(() => new Error('Failed to acquire token'));
       }),
       catchError((error) => {
         if (error instanceof InteractionRequiredAuthError) {
@@ -44,7 +44,7 @@ export class GraphqlService {
           this.authService.acquireTokenRedirect(request);
         }
 
-        return throwError(error);
+        return throwError(() => new Error(error));
       }),
     );
     return token;
@@ -77,7 +77,7 @@ export class GraphqlService {
           this.handleUnauthorizedError();
         }
 
-        return throwError(error);
+        return throwError(() => new Error(error));
       }),
     );
   }
@@ -107,7 +107,7 @@ export class GraphqlService {
           this.handleUnauthorizedError();
         }
 
-        return throwError(error);
+        return throwError(() => new Error(error));
       }),
     );
   }
