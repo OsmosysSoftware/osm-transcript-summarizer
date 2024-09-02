@@ -83,7 +83,7 @@ export class SummaryService extends CoreService<Summary> {
     this.logger.log('Getting all jobs with options.');
 
     const baseConditions = [{ field: 'status', value: Status.ACTIVE }];
-    const searchableFields = ['createdBy', 'data', 'result'];
+    const searchableFields = ['inputFile', 'createdBy', 'outputText'];
 
     const { items, total } = await super.findAll(
       options,
