@@ -31,13 +31,9 @@ This user-friendly application enables you to effortlessly generate concise summ
 
 - Get access to the required applications, services and servers.
 
-- Install and configure the tools and technologies used in the project. Refer to the [Tools and Technologies](#tools-and-technologies) section for a comprehensive list and setup instructions. Additionally, you can refer the Technical Specifications.docx document for checking out the versions of different technologies currently in use.
+- Install and configure the tools and technologies used in the project. Refer to the [Tools and Technologies](#tools-and-technologies) section for a comprehensive list of different technologies currently in use.
 
-- Review the documentation guidelines in the Documentation Guidelines section. Take note of where documentation is stored and the importance of keeping it up-to-date.
-
-Attend any onboarding sessions or training programs scheduled for new team members. These sessions may cover specific tools, processes, or project-specific information. Review KT videos as needed.
-
-Don't hesitate to ask questions and seek clarifications from your team members, project leads, or mentors. Effective communication is key to a successful onboarding experience. In case of any doubts, utilise the Doubts.xlsx sheet for asking your doubts.
+- Review the [Project Guidelines](#project-guidelines) section for general guidelines. Take note of where documentation is stored and the importance of keeping it up-to-date.
 
 ## Tools and Technologies
 
@@ -47,7 +43,7 @@ The success of the project relies on the effective use of tools and technologies
 
 **Version Control System (VCS):** [Git](https://git-scm.com/)
 
-**Branching model:** [Osmosys Git Standards](https://github.com/OsmosysSoftware/dev-standards/blob/main/coding-standards/git.md).
+**Branching model:** [Osmosys Git Standards](https://github.com/OsmosysSoftware/dev-standards/blob/main/coding-standards/git.md)
 
 **Repository:** [Transcript Summarizer on Github](https://github.com/OsmosysSoftware/osm-transcript-summarizer)
 
@@ -108,6 +104,10 @@ Create and update user guides for end-users and stakeholders. There are currentl
 - Follow the branching and code review processes outlined in above document.
 
 - Ensure you are utilising and updating tasks on Pinestem regularly and properly.
+
+- Attend any onboarding sessions or training programs scheduled for new team members. These sessions may cover specific tools, processes, or project-specific information.
+
+- Don't hesitate to ask questions and seek clarifications from your team members, project leads, or mentors. Effective communication is key to a successful onboarding experience.
 
 ### Documentation Guidelines
 
