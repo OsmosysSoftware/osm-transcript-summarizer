@@ -6,36 +6,31 @@ The purpose of this document is to provide comprehensive guidance for onboarding
 
 - [Project Onboarding](#project-onboarding)
   - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Onboarding Checklist](#onboarding-checklist)
-  - [Tools and Technologies](#tools-and-technologies)
-  - [Project Documentation](#project-documentation)
-    - [Code Documentation](#code-documentation)
-    - [Repository Documentation](#repository-documentation)
-    - [User Guides](#user-guides)
-  - [Project Guidelines](#project-guidelines)
-    - [General Guidelines](#general-guidelines)
-    - [Documentation Guidelines](#documentation-guidelines)
-  - [Workflow](#workflow)
+  - [1. Introduction](#1-introduction)
+  - [2. Onboarding Checklist](#2-onboarding-checklist)
+  - [3. Tools and Technologies](#3-tools-and-technologies)
+  - [4. Project Documentation](#4-project-documentation)
+  - [5. Project Guidelines](#5-project-guidelines)
+  - [6. Workflow](#6-workflow)
 
 
-## Introduction
+## 1. Introduction
 
 Transcript Summarizer is a tool built for Managers and Quality Analysts to summarize calls and create concise and detailed Meeting Minutes.
 
 This user-friendly application enables you to effortlessly generate concise summaries from lengthy transcripts, making it easier to extract key information.
 
-## Onboarding Checklist
+## 2. Onboarding Checklist
 
-- Read the [Introduction](#introduction) section of this project documentation for getting required introductory information about the project.
+- Read the [Introduction](#1-introduction) section of this project documentation for getting required introductory information about the project.
 
 - Get access to the required applications, services and servers.
 
-- Install and configure the tools and technologies used in the project. Refer to the [Tools and Technologies](#tools-and-technologies) section for a comprehensive list of different technologies currently in use.
+- Install and configure the tools and technologies used in the project. Refer to the [Tools and Technologies](#3-tools-and-technologies) section for a comprehensive list of different technologies currently in use.
 
-- Review the [Project Guidelines](#project-guidelines) section for general guidelines. Take note of where documentation is stored and the importance of keeping it up-to-date.
+- Review the [Project Guidelines](#5-project-guidelines) section for general guidelines. Take note of where documentation is stored and the importance of keeping it up-to-date.
 
-## Tools and Technologies
+## 3. Tools and Technologies
 
 The success of the project relies on the effective use of tools and technologies. Familiarize yourself with the following essential tools to streamline your work and collaboration.
 
@@ -67,15 +62,15 @@ For more details about the database, refer the following [Database Design](./dat
 
 The Transcript Summarizer project will be found under the Osmosys instance. Request access to the project by your lead or manager.
 
-## Project Documentation
+## 4. Project Documentation
 
 Effective documentation is essential for knowledge sharing and project continuity. Follow these guidelines to contribute to and utilize project documentation effectively.
 
-### Code Documentation
+**Code Documentation**
 
 Document code using inline comments and follow a consistent style guide. Additionally, maintain the documentation in the repositories up to date as required.
 
-### Repository Documentation
+**Repository Documentation**
 
 Use the Transcript Summarizer document folder for project-related documentation as follows:
 
@@ -89,15 +84,15 @@ Use the Transcript Summarizer document folder for project-related documentation 
 - [Project Setup for Portal](./../../portal/docs/development-setup.md)
 - [Usage Guide](./usage-guide.md)
 
-### User Guides
+**User Guides**
 
 Create and update user guides for end-users and stakeholders. There are currently the following documents available:
 
 - [Usage Guide](./usage-guide.md)
 
-## Project Guidelines
+## 5. Project Guidelines
 
-### General Guidelines
+**General Guidelines**
 
 - Ensure regular updates of your local development environment.
 
@@ -109,7 +104,7 @@ Create and update user guides for end-users and stakeholders. There are currentl
 
 - Don't hesitate to ask questions and seek clarifications from your team members, project leads, or mentors. Effective communication is key to a successful onboarding experience.
 
-### Documentation Guidelines
+**Documentation Guidelines**
 
 - Regularly update documentation to reflect changes in code, processes, or project requirements.
 
@@ -117,8 +112,7 @@ Create and update user guides for end-users and stakeholders. There are currentl
 
 - Provide clear and concise information in your documentation.
 
-
-## Workflow
+## 6. Workflow
 
 - A new task will be assigned to you in the Requested status. Before working on the task, update the task status to Development.
 
