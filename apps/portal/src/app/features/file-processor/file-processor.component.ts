@@ -145,15 +145,19 @@ export class FileProcessorComponent implements OnInit, OnDestroy {
     );
   }
 
-  getSeverity(status: number): string {
-    const severityMap: { [key: number]: string } = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getSeverity(status: number): any {
+    const severityMap: {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      [key: number]: any;
+    } = {
       1: 'warning',
       2: 'primary',
       3: 'info',
       4: 'success',
       5: 'danger',
     };
-    return severityMap[status] || 'error';
+    return severityMap[status] || 'secondary';
   }
 
   getStatusText(status: number): string {
