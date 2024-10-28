@@ -42,7 +42,7 @@ The success of the project relies on the effective use of tools and technologies
 
 **Repository:** [Transcript Summarizer on Github](https://github.com/OsmosysSoftware/osm-transcript-summarizer)
 
-Ensure to setup these project repositories on your local environment for development purposes, following the instructions in corresponding README files.
+Ensure to set up these project repositories on your local environment for development purposes, following the instructions in corresponding README files.
 
 **AI Tool:** [OpenAI GPT Models](https://platform.openai.com/docs/models)
 
@@ -54,9 +54,9 @@ Azure Authentication using Microsoft Account can be set up through Azure Active 
 
 **Database:** [MariaDB](https://mariadb.org/download)
 
-In addition to the api and portal, a database will also be required to setup. We are utilising latest verison of mariadb-server and the same can be used for local development, either in a docker container or setup directly on the system.
+In addition to the api and portal, a database will also be required to setup. We are utilising latest version of mariadb-server and the same can be used for local development, either in a docker container or setup directly on the system.
 
-For more details about the database, refer the following [Database Design](./database-design.md) document.
+For more details about the database, refer to the following [Database Design](./database-design.md) document.
 
 **Tasks and Issues Tracking Platform:** [Pinestem](https://pinestem.com)
 
@@ -78,10 +78,12 @@ Use the Transcript Summarizer document folder for project-related documentation 
 - [API Test Cases](./api-test-cases.md)
 - [Block Diagram](./block-diagram.md)
 - [Database Design](./database-design.md)
-- Project Setup for API
-  - [API Development Setup](./development-setup.md)
-  - [API Production Setup](./production-setup.md)
-- [Project Setup for Portal](./../../portal/docs/development-setup.md)
+- Project Setup
+  - API
+    - [Development Setup](./development-setup.md)
+    - [Production Setup](./production-setup.md)
+  - Portal
+    - [Development Setup](./../../portal/docs/development-setup.md)
 - [Usage Guide](./usage-guide.md)
 
 **User Guides**
@@ -114,6 +116,8 @@ Create and update user guides for end-users and stakeholders. There are currentl
 
 ## 6. Workflow
 
+**Task Management**
+
 - A new task will be assigned to you in the Requested status. Before working on the task, update the task status to Development.
 
 - Ensure that you are regularly billing your hours properly in the task. On completion of the task, if the changes require a deployment to live codebase, update the task status to Ready Live. Otherwise, you can mark the status as Done.
@@ -121,3 +125,10 @@ Create and update user guides for end-users and stakeholders. There are currentl
 - In case you have to switch from this task to actively work on another task, or the task has to be put on hold, update the task status to Requested or On-hold respectively.
 
 - Utilise the comments on a task for adding any discussions had for having a reference for taking certain actions and assisting future you or a new developer on past decisions that were taken.
+
+**Development Workflow**
+
+- Follow the [Git Standards](https://github.com/OsmosysSoftware/dev-standards/blob/main/coding-standards/git.md) for branch naming and commit messages
+- Create Pull Requests for code review
+- Ensure all PR checks pass before requesting review
+- Address review comments promptly
