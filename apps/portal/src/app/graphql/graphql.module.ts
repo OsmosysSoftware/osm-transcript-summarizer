@@ -3,7 +3,6 @@ import { HttpLink } from 'apollo-angular/http';
 import { NgModule } from '@angular/core';
 // eslint-disable-next-line
 import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
-import { HttpClientModule } from '@angular/common/http';
 // eslint-disable-next-line import/extensions
 import createUploadLink from 'apollo-upload-client/createUploadLink.mjs';
 import { environment } from '../../environments/environment';
@@ -17,7 +16,7 @@ export function createApollo(): ApolloClientOptions<unknown> {
 }
 
 @NgModule({
-  exports: [ApolloModule, HttpClientModule],
+  exports: [ApolloModule],
   providers: [
     {
       provide: APOLLO_OPTIONS,
