@@ -80,8 +80,8 @@ When using the API, you'll need to set your **Microsoft authentication token** a
 
 Transcript Summarizer offers a GraphQL endpoint that allows you to upload transcript files and access all your summaries with advanced filtering options. For detailed information, please refer to the following:
 
-- [API documentation](/docs/api-documentation.md)
-- [Postman Collection](/Transcript%20Summarization.postman_collection.json)
+- [API documentation](./api-documentation.md)
+- [Postman Collection](./../Transcript%20Summarization.postman_collection.json)
 
 ## 5. Job Status Information
 
