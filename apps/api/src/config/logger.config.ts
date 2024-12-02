@@ -35,7 +35,7 @@ const transportsConfig = [
     format: format.combine(
       format.timestamp(),
       format.ms(),
-      nestWinstonModuleUtilities.format.nestLike('OsmosysAssistant'),
+      nestWinstonModuleUtilities.format.nestLike('TranscriptSummarizer'),
     ),
   }),
 
