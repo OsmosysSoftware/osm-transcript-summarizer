@@ -10,6 +10,7 @@ import { ScheduleService } from './schedule/schedule.service';
 import { ConfigService } from '@nestjs/config';
 import { summaryQueueConfig } from './queues/summary.queue';
 import { MeetingSummaryService } from 'src/modules/summary/summarizer/summarizer.service';
+import { SummaryController } from './summary.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Summary]), BullModule.registerQueue(summaryQueueConfig)],
@@ -23,5 +24,6 @@ import { MeetingSummaryService } from 'src/modules/summary/summarizer/summarizer
     MeetingSummaryService,
   ],
   exports: [SummaryService, MeetingSummaryService],
+  controllers: [SummaryController],
 })
 export class SummaryModule {}
