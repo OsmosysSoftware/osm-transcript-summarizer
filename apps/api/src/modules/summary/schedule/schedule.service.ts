@@ -21,7 +21,7 @@ export class ScheduleService implements OnModuleInit, OnModuleDestroy {
     });
   }
 
-  async addSummaryToQueueCron(): Promise<void> {
+  async addSummaryToQueue(): Promise<void> {
     if (this.isProcessing) {
       return;
     }

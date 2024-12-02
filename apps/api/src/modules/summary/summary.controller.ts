@@ -6,7 +6,7 @@ export class SummaryController {
   constructor(private readonly scheduleService: ScheduleService) {}
 
   @Post('schedule')
-  async scheduleAddingPendingSummariesToQueue(): Promise<void> {
-    this.scheduleService.addSummaryToQueueCron();
+  async addPendingSummariesToQueue(): Promise<void> {
+    this.scheduleService.addSummaryToQueue();
   }
 }
