@@ -42,6 +42,7 @@ Follow the development setup guides for API and portal to set up the codebase be
 ## 3. Using the Transcript Summarizer Portal
 
 1. **Start the API**
+    Run the scheduler script.
 2. **Start the Portal**
     The Transcript Summarizer Portal should now be running locally at:
     - `http://localhost:4200` (Standard setup)
@@ -68,7 +69,7 @@ When using the API, you'll need to set your **Microsoft authentication token** a
 
 ### Getting your Microsoft authentication token
 
-1. Start the API
+1. Start the API. Run the scheduler script.
 2. Start the Portal
 3. Transcript Summarizer Portal should be running locally at `http://localhost:4200` (or `http://localhost:5000` for docker setup).
 4. Open the portal URL. You will be prompted to log in to your Microsoft account.
