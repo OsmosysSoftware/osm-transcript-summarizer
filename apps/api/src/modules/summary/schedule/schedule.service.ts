@@ -1,5 +1,4 @@
 import { Injectable, Logger, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
-import { Cron, CronExpression } from '@nestjs/schedule';
 import { SummaryService } from '../summary.service';
 import { ConfigService } from '@nestjs/config';
 import Redis from 'ioredis';
@@ -22,7 +21,6 @@ export class ScheduleService implements OnModuleInit, OnModuleDestroy {
     });
   }
 
-  @Cron(CronExpression.EVERY_SECOND)
   async addSummaryToQueue(): Promise<void> {
     if (this.isProcessing) {
       return;

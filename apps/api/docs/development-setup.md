@@ -68,7 +68,7 @@ sudo systemctl status mariadb
    GPT_MODEL="gpt-4o"
 
    # Docker env
-   COMPOSE_PROJECT_NAME=transcript-summarizer-api 
+   COMPOSE_PROJECT_NAME=transcript-summarizer-api
    ```
 
    Alternatively, use the `.env.example` file instead.
@@ -92,3 +92,11 @@ sudo systemctl status mariadb
    ```
 
    Transcript Summarizer API will now be running locally at `http://localhost:3000`.
+
+6. Run the scheduler script:
+
+   ```sh
+   ./scheduler.sh
+   ```
+
+   This should start the service function that adds all pending summaries to queue for processing.
