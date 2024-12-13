@@ -1,5 +1,4 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsOptional } from 'class-validator';
 import { Stream } from 'stream';
 import GraphQLUpload = require('graphql-upload/GraphQLUpload.js');
 export interface FileUpload {
@@ -12,6 +11,5 @@ export interface FileUpload {
 @InputType()
 export class CreateSummaryDTO {
   @Field(() => GraphQLUpload)
-  @IsOptional()
-  inputFile?: Promise<FileUpload>;
+  inputFile: Promise<FileUpload>;
 }
