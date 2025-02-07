@@ -39,7 +39,11 @@ async function bootstrap(): Promise<void> {
       next();
     }
   });
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+    }),
+  );
   app.useGlobalFilters(new HttpExceptionFilter(new JsendFormatter()));
   // TODO: Update origin as needed
   app.enableCors({ origin: '*', credentials: true });
