@@ -1,5 +1,11 @@
 ## API PR Checklist
 
+### Task Link
+
+Osmosys Developers must include the Pinestem task link in the PR.
+
+[REST-###](pinestem-task-url)
+
 ### Pre-requisites
 
 - [ ] I have gone through the Contributing guidelines for [Submitting a Pull Request (PR)](../../CONTRIBUTING.md#submitting-a-pull-request-pr) and ensured that this is not a duplicate PR.
