@@ -47,7 +47,7 @@ async function bootstrap(): Promise<void> {
   app.useGlobalFilters(new HttpExceptionFilter(new JsendFormatter()));
   // TODO: Update origin as needed
   app.enableCors({ origin: '*', credentials: true });
-  await app.listen(3000);
+  await app.listen(configService.getOrThrow('SERVER_PORT'));
 }
 
 bootstrap();

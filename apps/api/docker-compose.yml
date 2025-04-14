@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '127.0.0.1:${SERVER_PORT}:3000'
+      - '127.0.0.1:${SERVER_PORT}:${SERVER_PORT}'
     depends_on:
       - transcript-summarizer-mariadb
       - transcript-summarizer-redis
