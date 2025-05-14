@@ -34,10 +34,10 @@ Users must have a valid **Microsoft account** for **Azure Authentication**. Ensu
 Follow the development setup guides for API and portal to set up the codebase before proceeding further:
 
 1. Set up API:
-   - [API Development setup](/docs/development-setup.md)
-   - [API Production setup](/docs/production-setup.md)
+   - [API Development setup](./development-setup.md)
+   - [API Production setup](./production-setup.md)
 2. Set up Portal:
-   - [Portal Development setup](/../portal/docs/development-setup.md)
+   - [Portal Development setup](../../portal/docs/development-setup.md)
 
 ## 3. Using the Transcript Summarizer Portal
 
