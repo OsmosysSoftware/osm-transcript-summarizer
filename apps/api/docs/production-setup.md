@@ -49,7 +49,7 @@ Make sure Redis and MariaDB server are up and running.
    GPT_MODEL="gpt-4o"
 
    # Docker env
-   COMPOSE_PROJECT_NAME=transcript-summarizer-api 
+   COMPOSE_PROJECT_NAME=transcript-summarizer-api
    ```
 
 Make sure to replace the above example values with appropriate values as per your setup and configuration. Server Port is `3000`, you can update it if you want to use a different port of your choice.
@@ -114,7 +114,7 @@ Before using Docker, ensure you've configured the environment variables in your 
 **Step 2: Build your docker container**
 
 ```bash
-docker-compose build
+docker compose build
 ```
 
 **Step 3: Start the Docker Containers**
@@ -122,7 +122,7 @@ docker-compose build
 To start your application within Docker containers, run the following command:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 **Step 4: Database Migrations (First-Time Setup)**
@@ -142,19 +142,19 @@ If you need to update any environment variable values:
 2. Stop the running containers:
 
    ```bash
-   docker-compose down
+   docker compose down
    ```
 
 3. Rebuild the Docker containers with the updated environment variables:
 
    ```bash
-   docker-compose build
+   docker compose build
    ```
 
 4. Start the Docker containers again:
 
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 With these steps, your application should be up and running in Docker with the updated environment variables.
