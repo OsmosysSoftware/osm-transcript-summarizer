@@ -1,6 +1,7 @@
 services:
   transcript-summarizer-api:
     image: transcript-summarizer-api
+    restart: always
     container_name: transcript-summarizer-api
     build:
       context: .
