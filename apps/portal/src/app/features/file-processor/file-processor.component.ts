@@ -12,9 +12,10 @@ import { ResponseData } from '../../../common/interface';
 
 const POLLING_DELAY_IN_MILLISECONDS = 5000;
 @Component({
-  selector: 'app-file-processor',
-  templateUrl: './file-processor.component.html',
-  styleUrls: ['./file-processor.component.scss'],
+    selector: 'app-file-processor',
+    templateUrl: './file-processor.component.html',
+    styleUrls: ['./file-processor.component.scss'],
+    standalone: false
 })
 export class FileProcessorComponent implements OnInit, OnDestroy {
   jobDetails: JobDetails[] = [];

@@ -6,10 +6,11 @@ import { FileService } from '../file.service';
 import { ResponseData } from '../../../common/interface';
 
 @Component({
-  selector: 'app-transcript-analyzer',
-  templateUrl: './transcript-analyzer.component.html',
-  styleUrl: './transcript-analyzer.component.scss',
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-transcript-analyzer',
+    templateUrl: './transcript-analyzer.component.html',
+    styleUrl: './transcript-analyzer.component.scss',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class TranscriptAnalyzerComponent {
   constructor(
