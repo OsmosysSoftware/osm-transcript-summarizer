@@ -18,6 +18,8 @@ import {
   MsalGuard,
 } from '@azure/msal-angular';
 import { PublicClientApplication, InteractionType } from '@azure/msal-browser';
+import { PrimeNG } from 'primeng/config';
+import LaraLightBlue from '@primeng/themes/lara';
 import AppRoutingModule from './app-routing.module';
 import { PrimeNgModule } from './primeng.module';
 import { AppComponent } from './app.component';
@@ -27,8 +29,6 @@ import { TranscriptAnalyzerComponent } from './features/transcript-analyzer/tran
 import { FileProcessorComponent } from './features/file-processor/file-processor.component';
 import { environment } from '../environments/environment';
 import HttpLoaderFactory from '../assets/i18n/loader';
-import { PrimeNG } from 'primeng/config';
-import LaraLightBlue from '@primeng/themes/lara';
 
 const isIE =
   window.navigator.userAgent.indexOf('MSIE ') > -1 ||
