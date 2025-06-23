@@ -10,6 +10,7 @@ import { ResponseData } from '../../../common/interface';
   templateUrl: './transcript-analyzer.component.html',
   styleUrl: './transcript-analyzer.component.scss',
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class TranscriptAnalyzerComponent {
   constructor(
