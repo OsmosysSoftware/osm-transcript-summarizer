@@ -73,9 +73,11 @@ When using the API, you'll need to set your **Microsoft authentication token** a
 2. Start the Portal
 3. Transcript Summarizer Portal should be running locally at `http://localhost:4200` (or `http://localhost:5000` for docker setup).
 4. Open the portal URL. You will be prompted to log in to your Microsoft account.
-5. Before proceeding, open developer tools (`ctrl+shift+i` OR `F12`) and open the **Network** tab.
-6. Login using your credentials. You will be directed to the Portal
-7. The request named `token` contains the Microsoft auth token that you can use for API.
+5. Before proceeding, open the developer tools of your browser. Popular shortcuts are `ctrl+shift+i` OR `F12`.
+6. Navigate to the **Network** tab.
+7. Login using your credentials. You will be directed to the Portal.
+8. Find the request labeled `token`. From its response data, extract the value associated with the key `access_token`.
+9. Use this extracted string as your Bearer token for authenticating API requests.
 
 ### Sending an API request
 
@@ -83,6 +85,7 @@ Transcript Summarizer offers a GraphQL endpoint that allows you to upload transc
 
 - [API documentation](./api-documentation.md)
 - [Postman Collection](./../Transcript%20Summarization.postman_collection.json)
+- [Postman Environment](./../Transcript%20Summarization.postman_environment.json)
 
 ## 5. Job Status Information
 
