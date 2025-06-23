@@ -1,5 +1,5 @@
-# Use Node.js 20 as the base image
-FROM node:20
+# Use Node.js 22 as the base image
+FROM node:22
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -26,4 +26,4 @@ RUN npm run build
 EXPOSE 3000
 
 # Command to start your NestJS application
-CMD ./scheduler.sh & node dist/main.js
+CMD ["sh", "-c", "./scheduler.sh & node dist/main.js"]

@@ -1,4 +1,4 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import { APP_INITIALIZER, NgModule, ErrorHandler } from '@angular/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {
@@ -18,6 +18,8 @@ import {
   MsalGuard,
 } from '@azure/msal-angular';
 import { PublicClientApplication, InteractionType } from '@azure/msal-browser';
+import { PrimeNG } from 'primeng/config';
+import LaraLightBlue from '@primeng/themes/lara';
 import AppRoutingModule from './app-routing.module';
 import { PrimeNgModule } from './primeng.module';
 import { AppComponent } from './app.component';
@@ -65,6 +67,19 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   };
 }
 
+// Function to initialize PrimeNG theme
+function initializePrimeNG(primeng: PrimeNG) {
+  return () => {
+    // Set your desired PrimeNG theme preset
+    primeng.theme.set({
+      preset: LaraLightBlue,
+      options: {
+        darkModeSelector: false || 'none',
+      },
+    });
+  };
+}
+
 @NgModule({
   declarations: [AppComponent, TranscriptAnalyzerComponent, FileProcessorComponent],
   imports: [
@@ -97,6 +112,13 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     MsalService,
     MsalGuard,
     provideHttpClient(withInterceptorsFromDi()),
+    PrimeNG,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializePrimeNG,
+      deps: [PrimeNG],
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
