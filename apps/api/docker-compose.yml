@@ -17,7 +17,7 @@ services:
   transcript-summarizer-mariadb:
     container_name: transcript-summarizer-mariadb
     image: mariadb:latest
-    restart: always
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_USER: ${DB_USERNAME}
@@ -31,7 +31,7 @@ services:
   transcript-summarizer-redis:
     container_name: transcript-summarizer-redis
     image: redis:latest
-    restart: always
+    restart: unless-stopped
     ports:
       - '127.0.0.1:${REDIS_DOCKER_PORT}:6379'
 
