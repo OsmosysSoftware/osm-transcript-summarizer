@@ -1,6 +1,6 @@
 <div class="main flex justify-content-center mt-5">
   <div class="transcript-analyzer mt-3 p-6 border-round-xl">
-    <p-fileUpload
+    <p-fileupload
       name="file"
       [url]="''"
       accept=".vtt,.txt"
@@ -12,13 +12,21 @@
       [showUploadButton]="false"
       chooseLabel="{{ 'TRANSCRIPT.BUTTONS.CHOOSE' | translate }}"
       styleClass="mb-2 text-center"
-    ></p-fileUpload>
-    <p-messages severity="info" styleClass="mb-5">
-      <ng-template pTemplate class="flex justify-content-between">
-        <div>{{ 'TRANSCRIPT.UPLOAD_INFO.ACCEPTED_FILE' | translate }}</div>
-        <div class="ml-5">{{ 'TRANSCRIPT.UPLOAD_INFO.MAX_FILE_SIZE' | translate }}</div>
-      </ng-template>
-    </p-messages>
+    ></p-fileupload>
+    <div class="flex flex-column align-items-center mt-3 mb-3">
+      <p-message
+        severity="info"
+        variant="simple"
+        styleClass="text-center"
+        [text]="'TRANSCRIPT.UPLOAD_INFO.ACCEPTED_FILE' | translate"
+      ></p-message>
+      <p-message
+        severity="info"
+        variant="simple"
+        styleClass="text-center"
+        [text]="'TRANSCRIPT.UPLOAD_INFO.MAX_FILE_SIZE' | translate"
+      ></p-message>
+    </div>
     <div class="flex flex-column align-items-center mt-3 mb-3">
       <p-button (click)="summarizeTranscript()" [disabled]="!selectedFile" severity="success">{{
         'TRANSCRIPT.BUTTONS.SUMMARIZE' | translate
