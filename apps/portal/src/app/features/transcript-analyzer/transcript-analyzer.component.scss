@@ -12,6 +12,12 @@ body {
     }
   }
 
+  .p-fileupload-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .p-fileupload-content {
     padding: 32px;
   }
